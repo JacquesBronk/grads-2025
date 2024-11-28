@@ -1,0 +1,3 @@
+networks:
+  retro-net:
+    driver: bridge
