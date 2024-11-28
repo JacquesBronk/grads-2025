@@ -887,3 +887,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 services/**/obj
 services/**/bin
+services/*/bin/Debug/
+services/*/bin/Release/
+services/*/obj/
