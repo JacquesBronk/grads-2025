@@ -1,9 +1,20 @@
 ## May they fight the good figt and survive.
 
+### Repo-Rules
+* Always branch off with your tasks with one of these templates. 
+    policy: _one liners, under 50-char_ 
+    1. doc: update/create/remove-{because}
+    2. feat: built this thing
+    3. bug: fixed a thing
+    4. test: stuff to do with testing
+* Comment - Methods with full summary tag. /// purpose? args[]
+* have fun, leave comedic comments if you'd like. No excessive swearing(the hard words).
+
 
 # TO-DO's
+* [Bounties](#open-bounties) 
 * We need a theme for our drawings, presentations.
-* 
+
 
 
 
@@ -35,14 +46,19 @@ enum megabool {
 ```   
 
 # Open Bounties
-# 1. Hellooo-API, service greeter. 
+###  1. hellooo-api, service greeter. 
 * Hi {username-if logged in}
     * Render Target Ads {robin-hood-traffic}
-* {Promote SingupSpecial IF not logged in} 
+    * {Promote SingupSpecial IF not logged in} 
 * Track session metrics, how long on each page if user has an id. Only entry & exit event unix-epochs. NO-POLLING!
 
 
-### 2. Ads-API, simple server, just gives ads. 
+
+### 2. ads-api, simple server, just gives ads. 
+
+| dev | comment (250 - char)     |
+|------------|-------------------|
+| ??    | i picked this up on xx-xx-xx, /stuck: here /qa: here /dev: "feat/bug/diag/" |
 
 #### Client facing Endpoints, No auth
 ```json
@@ -66,9 +82,10 @@ The front end framework?
 | Blazor     |                   |       |   |   |
 
 
-#### Admin-Api, Secure
+__[secure]__
+#### ads-admin-api, 
 
-Just this. No more, no less
+Just this data. No more, no less
 ```json
 {
   "session": {
