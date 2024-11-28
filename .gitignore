@@ -883,10 +883,19 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+
+.idea/
+.idea/caches/
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
-services/**/obj
-services/**/bin
-services/*/bin/Debug/
-services/*/bin/Release/
-services/*/obj/
+/services/*/bin/
+/services/*/obj/
+
+
+
+
+
+
+
+
+
