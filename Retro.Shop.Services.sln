@@ -4,9 +4,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 	ProjectSection(SolutionItems) = preProject
 		compose.yml = compose.yml
 		README.md = README.md
-		.dockerignore = .dockerignore
 		.gitignore = .gitignore
-		init\auth-api.json = init\auth-api.json
+		.dockerignore = .dockerignore
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Ads.Admin", "services\ads-admin-api\Retro.Ads.Admin.csproj", "{422CF5F3-0F06-44E5-AB4B-D1675E9E5C4A}"
@@ -25,7 +24,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Profile", "services\p
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Stock", "services\stock-api\Retro.Stock.csproj", "{B805BB46-4F91-417B-AD61-6465D6EAD210}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Auth", "services\auth-api\Retro.Auth.csproj", "{8D770CCF-625E-4985-8B8C-680B95502A7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Configuration", "services\common\Retro.Configuration\Retro.Configuration.csproj", "{E4F92451-5DC3-412E-9A1E-13C9F35361BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{03763A92-63B0-4FAB-977C-912970FBD71A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{3063632E-4C4F-4123-BF37-770D052EF458}"
+	ProjectSection(SolutionItems) = preProject
+		init\ads-api.json = init\ads-api.json
+		init\ads-amin.json = init\ads-amin.json
+		init\cart-api.json = init\cart-api.json
+		init\greeter-api.json = init\greeter-api.json
+		init\order-api.json = init\order-api.json
+		init\payments-api.json = init\payments-api.json
+		init\stock-api.json = init\stock-api.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,11 +77,13 @@ Global
 		{B805BB46-4F91-417B-AD61-6465D6EAD210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B805BB46-4F91-417B-AD61-6465D6EAD210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B805BB46-4F91-417B-AD61-6465D6EAD210}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D770CCF-625E-4985-8B8C-680B95502A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D770CCF-625E-4985-8B8C-680B95502A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D770CCF-625E-4985-8B8C-680B95502A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D770CCF-625E-4985-8B8C-680B95502A7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4F92451-5DC3-412E-9A1E-13C9F35361BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4F92451-5DC3-412E-9A1E-13C9F35361BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4F92451-5DC3-412E-9A1E-13C9F35361BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4F92451-5DC3-412E-9A1E-13C9F35361BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{E4F92451-5DC3-412E-9A1E-13C9F35361BD} = {03763A92-63B0-4FAB-977C-912970FBD71A}
+		{3063632E-4C4F-4123-BF37-770D052EF458} = {F9F0F574-1E2E-4C47-9655-AB208372E12C}
 	EndGlobalSection
 EndGlobal

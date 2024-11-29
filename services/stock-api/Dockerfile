@@ -8,6 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["services/stock-api/Retro.Stock.csproj", "services/stock-api/"]
+COPY ["services/common/Retro.Configuration/Retro.Configuration.csproj", "services/common/Retro.Configuration/"]
 RUN dotnet restore "services/stock-api/Retro.Stock.csproj"
 COPY . .
 WORKDIR "/src/services/stock-api"

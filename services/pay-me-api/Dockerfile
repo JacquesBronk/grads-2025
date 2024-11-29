@@ -8,6 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["services/pay-me-api/Retro.Payments.csproj", "services/pay-me-api/"]
+COPY ["services/common/Retro.Configuration/Retro.Configuration.csproj", "services/common/Retro.Configuration/"]
 RUN dotnet restore "services/pay-me-api/Retro.Payments.csproj"
 COPY . .
 WORKDIR "/src/services/pay-me-api"

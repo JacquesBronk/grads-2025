@@ -8,6 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["services/ads-admin-api/Retro.Ads.Admin.csproj", "services/ads-admin-api/"]
+COPY ["services/common/Retro.Configuration/Retro.Configuration.csproj", "services/common/Retro.Configuration/"]
 RUN dotnet restore "services/ads-admin-api/Retro.Ads.Admin.csproj"
 COPY . .
 WORKDIR "/src/services/ads-admin-api"

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="..\..\.dockerignore">
       <Link>.dockerignore</Link>
     </Content>

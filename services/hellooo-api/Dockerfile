@@ -8,6 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["services/hellooo-api/Retro.Greeter.csproj", "services/hellooo-api/"]
+COPY ["services/common/Retro.Configuration/Retro.Configuration.csproj", "services/common/Retro.Configuration/"]
 RUN dotnet restore "services/hellooo-api/Retro.Greeter.csproj"
 COPY . .
 WORKDIR "/src/services/hellooo-api"

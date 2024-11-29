@@ -5,19 +5,6 @@ networks:
   retro-net:
 
 services:
-  auth-api:
-    image: retro.auth
-    build:
-      context: .
-      dockerfile: services/auth-api/Dockerfile
-    ports:
-      - "5010:8080"
-    networks:
-      - retro-net
-    depends_on:
-      - retro-cache-db
-      - configurator
-  
   ads-admin-api:
     image: ads-admin-api:latest
     container_name: ads-admin-api
