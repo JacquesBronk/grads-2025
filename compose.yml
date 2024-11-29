@@ -4,15 +4,27 @@ volumes:
 networks:
   retro-net:
 
-
 services:
+  auth-api:
+    image: retro.auth
+    build:
+      context: .
+      dockerfile: services/auth-api/Dockerfile
+    ports:
+      - "5010:8080"
+    networks:
+      - retro-net
+    depends_on:
+      - retro-cache-db
+      - configurator
+  
   ads-admin-api:
     image: ads-admin-api:latest
     container_name: ads-admin-api
     build:
       context: ./services/ads-admin-api
     ports:
-      - "5001:80"
+      - "5001:8080"
     networks:
       - retro-net
     depends_on:
@@ -25,9 +37,11 @@ services:
     build:
       context: ./services/ads-api
     ports:
-      - "5002:80"
+      - "5002:8080"
     networks:
       - retro-net
+    depends_on:
+      - retro-cache-db
 
   hellooo-api:
     image: hellooo-api:latest
@@ -35,11 +49,13 @@ services:
     build:
       context: ./services/hellooo-api
     ports:
-      - "5003:80"
+      - "5003:8080"
     networks:
       retro-net:
         aliases:
           - hgh
+    depends_on:
+      - configurator
 
   profile-api:
     image: profile-api:latest
@@ -47,11 +63,13 @@ services:
     build:
       context: ./services/profile-api
     ports:
-      - "5004:80"
+      - "5004:8080"
     networks:
       retro-net:
         aliases:
           - whoami
+    depends_on:
+      - configurator
 
   orders-api:
     image: orders-api:latest
@@ -59,7 +77,7 @@ services:
     build:
       context: ./services/orders-api
     ports:
-      - "5005:80"
+      - "5005:8080"
     networks:
       - retro-net
     depends_on:
@@ -72,9 +90,11 @@ services:
     build:
       context: ./services/pay-me-api
     ports:
-      - "5006:80"
+      - "5006:8080"
     networks:
       - retro-net
+    depends_on:
+      - configurator
 
   cart-api:
     image: cart-api:latest
@@ -82,7 +102,7 @@ services:
     build:
       context: ./services/cart-api
     ports:
-      - "5007:80"
+      - "5007:8080"
     networks:
       - retro-net
     depends_on:
@@ -94,29 +114,31 @@ services:
     build:
       context: ./services/stock-api
     ports:
-      - "5008:80"
+      - "5008:8080"
     networks:
       - retro-net
+  
+  #  vendor-api:
+  #    image: vendor-api:latest
+  #    container_name: vendor-api
+  #    build:
+  #      context: ./services/vendor-api
+  #    ports:
+  #      - "5009:80"
+  #    networks:
+  #      - retro-net
 
-#  vendor-api:
-#    image: vendor-api:latest
-#    container_name: vendor-api
-#    build:
-#      context: ./services/vendor-api
-#    ports:
-#      - "5009:80"
-#    networks:
-#      - retro-net
-
-  web-ui-shop:
-    image: web-ui-shop:latest
-    container_name: web-ui-shop
-    build:
-      context: ./services/web-ui-shop
-    ports:
-      - "80:80"
-    networks:
-      - retro-net
+  #   web-ui-shop:
+  #     image: web-ui-shop:latest
+  #     container_name: web-ui-shop
+  #     build:
+  #       context: ./services/web-ui-shop
+  #     ports:
+  #       - "80:80"
+  #     networks:
+  #       - retro-net
+  #     depends_on:
+  #       - configurator
 
   retro-cache-db:
     image: redis:latest
@@ -127,7 +149,7 @@ services:
       - retro-net
 
   configurator:
-    image: consul:latest
+    image: consul:1.15.4
     container_name: configurator
     ports:
       - "8500:8500"
@@ -136,7 +158,6 @@ services:
       retro-net:
         aliases:
           - consul
-    
 
   persistence.retro:
     image: mongo:latest
@@ -147,13 +168,15 @@ services:
       retro-net:
         aliases:
           - mongo
-
     volumes:
       - mongo-data:/data/db
-
 
   retro.payments:
     image: retro.payments
     build:
       context: .
       dockerfile: services/pay-me-api/Dockerfile
+    depends_on:
+      - persistence.retro
+
+ 

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "local-retro",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

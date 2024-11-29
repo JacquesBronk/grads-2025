@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		README.md = README.md
 		.dockerignore = .dockerignore
 		.gitignore = .gitignore
+		init\auth-api.json = init\auth-api.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Ads.Admin", "services\ads-admin-api\Retro.Ads.Admin.csproj", "{422CF5F3-0F06-44E5-AB4B-D1675E9E5C4A}"
@@ -23,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Profile", "services\profile-api\Retro.Profile.csproj", "{3487F2CC-05BB-45AB-B352-6033784BFBDB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Stock", "services\stock-api\Retro.Stock.csproj", "{B805BB46-4F91-417B-AD61-6465D6EAD210}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Auth", "services\auth-api\Retro.Auth.csproj", "{8D770CCF-625E-4985-8B8C-680B95502A7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,5 +65,11 @@ Global
 		{B805BB46-4F91-417B-AD61-6465D6EAD210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B805BB46-4F91-417B-AD61-6465D6EAD210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B805BB46-4F91-417B-AD61-6465D6EAD210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D770CCF-625E-4985-8B8C-680B95502A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D770CCF-625E-4985-8B8C-680B95502A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D770CCF-625E-4985-8B8C-680B95502A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D770CCF-625E-4985-8B8C-680B95502A7F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,33 @@
+meta {
+  name: Login
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5202/login?useCookies=false&useSessionCookies=false
+  body: json
+  auth: none
+}
+
+params:query {
+  useCookies: false
+  useSessionCookies: false
+}
+
+headers {
+  accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "{{user_name}}",
+    "password": "{{user_passoword}}"
+  }
+}
+
+script:post-response {
+  bru.setEnvVar("active_bearer",res.body.accessToken);
+  bru.setEnvVar("refreshToken",res.body.refreshToken);
+}
