@@ -1,110 +1,121 @@
 volumes:
-  mongo-data:
+    redis-data:
+    consul-data:
+    mongo-data:
+    postgres_data:
 
 networks:
   retro-net:
 
 services:
-  ads-admin-api:
-    image: ads-admin-api:latest
-    container_name: ads-admin-api
-    build:
-      context: ./services/ads-admin-api
-    ports:
-      - "5001:8080"
-    networks:
-      - retro-net
-    depends_on:
-      - retro-cache-db
-      - configurator
+#  ads-admin-api:
+#    image: ads-admin-api:latest
+#    container_name: ads-admin-api
+#    build:
+#      context: ./services/ads-admin-api
+#    ports:
+#      - "5001:8080"
+#    networks:
+#      - retro-net
+#    depends_on:
+#      - retro-cache-db
+#      - configurator
+#
+#  ads-api:
+#    image: ads-api:latest
+#    container_name: ads-api
+#    build:
+#      context: ./services/ads-api
+#    ports:
+#      - "5002:8080"
+#    networks:
+#      - retro-net
+#    depends_on:
+#      - retro-cache-db
+#
+#  hellooo-api:
+#    image: hellooo-api:latest
+#    container_name: hellooo-api
+#    build:
+#      context: ./services/hellooo-api
+#    ports:
+#      - "5003:8080"
+#    networks:
+#      retro-net:
+#        aliases:
+#          - hgh
+#    depends_on:
+#      - configurator
+#
+#  profile-api:
+#    image: profile-api:latest
+#    container_name: profile-api
+#    build:
+#      context: ./services/profile-api
+#    ports:
+#      - "5004:8080"
+#    networks:
+#      retro-net:
+#        aliases:
+#          - whoami
+#    depends_on:
+#      - configurator
+#
+#  orders-api:
+#    image: orders-api:latest
+#    container_name: orders-api
+#    build:
+#      context: ./services/orders-api
+#    ports:
+#      - "5005:8080"
+#    networks:
+#      - retro-net
+#    depends_on:
+#      - retro-cache-db
+#      - persistence.retro
+#
+#  pay-me-api:
+#    image: pay-me-api:latest
+#    container_name: pay-me-api
+#    build:
+#      context: ./services/pay-me-api
+#    ports:
+#      - "5006:8080"
+#    networks:
+#      - retro-net
+#    depends_on:
+#      - configurator
+#
+#  cart-api:
+#    image: cart-api:latest
+#    container_name: cart-api
+#    build:
+#      context: ./services/cart-api
+#    ports:
+#      - "5007:8080"
+#    networks:
+#      - retro-net
+#    depends_on:
+#      - retro-cache-db
+#
+#  stock-api:
+#    image: stock-api:latest
+#    container_name: stock-api
+#    build:
+#      context: ./services/stock-api
+#    ports:
+#      - "5008:8080"
+#    networks:
+#      - retro-net
+#  
+#  retro.payments:
+#    image: retro.payments
+#    build:
+#      context: .
+#      dockerfile: services/pay-me-api/Dockerfile
+#    depends_on:
+#      - persistence.retro
 
-  ads-api:
-    image: ads-api:latest
-    container_name: ads-api
-    build:
-      context: ./services/ads-api
-    ports:
-      - "5002:8080"
-    networks:
-      - retro-net
-    depends_on:
-      - retro-cache-db
-
-  hellooo-api:
-    image: hellooo-api:latest
-    container_name: hellooo-api
-    build:
-      context: ./services/hellooo-api
-    ports:
-      - "5003:8080"
-    networks:
-      retro-net:
-        aliases:
-          - hgh
-    depends_on:
-      - configurator
-
-  profile-api:
-    image: profile-api:latest
-    container_name: profile-api
-    build:
-      context: ./services/profile-api
-    ports:
-      - "5004:8080"
-    networks:
-      retro-net:
-        aliases:
-          - whoami
-    depends_on:
-      - configurator
-
-  orders-api:
-    image: orders-api:latest
-    container_name: orders-api
-    build:
-      context: ./services/orders-api
-    ports:
-      - "5005:8080"
-    networks:
-      - retro-net
-    depends_on:
-      - retro-cache-db
-      - persistence.retro
-
-  pay-me-api:
-    image: pay-me-api:latest
-    container_name: pay-me-api
-    build:
-      context: ./services/pay-me-api
-    ports:
-      - "5006:8080"
-    networks:
-      - retro-net
-    depends_on:
-      - configurator
-
-  cart-api:
-    image: cart-api:latest
-    container_name: cart-api
-    build:
-      context: ./services/cart-api
-    ports:
-      - "5007:8080"
-    networks:
-      - retro-net
-    depends_on:
-      - retro-cache-db
-
-  stock-api:
-    image: stock-api:latest
-    container_name: stock-api
-    build:
-      context: ./services/stock-api
-    ports:
-      - "5008:8080"
-    networks:
-      - retro-net
-  
   #  vendor-api:
   #    image: vendor-api:latest
   #    container_name: vendor-api
@@ -126,25 +137,69 @@ services:
   #       - retro-net
   #     depends_on:
   #       - configurator
+  
+  yarp:
+    image: yarp:latest
+    container_name: yarp
+    build:
+      context: .
+      dockerfile: services/proxy-api/Dockerfile
+    ports:
+      - "5000:8080"
+    networks:
+      - retro-net
+    depends_on:
+      retro.seeder:
+        condition: service_healthy
 
+  retro.seeder:
+    image: retro.seeder
+    build:
+      context: .
+      dockerfile: services/retro-seeder/Dockerfile
+    depends_on:
+      consul:
+        condition: service_healthy
+      keycloak_web:
+        condition: service_healthy
+    networks:
+      - retro-net
+    healthcheck:
+        test: ["CMD", "curl", "-f", "localhost:8080/health"]
+        interval: 5s
+        timeout: 2s
+        retries: 20
+  
   retro-cache-db:
     image: redis:latest
     container_name: retro-cache-db
     ports:
       - "6379:6379"
+    volumes:
+      - redis-data:/data
     networks:
       - retro-net
 
-  configurator:
+  consul:
     image: consul:1.15.4
-    container_name: configurator
+    container_name: consul
+    command:
+      - agent
+      - -dev
+      - -client=0.0.0.0
     ports:
       - "8500:8500"
-    command: ["agent", "-dev", "-client=0.0.0.0"]
+    volumes:
+      - consul-data:/consul/data
     networks:
       retro-net:
         aliases:
           - consul
+    healthcheck:
+      test: ["CMD", "curl", "-X", "GET", "localhost:8500/v1/status/leader"]
+      interval: 1s
+      timeout: 3s
+      retries: 60
 
   persistence.retro:
     image: mongo:latest
@@ -158,12 +213,59 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  retro.payments:
-    image: retro.payments
-    build:
-      context: .
-      dockerfile: services/pay-me-api/Dockerfile
+  keycloak_web:
+    image: quay.io/keycloak/keycloak:23.0.7
+    container_name: keycloak_web
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloakdb:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      KC_LOG_LEVEL: INFO
+      KC_METRICS_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_PROXY: edge
+    command:
+      - start-dev
     depends_on:
-      - persistence.retro
+      - keycloakdb
+    ports:
+      - "8080:8080"
+    networks:
+      retro-net:
+        aliases:
+          - keycloak_web
+          - auth
+    healthcheck:
+      test: [ "CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q '200 OK'" ]
+      interval: 5s
+      timeout: 2s
+      retries: 20
 
- 
+  keycloakdb:
+    image: postgres:15
+    container_name: keycloakdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    networks:
+      retro-net:
+        aliases:
+          - keycloakdb
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - retro-net

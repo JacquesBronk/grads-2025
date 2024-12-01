@@ -4,13 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Retro.Ads</RootNamespace>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\common\Retro.Consul.HealthCheck\Retro.Consul.HealthCheck.csproj" />
-    <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
+    <ProjectReference Include="..\common\Retro.Http\Retro.Http.csproj" />
   </ItemGroup>
 
   <ItemGroup>

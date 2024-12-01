@@ -1,0 +1,28 @@
+[
+  {
+    "username": "adminUser",
+    "enabled": true,
+    "credentials": [
+      {
+        "type": "password",
+        "value": "Password1!",
+        "temporary": false,
+        "emailVerified": true
+      }
+    ],
+    "realmRoles": ["AdminRole"]
+  },
+  {
+    "username": "customerUser",
+    "enabled": true,
+    "credentials": [
+      {
+        "type": "password",
+        "value": "Password1!",
+        "temporary": false,
+        "emailVerified": true
+      }
+    ],
+    "realmRoles": ["CustomerRole"]
+  }
+]

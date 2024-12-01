@@ -31,13 +31,27 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{3063632E-4C4F-4123-BF37-770D052EF458}"
 	ProjectSection(SolutionItems) = preProject
 		init\ads-api.json = init\ads-api.json
-		init\ads-amin.json = init\ads-amin.json
 		init\cart-api.json = init\cart-api.json
 		init\greeter-api.json = init\greeter-api.json
 		init\order-api.json = init\order-api.json
 		init\payments-api.json = init\payments-api.json
 		init\stock-api.json = init\stock-api.json
+		init\ads-admin.json = init\ads-admin.json
+		init\yarp.json = init\yarp.json
+		init\keycloak-realm.json = init\keycloak-realm.json
+		init\keycloak-realm-client.json = init\keycloak-realm-client.json
+		init\keycloak-realm-user.json = init\keycloak-realm-user.json
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Consul.HealthCheck", "services\common\Retro.Consul.HealthCheck\Retro.Consul.HealthCheck.csproj", "{32DEC6CA-9298-4DA8-B18D-1BF70C12CF5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Seeder", "services\retro-seeder\Retro.Seeder.csproj", "{9B5D1ED1-6FDD-455E-AFBD-2B3E8CB7099F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Http", "services\common\Retro.Http\Retro.Http.csproj", "{6E4CE906-06A1-41F8-ACBB-FFEC81A561D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Yarp", "services\proxy-api\Retro.Yarp.csproj", "{7A09C4ED-9BA0-44CE-ADD8-5EB09E99F079}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro", "services\common\Retro\Retro.csproj", "{C6E02144-991E-4F18-866A-7B376D208AD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,9 +95,32 @@ Global
 		{E4F92451-5DC3-412E-9A1E-13C9F35361BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4F92451-5DC3-412E-9A1E-13C9F35361BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4F92451-5DC3-412E-9A1E-13C9F35361BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32DEC6CA-9298-4DA8-B18D-1BF70C12CF5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32DEC6CA-9298-4DA8-B18D-1BF70C12CF5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32DEC6CA-9298-4DA8-B18D-1BF70C12CF5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32DEC6CA-9298-4DA8-B18D-1BF70C12CF5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5D1ED1-6FDD-455E-AFBD-2B3E8CB7099F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5D1ED1-6FDD-455E-AFBD-2B3E8CB7099F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5D1ED1-6FDD-455E-AFBD-2B3E8CB7099F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5D1ED1-6FDD-455E-AFBD-2B3E8CB7099F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E4CE906-06A1-41F8-ACBB-FFEC81A561D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E4CE906-06A1-41F8-ACBB-FFEC81A561D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E4CE906-06A1-41F8-ACBB-FFEC81A561D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E4CE906-06A1-41F8-ACBB-FFEC81A561D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A09C4ED-9BA0-44CE-ADD8-5EB09E99F079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A09C4ED-9BA0-44CE-ADD8-5EB09E99F079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A09C4ED-9BA0-44CE-ADD8-5EB09E99F079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A09C4ED-9BA0-44CE-ADD8-5EB09E99F079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6E02144-991E-4F18-866A-7B376D208AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6E02144-991E-4F18-866A-7B376D208AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6E02144-991E-4F18-866A-7B376D208AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6E02144-991E-4F18-866A-7B376D208AD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E4F92451-5DC3-412E-9A1E-13C9F35361BD} = {03763A92-63B0-4FAB-977C-912970FBD71A}
 		{3063632E-4C4F-4123-BF37-770D052EF458} = {F9F0F574-1E2E-4C47-9655-AB208372E12C}
+		{32DEC6CA-9298-4DA8-B18D-1BF70C12CF5D} = {03763A92-63B0-4FAB-977C-912970FBD71A}
+		{6E4CE906-06A1-41F8-ACBB-FFEC81A561D5} = {03763A92-63B0-4FAB-977C-912970FBD71A}
+		{C6E02144-991E-4F18-866A-7B376D208AD9} = {03763A92-63B0-4FAB-977C-912970FBD71A}
 	EndGlobalSection
 EndGlobal

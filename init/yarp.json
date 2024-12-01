@@ -1,0 +1,126 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "ads-admin-api": {
+        "ClusterId": "cluster-ads-admin",
+        "Match": {
+          "Path": "/ads-admin-api/{**catch-all}"
+        }
+      },
+      "ads-api": {
+        "ClusterId": "cluster-ads",
+        "Match": {
+          "Path": "/ads-api/{**catch-all}"
+        }
+      },
+      "hellooo-api": {
+        "ClusterId": "cluster-hellooo",
+        "Match": {
+          "Path": "/hellooo-api/{**catch-all}"
+        }
+      },
+      "profile-api": {
+        "ClusterId": "cluster-profile",
+        "Match": {
+          "Path": "/profile-api/{**catch-all}"
+        }
+      },
+      "orders-api": {
+        "ClusterId": "cluster-orders",
+        "Match": {
+          "Path": "/orders-api/{**catch-all}"
+        }
+      },
+      "pay-me-api": {
+        "ClusterId": "cluster-pay-me",
+        "Match": {
+          "Path": "/pay-me-api/{**catch-all}"
+        }
+      },
+      "cart-api": {
+        "ClusterId": "cluster-cart",
+        "Match": {
+          "Path": "/cart-api/{**catch-all}"
+        }
+      },
+      "stock-api": {
+        "ClusterId": "cluster-stock",
+        "Match": {
+          "Path": "/stock-api/{**catch-all}"
+        }
+      },
+      "vendor-api": {
+        "ClusterId": "cluster-vendor",
+        "Match": {
+          "Path": "/vendor-api/{**catch-all}"
+        }
+      },
+      "web-ui-shop": {
+        "ClusterId": "cluster-web-ui",
+        "Match": {
+          "Path": "/web-ui-shop/{**catch-all}"
+        }
+      }
+    },
+    "Clusters": {
+      "cluster-ads-admin": {
+        "Destinations": {
+          "ads-admin": { "Address": "http://ads-admin-api:8080" }
+        }
+      },
+      "cluster-ads": {
+        "Destinations": {
+          "ads": { "Address": "http://ads-api:8080" }
+        }
+      },
+      "cluster-hellooo": {
+        "Destinations": {
+          "hellooo": { "Address": "http://hellooo-api:8080" }
+        }
+      },
+      "cluster-profile": {
+        "Destinations": {
+          "profile": { "Address": "http://profile-api:8080" }
+        }
+      },
+      "cluster-orders": {
+        "Destinations": {
+          "orders": { "Address": "http://orders-api:8080" }
+        }
+      },
+      "cluster-pay-me": {
+        "Destinations": {
+          "pay-me": { "Address": "http://pay-me-api:8080" }
+        }
+      },
+      "cluster-cart": {
+        "Destinations": {
+          "cart": { "Address": "http://cart-api:8080" }
+        }
+      },
+      "cluster-stock": {
+        "Destinations": {
+          "stock": { "Address": "http://stock-api:8080" }
+        }
+      },
+      "cluster-vendor": {
+        "Destinations": {
+          "vendor": { "Address": "http://vendor-api:80" }
+        }
+      },
+      "cluster-web-ui": {
+        "Destinations": {
+          "web-ui": { "Address": "http://web-ui-shop:80" }
+        }
+      }
+    }
+  },
+  "Keycloak": {
+    "Authority": "http://keycloak_web:8080/realms/retro-realm",
+    "PublicClient": true,
+    "ClientId": "retro-client",
+    "SslRequired": "none",
+    "ConfidentialPort": 0,
+    "VerifyTokenAudience": false
+  }
+}

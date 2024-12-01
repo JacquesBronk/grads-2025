@@ -1,0 +1,26 @@
+{
+  "clientId": "retro-client",
+  "secret": "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r",
+  "enabled": true,
+  "protocol": "openid-connect",
+  "standardFlowEnabled": true,
+  "redirectUris": ["*"],
+  "webOrigins": ["*"],
+  "publicClient": false,
+  "attributes": {
+    "access.token.lifespan": "300"
+  },
+  "protocolMappers": [
+    {
+      "name": "audience",
+      "protocol": "openid-connect",
+      "protocolMapper": "oidc-audience-mapper",
+      "consentRequired": false,
+      "config": {
+        "included.client.audience": "my-audience",
+        "id.token.claim": "true",
+        "access.token.claim": "true"
+      }
+    }
+  ]
+}

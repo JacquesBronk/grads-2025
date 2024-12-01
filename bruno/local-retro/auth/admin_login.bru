@@ -1,0 +1,23 @@
+meta {
+  name: admin_login
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/realms/retro-realm/protocol/openid-connect/token
+  body: formUrlEncoded
+  auth: none
+}
+
+headers {
+  Content-Type: application/x-www-form-urlencoded
+}
+
+body:form-urlencoded {
+  grant_type: password
+  client_id: retro-client
+  username: adminUser
+  password: Password1!
+  client_secret: k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r
+}
