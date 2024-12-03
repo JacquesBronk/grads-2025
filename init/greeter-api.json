@@ -1,9 +1,24 @@
 {
+  "ConnectionStrings":
+  {
+    "Redis": "retro-cache-db:6379,abortConnect=false,ssl=false,allowAdmin=true,connectTimeout=5000,syncTimeout=5000,connectRetry=5,defaultDatabase=0",
+    "Mongo": "mongodb://persistence.retro:27017",
+    "RabbitMq": "amqp://guest:guest@retro-rabbitmq:5672"
+  },
   "Logging": {
     "LogLevel": {
       "Default": "Information",
       "Microsoft.AspNetCore": "Warning"
     }
   },
-  "AllowedHosts": "*"
+  "AllowedHosts": "*",
+  "Keycloak": {
+    "Authority": "http://keycloak_web:8080/realms/retro-realm",
+    "PublicClient": true,
+    "ClientId": "retro-client",
+    "SslRequired": "none",
+    "ConfidentialPort": 0,
+    "VerifyTokenAudience": false,
+    "ClientSercret":  "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
+  }
 }

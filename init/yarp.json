@@ -121,6 +121,7 @@
     "ClientId": "retro-client",
     "SslRequired": "none",
     "ConfidentialPort": 0,
-    "VerifyTokenAudience": false
+    "VerifyTokenAudience": false,
+    "ClientSercret":  "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
   }
 }

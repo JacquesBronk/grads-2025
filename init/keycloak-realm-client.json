@@ -17,7 +17,7 @@
       "protocolMapper": "oidc-audience-mapper",
       "consentRequired": false,
       "config": {
-        "included.client.audience": "my-audience",
+        "included.client.audience": "retro-audience",
         "id.token.claim": "true",
         "access.token.claim": "true"
       }

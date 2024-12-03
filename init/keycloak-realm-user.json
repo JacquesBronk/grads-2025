@@ -6,8 +6,7 @@
       {
         "type": "password",
         "value": "Password1!",
-        "temporary": false,
-        "emailVerified": true
+        "temporary": false
       }
     ],
     "realmRoles": ["AdminRole"]
@@ -19,8 +18,7 @@
       {
         "type": "password",
         "value": "Password1!",
-        "temporary": false,
-        "emailVerified": true
+        "temporary": false
       }
     ],
     "realmRoles": ["CustomerRole"]

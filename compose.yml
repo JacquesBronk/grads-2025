@@ -165,7 +165,7 @@ services:
     networks:
       - retro-net
     healthcheck:
-        test: ["CMD", "curl", "-f", "localhost:8080/health"]
+        test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
         interval: 5s
         timeout: 2s
         retries: 20
@@ -240,8 +240,8 @@ services:
           - auth
     healthcheck:
       test: [ "CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q '200 OK'" ]
-      interval: 5s
-      timeout: 2s
+      interval: 2s
+      timeout: 1s
       retries: 20
 
   keycloakdb:

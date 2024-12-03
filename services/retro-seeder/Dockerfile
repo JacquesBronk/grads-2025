@@ -1,5 +1,9 @@
 ﻿# Stage 1: Base runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+#install curl
+RUN apt-get update && apt-get install -y curl
+# clean references
+RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
@@ -39,9 +43,6 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 COPY --from=build /src/tmp/seed/consul /app/seed/consul
 RUN test -f /app/seed/consul/yarp.json || (echo "Seed data not found" && exit 1)
-#install curl
-RUN apt-get update && apt-get install -y curl
-# clean references
-RUN rm -rf /var/lib/apt/lists/*
+
 
 ENTRYPOINT ["dotnet", "Retro.Seeder.dll"]

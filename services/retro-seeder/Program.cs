@@ -20,6 +20,8 @@ var keyCloakJob = await keyCloakStrategy.SeedAsync();
 
 Console.WriteLine($"KeyCloak seeding completed: {keyCloakJob.IsCompleted}");
 
+app.MapHealthChecks("health");
+
 app.Run();
 
 
