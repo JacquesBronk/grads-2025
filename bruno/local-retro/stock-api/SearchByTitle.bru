@@ -1,0 +1,21 @@
+meta {
+  name: SearchByTitle
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:5008/api/stocks/search/title?pageNumber=1&pageSize=10&title=Keyb
+  body: none
+  auth: none
+}
+
+params:query {
+  pageNumber: 1
+  pageSize: 10
+  title: Keyb
+}
+
+headers {
+  accept: application/json
+}

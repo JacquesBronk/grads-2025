@@ -1,0 +1,15 @@
+meta {
+  name: GetBySku
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:5008/api/stocks/sku/__SKUHERE__
+  body: none
+  auth: none
+}
+
+headers {
+  accept: application/json
+}

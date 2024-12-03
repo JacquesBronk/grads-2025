@@ -1,0 +1,15 @@
+meta {
+  name: GetStockById
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:5008/api/stocks/__IDHERE__
+  body: none
+  auth: none
+}
+
+headers {
+  accept: application/json
+}

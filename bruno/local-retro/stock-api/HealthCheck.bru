@@ -1,0 +1,15 @@
+meta {
+  name: HealthCheck
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:5000/stock-api/health
+  body: none
+  auth: none
+}
+
+headers {
+  accept: application/json
+}
