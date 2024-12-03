@@ -1,7 +1,7 @@
 ## May they fight the good figt and survive.
 
 ### Join the discord
-[![Discord](https://img.shields.io/discord/1234567890?color=7289DA&label=Discord&logo=discord&logoColor=white)](https://discord.gg/z6XrHevnmY)
+[![Discord](https://img.shields.io/discord/1313564843600511098?color=7289DA&label=Discord&logo=discord&logoColor=white)](https://discord.gg/z6XrHevnmY)
 
 ### Repo-Rules
 * Always branch off with your tasks with one of these templates. 
