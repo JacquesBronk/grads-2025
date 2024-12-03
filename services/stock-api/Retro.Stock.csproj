@@ -10,6 +10,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
+    <ProjectReference Include="..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
+    <ProjectReference Include="..\common\Retro\Retro.csproj" />
+    <ProjectReference Include="..\libs\Retro.Stock.Domain\Retro.Stock.Domain.csproj" />
+    <ProjectReference Include="..\libs\Retro.Stock.Infrastructure\Retro.Stock.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.1.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,9 @@
 volumes:
-    redis-data:
-    consul-data:
-    mongo-data:
-    postgres_data:
+  redis-data:
+  consul-data:
+  mongo-data:
+  postgres_data:
+  seeder-data:
 
 networks:
   retro-net:
@@ -19,7 +20,7 @@ services:
 #      - retro-net
 #    depends_on:
 #      - retro-cache-db
-#      - configurator
+#      - consul
 #
 #  ads-api:
 #    image: ads-api:latest
@@ -45,7 +46,7 @@ services:
 #        aliases:
 #          - hgh
 #    depends_on:
-#      - configurator
+#      - consul
 #
 #  profile-api:
 #    image: profile-api:latest
@@ -59,7 +60,7 @@ services:
 #        aliases:
 #          - whoami
 #    depends_on:
-#      - configurator
+#      - consul
 #
 #  orders-api:
 #    image: orders-api:latest
@@ -84,7 +85,7 @@ services:
 #    networks:
 #      - retro-net
 #    depends_on:
-#      - configurator
+#      - consul
 #
 #  cart-api:
 #    image: cart-api:latest
@@ -97,17 +98,21 @@ services:
 #      - retro-net
 #    depends_on:
 #      - retro-cache-db
-#
-#  stock-api:
-#    image: stock-api:latest
-#    container_name: stock-api
-#    build:
-#      context: ./services/stock-api
-#    ports:
-#      - "5008:8080"
-#    networks:
-#      - retro-net
-#  
+
+  stock-api:
+    image: stock-api:latest
+    container_name: stock-api
+    build:
+      context: .
+      dockerfile: services/stock-api/Dockerfile
+    ports:
+      - "5008:8080"
+    networks:
+      - retro-net
+    depends_on:
+      retro.seeder:
+        condition: service_completed_successfully
+
 #  retro.payments:
 #    image: retro.payments
 #    build:
@@ -115,28 +120,18 @@ services:
 #      dockerfile: services/pay-me-api/Dockerfile
 #    depends_on:
 #      - persistence.retro
-
-  #  vendor-api:
-  #    image: vendor-api:latest
-  #    container_name: vendor-api
-  #    build:
-  #      context: ./services/vendor-api
-  #    ports:
-  #      - "5009:80"
-  #    networks:
-  #      - retro-net
-
-  #   web-ui-shop:
-  #     image: web-ui-shop:latest
-  #     container_name: web-ui-shop
-  #     build:
-  #       context: ./services/web-ui-shop
-  #     ports:
-  #       - "80:80"
-  #     networks:
-  #       - retro-net
-  #     depends_on:
-  #       - configurator
+#
+#  web-ui-shop:
+#    image: web-ui-shop:latest
+#    container_name: web-ui-shop
+#    build:
+#      context: ./services/web-ui-shop
+#    ports:
+#      - "80:80"
+#    networks:
+#      - retro-net
+#    depends_on:
+#      - consul
   
   yarp:
     image: yarp:latest
@@ -150,23 +145,26 @@ services:
       - retro-net
     depends_on:
       retro.seeder:
-        condition: service_healthy
+        condition: service_completed_successfully
 
   retro.seeder:
     image: retro.seeder
     build:
       context: .
       dockerfile: services/retro-seeder/Dockerfile
+    restart: "no"
     depends_on:
       consul:
         condition: service_healthy
       keycloak_web:
         condition: service_healthy
+    volumes:
+      - seeder-data:/tmp
     networks:
       - retro-net
     healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-        interval: 5s
+        test: ["CMD", "grep", "service_completed_successfully", "/tmp/seeder.log"]
+        interval: 1s
         timeout: 2s
         retries: 20
   

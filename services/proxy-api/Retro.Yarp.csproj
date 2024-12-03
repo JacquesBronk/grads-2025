@@ -17,18 +17,18 @@
 
     <ItemGroup>
       <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
-      <ProjectReference Include="..\common\Retro.Consul.HealthCheck\Retro.Consul.HealthCheck.csproj" />
+      <ProjectReference Include="..\common\Retro\Retro.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Retro.Yarp\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Retro.Yarp\obj\Retro.Yarp.csproj.nuget.dgspec.json" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Retro.Yarp\obj\project.assets.json" />
-      <_ContentIncludedByDefault Remove="Retro.Yarp\obj\Retro.Yarp.csproj.nuget.dgspec.json" />
     </ItemGroup>
 
 </Project>

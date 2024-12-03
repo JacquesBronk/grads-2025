@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\common\Retro.Consul.HealthCheck\Retro.Consul.HealthCheck.csproj" />
     <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
   </ItemGroup>
 

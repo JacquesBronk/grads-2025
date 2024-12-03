@@ -1,5 +1,8 @@
 ## May they fight the good figt and survive.
 
+### Join the discord
+[![Discord](https://img.shields.io/discord/1234567890?color=7289DA&label=Discord&logo=discord&logoColor=white)](https://discord.gg/z6XrHevnmY)
+
 ### Repo-Rules
 * Always branch off with your tasks with one of these templates. 
     policy: _one liners, under 50-char_ 
@@ -17,7 +20,6 @@
 * Add more contributors
 * Please create bounties for the services
 
-# Infra-proposal
 
 # Tech stack
 * We need to choose a no-sql provider

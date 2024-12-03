@@ -1,6 +1,5 @@
 {
-  "ConnectionStrings":
-  {
+  "ConnectionStrings": {
     "Redis": "retro-cache-db:6379,abortConnect=false,ssl=false,allowAdmin=true,connectTimeout=5000,syncTimeout=5000,connectRetry=5,defaultDatabase=0",
     "Mongo": "mongodb://persistence.retro:27017",
     "RabbitMq": "amqp://guest:guest@retro-rabbitmq:5672"
@@ -11,6 +10,21 @@
       "Microsoft.AspNetCore": "Warning"
     }
   },
+  "StoreConfiguration": {
+    "StoreName": "8-bit Oddessy",
+    "Location": {
+      "AddressLine1": "The Mall",
+      "AddressLine2": "Suite 8",
+      "City": "Retro City",
+      "Country": "USA",
+      "PostalCode": "12345"
+    }
+  },
+  "SessionOverides": {
+    "Themse": "retro",
+    "Language": "en",
+    "Currency": "USD"
+  },
   "AllowedHosts": "*",
   "Keycloak": {
     "Authority": "http://keycloak_web:8080/realms/retro-realm",
@@ -19,6 +33,6 @@
     "SslRequired": "none",
     "ConfidentialPort": 0,
     "VerifyTokenAudience": false,
-    "ClientSercret":  "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
+    "ClientSercret": "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
   }
 }

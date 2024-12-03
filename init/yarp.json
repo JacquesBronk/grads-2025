@@ -47,13 +47,10 @@
         "ClusterId": "cluster-stock",
         "Match": {
           "Path": "/stock-api/{**catch-all}"
-        }
-      },
-      "vendor-api": {
-        "ClusterId": "cluster-vendor",
-        "Match": {
-          "Path": "/vendor-api/{**catch-all}"
-        }
+        },
+        "Transforms": [
+          { "PathRemovePrefix": "/stock-api" }
+        ]
       },
       "web-ui-shop": {
         "ClusterId": "cluster-web-ui",
@@ -103,11 +100,6 @@
           "stock": { "Address": "http://stock-api:8080" }
         }
       },
-      "cluster-vendor": {
-        "Destinations": {
-          "vendor": { "Address": "http://vendor-api:80" }
-        }
-      },
       "cluster-web-ui": {
         "Destinations": {
           "web-ui": { "Address": "http://web-ui-shop:80" }
@@ -123,5 +115,17 @@
     "ConfidentialPort": 0,
     "VerifyTokenAudience": false,
     "ClientSercret":  "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
+  },
+  "ServiceDetails": {
+    "ID": "yarp",
+    "Name": "yarp",
+    "Address": "yarp",
+    "Port": 8080,
+    "Tags": ["proxy", "yarp"],
+    "Check": {
+      "HTTP": "http://yarp:8080/health",
+      "Interval": "10",
+      "Timeout": "5"
+    }
   }
 }

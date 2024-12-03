@@ -8,6 +8,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["services/proxy-api/Retro.Yarp.csproj", "services/proxy-api/"]
+COPY ["services/common/Retro.Configuration/Retro.Configuration.csproj", "services/common/Retro.Configuration/"]
+COPY ["services/common/Retro/Retro.csproj", "services/common/Retro/"]
 RUN dotnet restore "services/proxy-api/Retro.Yarp.csproj"
 COPY . .
 WORKDIR "/src/services/proxy-api"

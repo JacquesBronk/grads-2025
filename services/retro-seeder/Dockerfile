@@ -16,7 +16,8 @@ WORKDIR /src
 # Copy project files and dependencies
 COPY services/common/Retro.Http/ ./services/common/Retro.Http/
 COPY services/retro-seeder/ ./services/retro-seeder/
-
+COPY services/common/Retro.Persistence.Mongo/ ./services/common/Retro.Persistence.Mongo/
+COPY services/libs/Retro.Stock.Domain/ ./services/libs/Retro.Stock.Domain/
 
 
 # Copy seed data and error if not found
