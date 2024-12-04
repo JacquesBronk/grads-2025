@@ -49,7 +49,9 @@
           "Path": "/stock-api/{**catch-all}"
         },
         "Transforms": [
-          { "PathRemovePrefix": "/stock-api" }
+          {
+            "PathRemovePrefix": "/stock-api"
+          }
         ]
       },
       "web-ui-shop": {
@@ -62,66 +64,89 @@
     "Clusters": {
       "cluster-ads-admin": {
         "Destinations": {
-          "ads-admin": { "Address": "http://ads-admin-api:8080" }
+          "ads-admin": {
+            "Address": "http://ads-admin-api:8080"
+          }
         }
       },
       "cluster-ads": {
         "Destinations": {
-          "ads": { "Address": "http://ads-api:8080" }
+          "ads": {
+            "Address": "http://ads-api:8080"
+          }
         }
       },
       "cluster-hellooo": {
         "Destinations": {
-          "hellooo": { "Address": "http://hellooo-api:8080" }
+          "hellooo": {
+            "Address": "http://hellooo-api:8080"
+          }
         }
       },
       "cluster-profile": {
         "Destinations": {
-          "profile": { "Address": "http://profile-api:8080" }
+          "profile": {
+            "Address": "http://profile-api:8080"
+          }
         }
       },
       "cluster-orders": {
         "Destinations": {
-          "orders": { "Address": "http://orders-api:8080" }
+          "orders": {
+            "Address": "http://orders-api:8080"
+          }
         }
       },
       "cluster-pay-me": {
         "Destinations": {
-          "pay-me": { "Address": "http://pay-me-api:8080" }
+          "pay-me": {
+            "Address": "http://pay-me-api:8080"
+          }
         }
       },
       "cluster-cart": {
         "Destinations": {
-          "cart": { "Address": "http://cart-api:8080" }
+          "cart": {
+            "Address": "http://cart-api:8080"
+          }
         }
       },
       "cluster-stock": {
         "Destinations": {
-          "stock": { "Address": "http://stock-api:8080" }
+          "stock": {
+            "Address": "http://stock-api:8080"
+          }
         }
       },
       "cluster-web-ui": {
         "Destinations": {
-          "web-ui": { "Address": "http://web-ui-shop:80" }
+          "web-ui": {
+            "Address": "http://web-ui-shop:80"
+          }
         }
       }
     }
   },
   "Keycloak": {
-    "Authority": "http://keycloak_web:8080/realms/retro-realm",
-    "PublicClient": true,
-    "ClientId": "retro-client",
-    "SslRequired": "none",
-    "ConfidentialPort": 0,
-    "VerifyTokenAudience": false,
-    "ClientSercret":  "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
+    "realm": "retro-realm",
+    "auth-server-url": "http://keycloak_web:8080",
+    "ssl-required": false,
+    "resource": "retro-client",
+    "verify-token-audience": false,
+    "credentials": {
+      "secret": "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
+    },
+    "confidential-port": 0
   },
   "ServiceDetails": {
     "ID": "yarp",
     "Name": "yarp",
     "Address": "yarp",
     "Port": 8080,
-    "Tags": ["proxy", "yarp"],
+    "Tags": [
+      "proxy",
+      "yarp"
+    ],
     "Check": {
       "HTTP": "http://yarp:8080/health",
       "Interval": "10",

@@ -1,4 +1,4 @@
-## May they fight the good figt and survive.
+## May they fight the good fight and survive.
 
 ### Join the discord
 [![Discord](https://img.shields.io/discord/1313564843600511098?color=7289DA&label=Discord&logo=discord&logoColor=white)](https://discord.gg/z6XrHevnmY)
@@ -13,6 +13,28 @@
 * Comment - Methods with full summary tag. /// purpose? args[]
 * have fun, leave comedic comments if you'd like. No excessive swearing(the hard words).
 
+## Infra
+![Retro-Shop-Infra.png](docs/assets/retro-shop-infra.png)
+
+## How to run
+1. Clone the repo
+2. Open terminal in the root directory
+3. Run `docker-compose up -d` to start the services
+4. Open `http://localhost:8500` to see the consul dashboard
+
+## How to stop
+1. Open terminal in the root directory
+2. Run `docker-compose down -v` to stop the services
+3. Run `docker-compose up -d` to start the services
+4. Open `http://localhost:8500` to see the consul dashboard
+
+## How to use compose in development
+1. Open terminal in the root directory
+2. Run `docker-compose build` to build the services
+3. Run `docker-compose up -d` to start the services
+4. If you make changes to the code, you can run `docker-compose up -d --build` to rebuild the services
+5. Open `http://localhost:8500` to see the consul dashboard
+6. Run `docker-compose down -v` to stop the services
 
 # TO-DO's
 * [Bounties](#open-bounties) 

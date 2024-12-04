@@ -1,16 +1,20 @@
+using Keycloak.AuthServices.Authentication;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Retro;
 using Retro.Configuration;
+using Retro.Yarp.Infra;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 builder.AddConfig("yarp");
 builder.AddServiceDiscovery();
+builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddHealthChecks()
     .AddCheck("self", () => HealthCheckResult.Healthy());
@@ -48,7 +52,14 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     }
 });
 
-app.MapReverseProxy();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapReverseProxy(proxyPipeline =>
+{
+    // inject pipeline middleware for authentication
+    proxyPipeline.UseMiddleware<StockApiPipelineMiddleware>();
+});
 
 
 app.UseServiceDiscovery();

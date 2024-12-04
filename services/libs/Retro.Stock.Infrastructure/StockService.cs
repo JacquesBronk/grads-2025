@@ -29,7 +29,8 @@ public class StockService(IStockRepository repository) : IStockService
             Quantity: item.Quantity,
             DiscountPercentage: item.DiscountPercentage,
             IsDiscounted: item.IsDiscounted,
-            Tags: item.Tags
+            Tags: item.Tags,
+            ImageUrl: item.ImageUrl
         );
     }
 

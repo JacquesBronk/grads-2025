@@ -59,49 +59,48 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 
 var stockService = app.Services.GetRequiredService<IStockService>();
 
-app.MapGet("/api/stocks", async ([FromQuery] int pageNumber,[FromQuery] int pageSize,  CancellationToken cancellationToken) =>
+app.MapGet("/stock", async ([FromQuery] int pageNumber,[FromQuery] int pageSize,  CancellationToken cancellationToken) =>
 {
     GetAllByPageRequest request = new(pageNumber, pageSize);
     return await stockService.GetAllAsync(request, cancellationToken);
-}).WithDescription("Get all stocks with pagination").WithName("GetAllStocks");;
+}).WithDescription("Get all stocks with pagination").WithName("GetAllStocks");
 
-app.MapGet("/api/stocks/{id}", async (string id, CancellationToken cancellationToken) =>
+app.MapGet("/stocks/{id}", async (string id, CancellationToken cancellationToken) =>
 {
     Guid.TryParse(id, out var stockId);
     return await stockService.GetByIdAsync(new GetByIdRequest(Id: stockId), cancellationToken);
-}).WithDescription("Get stock by ID").WithName("GetStockById");;
+}).WithDescription("Get stock by ID").WithName("GetStockById");
 
-app.MapGet("/api/stocks/sku/{sku}", async (string sku, CancellationToken cancellationToken) =>
-{
-    return await stockService.GetBySkuAsync(new GetBySkuRequest( Sku: sku ), cancellationToken);
-}).WithDescription("Get stock by SKU").WithName("GetStockBySku");;
+app.MapGet("/stocks/sku/{sku}", async (string sku, CancellationToken cancellationToken) => 
+    await stockService.GetBySkuAsync(new GetBySkuRequest( Sku: sku ), cancellationToken))
+    .WithDescription("Get stock by SKU").WithName("GetStockBySku");
 
-app.MapPost("/api/stocks", async (UpsertStockRequest request, CancellationToken cancellationToken) =>
+app.MapPost("/stocks", async (UpsertStockRequest request, CancellationToken cancellationToken) =>
 {
     await stockService.UpsertStock(request, cancellationToken);
     return Results.NoContent();
-}).WithDescription("Create or update a stock").WithName("UpsertStock");;
+}).WithDescription("Create or update a stock").WithName("UpsertStock");
 
-app.MapDelete("/api/stocks/{id}", async (string id, CancellationToken cancellationToken) =>
+app.MapDelete("/stocks/{id}", async (string id, CancellationToken cancellationToken) =>
 {
     Guid.TryParse(id, out var stockId);
     await stockService.DeleteAsync(new DeleteRequest(Id:stockId, String.Empty), cancellationToken);
     return Results.NoContent();
-}).WithDescription("Delete stock by ID").WithName("DeleteStockById");;
+}).WithDescription("Delete stock by ID").WithName("DeleteStockById");
 
-app.MapDelete("/api/stocks/sku/{sku}", async (string sku, CancellationToken cancellationToken) =>
+app.MapDelete("/stocks/sku/{sku}", async (string sku, CancellationToken cancellationToken) =>
 {
     await stockService.DeleteAsync(new DeleteRequest(Guid.Empty, sku), cancellationToken);
     return Results.NoContent();
-}).WithDescription("Delete stock by SKU").WithName("DeleteStockBySku");;
+}).WithDescription("Delete stock by SKU").WithName("DeleteStockBySku");
 
 app.MapGet("/api/stocks/search/condition", async ([FromQuery] int pageNumber,[FromQuery] int pageSize, [FromQuery] StockCondition condition, CancellationToken cancellationToken) =>
 {
     GetByConditionRequest request = new(pageNumber, pageSize, condition);
     return await stockService.GetByConditionAsync(request, cancellationToken);
-}).WithDescription("Search stocks by condition with pagination").WithName("SearchStocksByCondition");;
+}).WithDescription("Search stocks by condition with pagination").WithName("SearchStocksByCondition");
 
-app.MapGet("/api/stocks/search/title", async ([FromQuery] int pageNumber,[FromQuery] int pageSize, [FromQuery] string title, CancellationToken cancellationToken) =>
+app.MapGet("/stocks/search/title", async ([FromQuery] int pageNumber,[FromQuery] int pageSize, [FromQuery] string title, CancellationToken cancellationToken) =>
 {
     GetByTitleRequest request = new(title, pageNumber, pageSize);
     return await stockService.GetByTitleAsync(request, cancellationToken);
