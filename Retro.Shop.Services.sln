@@ -66,7 +66,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{CE0D36CB-0
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		docs\assets\retro-shop-infra.png = docs\assets\retro-shop-infra.png
+		docs\grads-2025.drawio = docs\grads-2025.drawio
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seeders", "Seeders", "{0B67D126-F056-4B3A-87B4-ACD195C91E0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -155,5 +158,6 @@ Global
 		{E702005D-975E-4EE9-BB03-78F18224261D} = {BA381B55-1E4F-4CF7-A38C-DACCCEA05D3F}
 		{7A09C4ED-9BA0-44CE-ADD8-5EB09E99F079} = {30AD71A4-24CB-418B-906D-DA78DB326335}
 		{CE0D36CB-0749-4595-A666-C5E45ADD03BA} = {F9F0F574-1E2E-4C47-9655-AB208372E12C}
+		{9B5D1ED1-6FDD-455E-AFBD-2B3E8CB7099F} = {0B67D126-F056-4B3A-87B4-ACD195C91E0A}
 	EndGlobalSection
 EndGlobal

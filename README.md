@@ -13,20 +13,38 @@
 * Comment - Methods with full summary tag. /// purpose? args[]
 * have fun, leave comedic comments if you'd like. No excessive swearing(the hard words).
 
-## Infra
+## Our Solution Overview
 ![Retro-Shop-Infra.png](docs/assets/retro-shop-infra.png)
+
+### Important Links
+* [Consul](http://localhost:8500)
+* [Retro-Shop](http://localhost:5001)
+* [Keycloak](http://localhost:8080)
+* [Swagger-Pages](http://localhost:*/swagger/index.html)
+
+### Shop Services
+* [hellooo-api](http://localhost:5000/hellooo-api/swagger/index.html)
+* [ads-api](http://localhost:5000/ads-api/swagger/index.html)
+* [ads-admin-api](http://localhost:5000/ads-admin-api/swagger/index.html)
+* [stock-api](http://localhost:5000/stock-api/swagger/index.html)
+* [retro-payments](http://localhost:5000/retro-payments/swagger/index.html)
+* [cart-api](http://localhost:5000/cart-api/swagger/index.html)
+* [pay-me-api](http://localhost:5000/pay-me-api/swagger/index.html)
+* [orders-api](http://localhost:5000/orders-api/swagger/index.html)
+* [profile-api](http://localhost:5000/profile-api/swagger/index.html)
 
 ## How to run
 1. Clone the repo
-2. Open terminal in the root directory
+2. Open terminal in the root directory (works best with WSL terminal)
+   1. wsl: `cd /mnt/{drive-letter}/{path-to-repo}` & `docker-compose up -d`
 3. Run `docker-compose up -d` to start the services
 4. Open `http://localhost:8500` to see the consul dashboard
 
 ## How to stop
 1. Open terminal in the root directory
 2. Run `docker-compose down -v` to stop the services
-3. Run `docker-compose up -d` to start the services
-4. Open `http://localhost:8500` to see the consul dashboard
+   > [!NOTE]  
+   > The `-v` flag is used to remove the volumes as well if you want to keep your data, remove `-v`
 
 ## How to use compose in development
 1. Open terminal in the root directory
@@ -36,97 +54,45 @@
 5. Open `http://localhost:8500` to see the consul dashboard
 6. Run `docker-compose down -v` to stop the services
 
+
+
 # TO-DO's
 * [Bounties](#open-bounties) 
-* We need a theme for our drawings, presentations.
-* Add more contributors
-* Please create bounties for the services
+* Docs
 
 
 # Tech stack
-* We need to choose a no-sql provider
-* [Consul](https://github.com/JacquesBronk/configuration-demos/blob/main/Option-2-Consul/Option2.md), it just works.
-* Dotnet api's
-* [Cloud-Events](https://github.com/cloudevents/sdk-csharp) for Message 
 
-### Questions?
-1. What are we using for => lightweight auth provider
-2. What is our NoSql technology => mongo|couch-db|other|both?
-3. Can we use the megaBool?
-```javascript
-enum megabool {
-   TRUE,
-   FALSE,
-   NEITHER,
-   BOTH,
-   MAYBE,
-   TRUEISH,
-   FALSEISH,
-   IT_DEPENDS,
-   OSCILLATING,
-   ITS_COMPLICATED,
-   DOUBLE_TRUE,
-   DOUBLE_FALSE,
-```   
+
+# Questions go here?
+
 
 # Open Bounties
-###  1. hellooo-api, service greeter. 
-* Hi {username-if logged in}
-    * Render Target Ads {robin-hood-traffic}
-    * {Promote SingupSpecial IF not logged in} 
-* Track session metrics, how long on each page if user has an id. Only entry & exit event unix-epochs. NO-POLLING!
 
+#### Retro.Ads
+* Create the service, register & setup seeding
+* Create libs @ `/services/libs/**`
+* Make sure to create seeder strategy
+* Add Repo's, services, controllers
+* Create a bruno collection @ `/bruno/**`
 
+#### Retro.Ads.Admin
+* Create the service, register & setup seeding
+* Create libs @ `/services/libs/**`
+* Make sure to create seeder strategy
+* Add Repo's, services, controllers
+* Create a bruno collection @ `/bruno/**`
 
-### 2. ads-api, simple server, just gives ads. 
+#### Retro.Cart
+* Create the service, register & setup seeding
+* Create libs @ `/services/libs/**`
+* Make sure to create seeder strategy
+* Add Repo's, services, controllers
+* Create a bruno collection @ `/bruno/**`
 
-| dev | comment (250 - char)     |
-|------------|-------------------|
-| ??    | i picked this up on xx-xx-xx, /stuck: here /qa: here /dev: "feat/bug/diag/" |
-
-#### Client facing Endpoints, No auth
-```json
-{
-  "id": "bc94ceaa-9769-486b-8d24-9eab6f9805df",
-  "callbackUrl": "http://ads-api/ad-seen/bc94ceaa-9769-486b-8d24-9eab6f9805df",
-  "payloadBuilderUpsellUrl": "http://ads-api/{userId}/lu/{unix-epoch}"
-}
-```
-
-* The __id__ represents the add Id.
-* The __callbackUrl__ is used for ad viewed metrics
-* The __payloadBuilder__ is a way to render ads for the user specifically, like reccomendations on products etc. The __unix-epoch__ gives us an exact timestamp so we can load adds the user has not seen. Maybe lets look at stuff like hydration strategies over grpc? 
-
-The front end framework?
-
-| Technology | Justification     | Votes |   |   |
-|------------|-------------------|-------|---|---|
-| Angular    | Everyone knows it |       |   |   |
-| Vue        |                   |       |   |   |
-| Blazor     |                   |       |   |   |
-
-
-__[secure]__
-#### ads-admin-api, 
-
-Just this data. No more, no less
-```json
-{
-  "session": {
-    "id": "8650e977-3578-4ef2-875b-ad6ff88744ac"
-  },
-  "title": "Half Life 2 50% Off",
-  "description": "End's {DateTimeUtc}",
-  "image": "http://ads-api/serve-me/{image-id}",
-  "button-action": [
-    "fn(args[]){ */minified js/htmx */  }" //maybe pre&post event hookups? 
-                        //preRender used for canvas-render to target with supplied css
-                        //postRender used for event-hookups, metric & reporting success/fail events
-                        //
-  ],
-  "render-css": "<render-target>body { background-colour: #eeeeuw}</render-target>",
-  "valid-too": "2014-06-25",
-  "id": "bc94ceaa-9769-486b-8d24-9eab6f9805df"
-}
-```
-
+#### Retro.Greeter
+* Create the service, register & setup seeding
+* Create libs @ `/services/libs/**`
+* Make sure to create seeder strategy
+* Add Repo's, services, controllers
+* Create a bruno collection @ `/bruno/**`
