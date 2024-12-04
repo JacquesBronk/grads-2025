@@ -19,7 +19,7 @@ public class ConsulStrategy(IWebHostEnvironment environment, ILogger logger) : I
 
         if (!Directory.Exists(absolutePath))
         {
-            logger.LogWarning($"No seed data found at {absolutePath}");
+            logger.LogWarning("No seed data found at {AbsolutePath}", absolutePath);
             return new Job
             {
                 JobName = "Consul",
@@ -55,7 +55,7 @@ public class ConsulStrategy(IWebHostEnvironment environment, ILogger logger) : I
             if (!response.IsSuccessStatusCode)
             {
                 var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
-                logger.LogError($"Failed to seed {key}: {response.StatusCode} - {errorContent}");
+                logger.LogError("Failed to seed {Key}: {ResponseStatusCode} - {ErrorContent}", key, response.StatusCode, errorContent);
                 return new Job
                 {
                     JobName = "Consul",

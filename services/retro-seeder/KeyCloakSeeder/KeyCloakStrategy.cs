@@ -23,7 +23,7 @@ public class KeyCloakStrategy(IWebHostEnvironment environment, ILogger logger) :
 
         if (!Directory.Exists(absolutePath))
         {
-            logger.LogWarning($"No seed data found at {absolutePath}");
+            logger.LogWarning("No seed data found at {AbsolutePath}", absolutePath);
             return new Job
             {
                 JobName = "Keycloak",
@@ -97,7 +97,7 @@ public class KeyCloakStrategy(IWebHostEnvironment environment, ILogger logger) :
             // Create Users and Set Passwords
             await CreateUsersAsync(userConfig, realmName, auth.AccessToken, cancellationToken);
 
-            logger.LogInformation("Keycloak seeding completed successfully.");
+            logger.LogInformation("Keycloak seeding completed successfully");
             return new Job
             {
                 JobName = "Keycloak",
@@ -108,7 +108,7 @@ public class KeyCloakStrategy(IWebHostEnvironment environment, ILogger logger) :
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Error occurred while seeding Keycloak.");
+            logger.LogError(ex, "Error occurred while seeding Keycloak");
             return new Job
             {
                 JobName = "Keycloak",
@@ -138,7 +138,7 @@ public class KeyCloakStrategy(IWebHostEnvironment environment, ILogger logger) :
             .Build();
 
         await realmRequest.GetStatusCodeAsync(cancellationToken);
-        logger.LogInformation("Realm created successfully.");
+        logger.LogInformation("Realm created successfully");
     }
 
     private async Task CreateClientAsync(string clientConfig, string realmName, string accessToken,
@@ -154,7 +154,7 @@ public class KeyCloakStrategy(IWebHostEnvironment environment, ILogger logger) :
             .Build();
 
         await clientRequest.GetStatusCodeAsync(cancellationToken);
-        logger.LogInformation("Client created successfully.");
+        logger.LogInformation("Client created successfully");
     }
 
     private async Task CreateUsersAsync(string userConfig, string realmName, string accessToken,
@@ -174,20 +174,20 @@ public class KeyCloakStrategy(IWebHostEnvironment environment, ILogger logger) :
                 .Build();
 
             await userRequest.GetStatusCodeAsync(cancellationToken);
-            logger.LogInformation($"User '{userElement.GetProperty("username").GetString()}' created successfully.");
+            logger.LogInformation("User \'{S}\' created successfully", userElement.GetProperty("username").GetString());
 
             // Set user password
             await SetUserPasswordAsync(userElement, realmName, accessToken, cancellationToken);
         }
 
-        logger.LogInformation("Users created successfully.");
+        logger.LogInformation("Users created successfully");
     }
 
     private async Task SetUserPasswordAsync(JsonElement userElement, string realmName, string accessToken,
         CancellationToken cancellationToken)
     {
-        string username = userElement.GetProperty("username").GetString();
-        string password = userElement.GetProperty("credentials")[0].GetProperty("value").GetString();
+        string? username = userElement.GetProperty("username").GetString();
+        string? password = userElement.GetProperty("credentials")[0].GetProperty("value").GetString();
 
         // Get the user ID
         var getUsersRequest = new RequestBuilder()
@@ -199,6 +199,13 @@ public class KeyCloakStrategy(IWebHostEnvironment environment, ILogger logger) :
 
         string usersResponse = await getUsersRequest.GetStringResultAsync(cancellationToken);
         var users = JsonSerializer.Deserialize<List<JsonElement>>(usersResponse);
+
+        if (users?.Count == 0)
+        {
+            logger.LogError("User \'{Username}\' not found", username);
+            return;
+        }
+        
         string userId = users[0].GetProperty("id").GetString();
 
         // Set the password
@@ -219,7 +226,7 @@ public class KeyCloakStrategy(IWebHostEnvironment environment, ILogger logger) :
             .Build();
 
         await setPasswordRequest.GetStringResultAsync(cancellationToken);
-        logger.LogInformation($"Password set for user '{username}'.");
+        logger.LogInformation("Password set for user \'{Username}\'", username);
     }
 
     private string? GetRealmFromJsonConfig(string config)

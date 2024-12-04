@@ -26,7 +26,7 @@ try
     {
         throw new Exception("Consul seeding failed");
     }
-    app.Logger.LogInformation($"Consul seeding completed: {consulJob.IsCompleted}");
+    app.Logger.LogInformation("Consul seeding completed: {ConsulJobIsCompleted}", consulJob.IsCompleted);
     // Seed the Keycloak
     ISeedStrategy keyCloakStrategy = new KeyCloakStrategy(app.Environment, app.Logger);
     var keyCloakJob = await keyCloakStrategy.SeedAsync();
@@ -36,7 +36,7 @@ try
         throw new Exception("Keycloak seeding failed");
     }
 
-    app.Logger.LogInformation($"Keycloak seeding completed: {keyCloakJob.IsCompleted}");
+    app.Logger.LogInformation("Keycloak seeding completed: {IsCompleted}", keyCloakJob.IsCompleted);
     
     ISeedStrategy stockApiStrategy = new StockSeederStrategy(app.Environment, app.Logger);
     var stockApiJob = await stockApiStrategy.SeedAsync();
@@ -53,7 +53,7 @@ try
 }
 catch (Exception ex)
 {
-    app.Logger.LogInformation($"Error during seeding: {ex.Message}");
+    app.Logger.LogInformation("Error during seeding: {ExMessage}", ex.Message);
     Environment.Exit(1); 
 }
 

@@ -61,6 +61,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Stock.Infrastructure", "services\libs\Retro.Stock.Infrastructure\Retro.Stock.Infrastructure.csproj", "{E702005D-975E-4EE9-BB03-78F18224261D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proxy", "Proxy", "{30AD71A4-24CB-418B-906D-DA78DB326335}"
+	ProjectSection(SolutionItems) = preProject
+		services\proxy-api\README.md = services\proxy-api\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{CE0D36CB-0749-4595-A666-C5E45ADD03BA}"
 	ProjectSection(SolutionItems) = preProject

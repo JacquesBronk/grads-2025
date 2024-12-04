@@ -20,7 +20,7 @@ public class StockSeederStrategy(IWebHostEnvironment environment, ILogger logger
 
         if (!Directory.Exists(absolutePath))
         {
-            logger.LogWarning($"No seed data found at {absolutePath}");
+            logger.LogWarning("No seed data found at {AbsolutePath}", absolutePath);
             return new Job
             {
                 JobName = "Keycloak",
@@ -56,18 +56,12 @@ public class StockSeederStrategy(IWebHostEnvironment environment, ILogger logger
         IMongoDbContext mongoDbContext = new MongoDbContext(mongoClientFactory, "stock-db-dev");
         var stockItemsCollection = mongoDbContext.GetCollection<StockItem>("stock_items");
 
-        if (stockItemsCollection == null)
-        {
-            mongoDbContext.CreateCollection<StockItem>("stock_items");
-            stockItemsCollection = mongoDbContext.GetCollection<StockItem>("stock_items");
-        }
-        
         //Count if ANY stock items exist do not generate fake data
         long count = await stockItemsCollection.CountDocumentsAsync(FilterDefinition<StockItem>.Empty, cancellationToken: cancellationToken);
         
         if (count > 0)
         {
-            logger.LogInformation("Stock items already exist, skipping seeding.");
+            logger.LogInformation("Stock items already exist, skipping seeding");
             return new Job
             {
                 JobName = "StockSeeder",
@@ -84,7 +78,7 @@ public class StockSeederStrategy(IWebHostEnvironment environment, ILogger logger
         // Insert into MongoDB
         await stockItemsCollection.InsertManyAsync(stockItems, cancellationToken: cancellationToken);
 
-        logger.LogInformation("Seeded 1000 stock items.");
+        logger.LogInformation("Seeded 1000 stock items");
 
         return new Job
         {
@@ -115,7 +109,7 @@ public class StockSeederStrategy(IWebHostEnvironment environment, ILogger logger
         }
 
         // Handle if ConnectionStrings is a dictionary
-        if (connectionStringsObj is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Object)
+        if (connectionStringsObj is JsonElement { ValueKind: JsonValueKind.Object } jsonElement)
         {
             var connectionStrings = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonElement.GetRawText());
             if (connectionStrings != null && connectionStrings.TryGetValue(name, out var connectionString))
