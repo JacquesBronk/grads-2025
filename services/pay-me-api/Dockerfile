@@ -9,6 +9,9 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["services/pay-me-api/Retro.Payments.csproj", "services/pay-me-api/"]
 COPY ["services/common/Retro.Configuration/Retro.Configuration.csproj", "services/common/Retro.Configuration/"]
+COPY ["services/common/Retro.Persistence.Mongo/Retro.Persistence.Mongo.csproj", "services/common/Retro.Persistence.Mongo/"]
+COPY ["services/common/Retro/Retro.csproj", "services/common/Retro/"]
+COPY ["services/common/Retro.Cache.Redis/Retro.Cache.Redis.csproj", "services/common/Retro.Cache.Redis/"]
 RUN dotnet restore "services/pay-me-api/Retro.Payments.csproj"
 COPY . .
 WORKDIR "/src/services/pay-me-api"

@@ -40,6 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 		init\keycloak-realm-client.json = init\keycloak-realm-client.json
 		init\keycloak-realm-user.json = init\keycloak-realm-user.json
 		init\ads-admin-api.json = init\ads-admin-api.json
+		init\profile-api.json = init\profile-api.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Seeder", "services\retro-seeder\Retro.Seeder.csproj", "{9B5D1ED1-6FDD-455E-AFBD-2B3E8CB7099F}"
@@ -84,6 +85,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Ad.Infrastructure", "services\libs\Retro.Ad.Infrastructure\Retro.Ad.Infrastructure.csproj", "{95EB9BB2-7098-442C-9A78-278C16DE3D64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Cache.Redis", "services\common\Retro.Cache.Redis\Retro.Cache.Redis.csproj", "{E80DBC0D-C44D-44F3-9E7A-7F9F579624F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderFlow", "OrderFlow", "{46ABE431-EE3A-49B0-9AEF-1F088531721C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -200,5 +203,8 @@ Global
 		{0AB74E6E-529A-459A-97AF-2C40AC8DD620} = {BD6E5D57-D13F-4CE2-A48E-C62D1A271F41}
 		{95EB9BB2-7098-442C-9A78-278C16DE3D64} = {BD6E5D57-D13F-4CE2-A48E-C62D1A271F41}
 		{E80DBC0D-C44D-44F3-9E7A-7F9F579624F3} = {03763A92-63B0-4FAB-977C-912970FBD71A}
+		{0DD64B80-98E1-4229-911D-E41D7A5435AA} = {46ABE431-EE3A-49B0-9AEF-1F088531721C}
+		{9AEBB366-1332-4329-80FC-9AD6F6C0E073} = {46ABE431-EE3A-49B0-9AEF-1F088531721C}
+		{09DCA64D-22E8-4072-80D6-ABE8D0D0B365} = {46ABE431-EE3A-49B0-9AEF-1F088531721C}
 	EndGlobalSection
 EndGlobal

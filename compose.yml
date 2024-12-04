@@ -36,71 +36,80 @@ services:
     depends_on:
       retro.seeder:
         condition: service_completed_successfully
-#
-#  hellooo-api:
-#    image: hellooo-api:latest
-#    container_name: hellooo-api
-#    build:
-#      context: ./services/hellooo-api
-#    ports:
-#      - "5003:8080"
-#    networks:
-#      retro-net:
-#        aliases:
-#          - hgh
-#    depends_on:
-#      - consul
-#
-#  profile-api:
-#    image: profile-api:latest
-#    container_name: profile-api
-#    build:
-#      context: ./services/profile-api
-#    ports:
-#      - "5004:8080"
-#    networks:
-#      retro-net:
-#        aliases:
-#          - whoami
-#    depends_on:
-#      - consul
-#
-#  orders-api:
-#    image: orders-api:latest
-#    container_name: orders-api
-#    build:
-#      context: ./services/orders-api
-#    ports:
-#      - "5005:8080"
-#    networks:
-#      - retro-net
-#    depends_on:
-#      - retro-cache-db
-#      - persistence.retro
-#
-#  pay-me-api:
-#    image: pay-me-api:latest
-#    container_name: pay-me-api
-#    build:
-#      context: ./services/pay-me-api
-#    ports:
-#      - "5006:8080"
-#    networks:
-#      - retro-net
-#    depends_on:
-#      - consul
-#
-#  cart-api:
-#    image: cart-api:latest
-#    container_name: cart-api
-#    build:
-#      context: ./services/cart-api
-#    ports:
-#      - "5007:8080"
-#    networks:
-#      - retro-net
-#    depends_on:
-#      - retro-cache-db
+
+  hellooo-api:
+    image: hellooo-api:latest
+    container_name: hellooo-api
+    build:
+      context: .
+      dockerfile: services/hellooo-api/Dockerfile
+    ports:
+      - "5003:8080"
+    networks:
+      retro-net:
+        aliases:
+          - hgh
+    depends_on:
+      retro.seeder:
+        condition: service_completed_successfully
+
+  profile-api:
+    image: profile-api:latest
+    container_name: profile-api
+    build:
+      context: .
+      dockerfile: services/profile-api/Dockerfile
+    ports:
+      - "5004:8080"
+    networks:
+      retro-net:
+        aliases:
+          - whoami
+    depends_on:
+      retro.seeder:
+        condition: service_completed_successfully
+
+  orders-api:
+    image: orders-api:latest
+    container_name: orders-api
+    build:
+      context: .
+      dockerfile: services/orders-api/Dockerfile
+    ports:
+      - "5005:8080"
+    networks:
+      - retro-net
+    depends_on:
+      retro.seeder:
+        condition: service_completed_successfully
+
+  pay-me-api:
+    image: pay-me-api:latest
+    container_name: pay-me-api
+    build:
+      context: .
+      dockerfile: services/pay-me-api/Dockerfile
+    ports:
+      - "5006:8080"
+    networks:
+      - retro-net
+    depends_on:
+      retro.seeder:
+        condition: service_completed_successfully
+
+  cart-api:
+    image: cart-api:latest
+    container_name: cart-api
+    build:
+      context: .
+      dockerfile: services/cart-api/Dockerfile
+    ports:
+      - "5007:8080"
+    networks:
+      - retro-net
+    depends_on:
+      retro.seeder:
+        condition: service_completed_successfully
 
   stock-api:
     image: stock-api:latest
@@ -116,14 +125,7 @@ services:
       retro.seeder:
         condition: service_completed_successfully
 
-#  retro.payments:
-#    image: retro.payments
-#    build:
-#      context: .
-#      dockerfile: services/pay-me-api/Dockerfile
-#    depends_on:
-#      - persistence.retro
-#
+
 #  web-ui-shop:
 #    image: web-ui-shop:latest
 #    container_name: web-ui-shop
@@ -134,7 +136,8 @@ services:
 #    networks:
 #      - retro-net
 #    depends_on:
-#      - consul
+#      retro.seeder:
+#        condition: service_completed_successfully
   
   yarp:
     image: yarp:latest
@@ -270,3 +273,4 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     networks:
       - retro-net
+

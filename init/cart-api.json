@@ -1,6 +1,5 @@
 {
-  "ConnectionStrings":
-  {
+  "ConnectionStrings": {
     "Redis": "retro-cache-db:6379,abortConnect=false,ssl=false,allowAdmin=true,connectTimeout=5000,syncTimeout=5000,connectRetry=5,defaultDatabase=0",
     "Mongo": "mongodb://persistence.retro:27017",
     "RabbitMq": "amqp://guest:guest@retro-rabbitmq:5672"
@@ -11,6 +10,9 @@
       "Microsoft.AspNetCore": "Warning"
     }
   },
+  "Mongo": {
+    "Database": "cart-db-dev"
+  },
   "AllowedHosts": "*",
   "Keycloak": {
     "Authority": "http://keycloak_web:8080/realms/retro-realm",
@@ -20,5 +22,17 @@
     "ConfidentialPort": 0,
     "VerifyTokenAudience": false,
     "ClientSercret":  "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
+  },
+  "ServiceDetails": {
+    "ID": "cart-api",
+    "Name": "cart-api",
+    "Address": "cart-api",
+    "Port": 8080,
+    "Tags": ["api", "cart"],
+    "Check": {
+      "HTTP": "http://cart-api:8080/health",
+      "Interval": "10",
+      "Timeout": "5"
+    }
   }
 }
