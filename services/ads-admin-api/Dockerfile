@@ -9,6 +9,11 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["services/ads-admin-api/Retro.Ads.Admin.csproj", "services/ads-admin-api/"]
 COPY ["services/common/Retro.Configuration/Retro.Configuration.csproj", "services/common/Retro.Configuration/"]
+COPY ["services/common/Retro.Persistence.Mongo/Retro.Persistence.Mongo.csproj", "services/common/Retro.Persistence.Mongo/"]
+COPY ["services/common/Retro/Retro.csproj", "services/common/Retro/"]
+COPY ["services/common/Retro.Cache.Redis/Retro.Cache.Redis.csproj", "services/common/Retro.Cache.Redis/"]
+COPY ["services/libs/Retro.Ad.Infrastructure/Retro.Ad.Infrastructure.csproj", "services/libs/Retro.Ad.Infrastructure/"]
+COPY ["services/libs/Retro.Ad.Domain/Retro.Ad.Domain.csproj", "services/libs/Retro.Ad.Domain/"]
 RUN dotnet restore "services/ads-admin-api/Retro.Ads.Admin.csproj"
 COPY . .
 WORKDIR "/src/services/ads-admin-api"

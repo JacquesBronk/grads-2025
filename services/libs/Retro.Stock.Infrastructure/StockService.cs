@@ -43,16 +43,16 @@ public class StockService(IStockRepository repository) : IStockService
             Description = request.Description,
             Price = request.Price,
             Quantity = request.Quantity,
-            DiscountPercentage = request.DiscountPercentage,
+            DiscountPercentage = request.DiscountPercentage ?? 0,
             IsDiscounted = request.IsDiscounted,
             Tags = request.Tags,
             Sku = request.Sku,
             Condition = request.Condition,
             ImageUrl = request.ImageUrl,
             CreatedAt = request.CreatedAt,
-            UpdatedAt = request.UpdatedAt,
+            UpdatedAt = request.UpdatedAt ?? request.CreatedAt,
             CreatedBy = request.CreatedBy,
-            UpdatedBy = request.UpdatedBy
+            UpdatedBy = request.UpdatedBy ?? request.CreatedBy
         };
     }
     //Mappers END

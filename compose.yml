@@ -9,30 +9,33 @@ networks:
   retro-net:
 
 services:
-#  ads-admin-api:
-#    image: ads-admin-api:latest
-#    container_name: ads-admin-api
-#    build:
-#      context: ./services/ads-admin-api
-#    ports:
-#      - "5001:8080"
-#    networks:
-#      - retro-net
-#    depends_on:
-#      - retro-cache-db
-#      - consul
-#
-#  ads-api:
-#    image: ads-api:latest
-#    container_name: ads-api
-#    build:
-#      context: ./services/ads-api
-#    ports:
-#      - "5002:8080"
-#    networks:
-#      - retro-net
-#    depends_on:
-#      - retro-cache-db
+  ads-admin-api:
+    image: ads-admin-api:latest
+    container_name: ads-admin-api
+    build:
+      context: .
+      dockerfile: services/ads-admin-api/Dockerfile
+    ports:
+      - "5001:8080"
+    networks:
+      - retro-net
+    depends_on:
+      retro.seeder:
+        condition: service_completed_successfully
+
+  ads-api:
+    image: ads-api:latest
+    container_name: ads-api
+    build:
+      context: .
+      dockerfile: services/ads-api/Dockerfile
+    ports:
+      - "5002:8080"
+    networks:
+      - retro-net
+    depends_on:
+      retro.seeder:
+        condition: service_completed_successfully
 #
 #  hellooo-api:
 #    image: hellooo-api:latest

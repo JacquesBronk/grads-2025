@@ -1,7 +1,11 @@
-namespace Retro.Ads.Admin.Domain.Model;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-public class AdEntity
+namespace Retro.Ad.Domain;
+
+public class AdDetail
 {
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid Id { get; set; }
     public string Title { get; set; }
     public string FullDescriptionm { get; set; }

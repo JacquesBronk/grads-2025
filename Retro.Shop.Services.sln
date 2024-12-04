@@ -35,11 +35,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 		init\order-api.json = init\order-api.json
 		init\payments-api.json = init\payments-api.json
 		init\stock-api.json = init\stock-api.json
-		init\ads-admin.json = init\ads-admin.json
 		init\yarp.json = init\yarp.json
 		init\keycloak-realm.json = init\keycloak-realm.json
 		init\keycloak-realm-client.json = init\keycloak-realm-client.json
 		init\keycloak-realm-user.json = init\keycloak-realm-user.json
+		init\ads-admin-api.json = init\ads-admin-api.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Seeder", "services\retro-seeder\Retro.Seeder.csproj", "{9B5D1ED1-6FDD-455E-AFBD-2B3E8CB7099F}"
@@ -61,9 +61,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Stock.Infrastructure", "services\libs\Retro.Stock.Infrastructure\Retro.Stock.Infrastructure.csproj", "{E702005D-975E-4EE9-BB03-78F18224261D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proxy", "Proxy", "{30AD71A4-24CB-418B-906D-DA78DB326335}"
-	ProjectSection(SolutionItems) = preProject
-		services\proxy-api\README.md = services\proxy-api\README.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{CE0D36CB-0749-4595-A666-C5E45ADD03BA}"
 	ProjectSection(SolutionItems) = preProject
@@ -73,6 +70,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{CE0D36CB-0
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seeders", "Seeders", "{0B67D126-F056-4B3A-87B4-ACD195C91E0A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D532D3F0-DC85-45AA-B531-1D45DAD30DA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E2ERetroShop", "tests\E2ERetroShop\E2ERetroShop.csproj", "{74DD6ACE-5F66-4938-8590-5BF081CEC1CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RobinHood", "RobinHood", "{BD6E5D57-D13F-4CE2-A48E-C62D1A271F41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Ad.Domain", "services\libs\Retro.Ad.Domain\Retro.Ad.Domain.csproj", "{16753D0E-997F-408D-858A-91964523A569}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Ad.Contracts", "services\libs\Retro.Ad.Contracts\Retro.Ad.Contracts.csproj", "{0AB74E6E-529A-459A-97AF-2C40AC8DD620}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Ad.Infrastructure", "services\libs\Retro.Ad.Infrastructure\Retro.Ad.Infrastructure.csproj", "{95EB9BB2-7098-442C-9A78-278C16DE3D64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Cache.Redis", "services\common\Retro.Cache.Redis\Retro.Cache.Redis.csproj", "{E80DBC0D-C44D-44F3-9E7A-7F9F579624F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -148,6 +159,26 @@ Global
 		{E702005D-975E-4EE9-BB03-78F18224261D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E702005D-975E-4EE9-BB03-78F18224261D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E702005D-975E-4EE9-BB03-78F18224261D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74DD6ACE-5F66-4938-8590-5BF081CEC1CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74DD6ACE-5F66-4938-8590-5BF081CEC1CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74DD6ACE-5F66-4938-8590-5BF081CEC1CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74DD6ACE-5F66-4938-8590-5BF081CEC1CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16753D0E-997F-408D-858A-91964523A569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16753D0E-997F-408D-858A-91964523A569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16753D0E-997F-408D-858A-91964523A569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16753D0E-997F-408D-858A-91964523A569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB74E6E-529A-459A-97AF-2C40AC8DD620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB74E6E-529A-459A-97AF-2C40AC8DD620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB74E6E-529A-459A-97AF-2C40AC8DD620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB74E6E-529A-459A-97AF-2C40AC8DD620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95EB9BB2-7098-442C-9A78-278C16DE3D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95EB9BB2-7098-442C-9A78-278C16DE3D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95EB9BB2-7098-442C-9A78-278C16DE3D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95EB9BB2-7098-442C-9A78-278C16DE3D64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E80DBC0D-C44D-44F3-9E7A-7F9F579624F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E80DBC0D-C44D-44F3-9E7A-7F9F579624F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E80DBC0D-C44D-44F3-9E7A-7F9F579624F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E80DBC0D-C44D-44F3-9E7A-7F9F579624F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E4F92451-5DC3-412E-9A1E-13C9F35361BD} = {03763A92-63B0-4FAB-977C-912970FBD71A}
@@ -162,5 +193,12 @@ Global
 		{7A09C4ED-9BA0-44CE-ADD8-5EB09E99F079} = {30AD71A4-24CB-418B-906D-DA78DB326335}
 		{CE0D36CB-0749-4595-A666-C5E45ADD03BA} = {F9F0F574-1E2E-4C47-9655-AB208372E12C}
 		{9B5D1ED1-6FDD-455E-AFBD-2B3E8CB7099F} = {0B67D126-F056-4B3A-87B4-ACD195C91E0A}
+		{74DD6ACE-5F66-4938-8590-5BF081CEC1CF} = {D532D3F0-DC85-45AA-B531-1D45DAD30DA3}
+		{164BAC3E-9ED8-4695-80D9-DFD122947121} = {BD6E5D57-D13F-4CE2-A48E-C62D1A271F41}
+		{422CF5F3-0F06-44E5-AB4B-D1675E9E5C4A} = {BD6E5D57-D13F-4CE2-A48E-C62D1A271F41}
+		{16753D0E-997F-408D-858A-91964523A569} = {BD6E5D57-D13F-4CE2-A48E-C62D1A271F41}
+		{0AB74E6E-529A-459A-97AF-2C40AC8DD620} = {BD6E5D57-D13F-4CE2-A48E-C62D1A271F41}
+		{95EB9BB2-7098-442C-9A78-278C16DE3D64} = {BD6E5D57-D13F-4CE2-A48E-C62D1A271F41}
+		{E80DBC0D-C44D-44F3-9E7A-7F9F579624F3} = {03763A92-63B0-4FAB-977C-912970FBD71A}
 	EndGlobalSection
 EndGlobal

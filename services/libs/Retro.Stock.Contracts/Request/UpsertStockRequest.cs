@@ -21,5 +21,5 @@ namespace Retro.Stock.Contracts.Request;
 /// <param name="CreatedBy"></param>
 /// <param name="UpdatedBy"></param>
 public record UpsertStockRequest(Guid? Id, string Sku, string Title, string Description, string ImageUrl, 
-    StockCondition Condition, decimal Price, int Quantity, string[] Tags, bool IsDiscounted, double DiscountPercentage, 
-    DateTimeOffset CreatedAt, DateTimeOffset UpdatedAt, string CreatedBy, string UpdatedBy);
+    StockCondition Condition, decimal Price, int Quantity, string[] Tags, bool IsDiscounted, double? DiscountPercentage, 
+    DateTimeOffset CreatedAt, DateTimeOffset? UpdatedAt, string CreatedBy, string? UpdatedBy);

@@ -7,11 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Retro.Stock.Domain\Retro.Stock.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="FluentValidation" Version="11.11.0" />
+      <ProjectReference Include="..\..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
+      <ProjectReference Include="..\..\common\Retro\Retro.csproj" />
+      <ProjectReference Include="..\Retro.Ad.Domain\Retro.Ad.Domain.csproj" />
     </ItemGroup>
 
 </Project>

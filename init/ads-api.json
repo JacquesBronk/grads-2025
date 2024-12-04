@@ -1,9 +1,17 @@
 {
-  "ConnectionStrings":
-  {
+  "ConnectionStrings": {
     "Redis": "retro-cache-db:6379,abortConnect=false,ssl=false,allowAdmin=true,connectTimeout=5000,syncTimeout=5000,connectRetry=5,defaultDatabase=0",
     "Mongo": "mongodb://persistence.retro:27017",
     "RabbitMq": "amqp://guest:guest@retro-rabbitmq:5672"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "Mongo": {
+    "Database": "ads-db-dev"
   },
   "AllowedHosts": "*",
   "Keycloak": {
@@ -14,5 +22,17 @@
     "ConfidentialPort": 0,
     "VerifyTokenAudience": false,
     "ClientSercret":  "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
+  },
+  "ServiceDetails": {
+    "ID": "ads-api",
+    "Name": "ads-api",
+    "Address": "ads-api",
+    "Port": 8080,
+    "Tags": ["api", "ads"],
+    "Check": {
+      "HTTP": "http://ads-api:8080/health",
+      "Interval": "10",
+      "Timeout": "5"
+    }
   }
 }

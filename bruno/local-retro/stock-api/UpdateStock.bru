@@ -1,0 +1,43 @@
+meta {
+  name: UpdateStock
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{stockBaseUrl}}/stock
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+}
+
+auth:bearer {
+  token: {{active_bearer}}
+}
+
+body:json {
+  {
+      "id": "b3f01e79-c284-44b5-93e8-91068aa4f6a1",
+      "sku": "9999999999999",
+      "title": "test-title",
+      "description": "test",
+      "imageUrl": "https://tenor.com/4cpg.gif",
+      "condition": 2,
+      "price": 801.9602052017091,
+      "quantity": 99,
+      "tags": [
+        "test",
+        "tags",
+        "andStuff"
+      ],
+      "IsDiscounted": true,
+      "DiscountPercentage": 0.19,
+      "CreatedAt": "2099-01-01",
+      "UpdatedAt": "2099-01-04",
+      "CreatedBy": "test-person",
+      "UpdatedBy": "new-person"
+  }
+}
