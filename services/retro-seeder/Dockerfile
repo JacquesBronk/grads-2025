@@ -18,7 +18,7 @@ COPY services/common/Retro.Http/ ./services/common/Retro.Http/
 COPY services/retro-seeder/ ./services/retro-seeder/
 COPY services/common/Retro.Persistence.Mongo/ ./services/common/Retro.Persistence.Mongo/
 COPY services/libs/Retro.Stock.Domain/ ./services/libs/Retro.Stock.Domain/
-
+COPY services/libs/Retro.Ad.Domain/ ./services/libs/Retro.Ad.Domain/
 
 # Copy seed data and error if not found
 RUN mkdir -p ./tmp/seed/consul

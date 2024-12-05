@@ -21,8 +21,9 @@ builder.Services.AddHealthChecks()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Repo
+// Repo
 builder.Services.AddScoped<IAdRepository, AdRepository>();
+builder.Services.AddScoped<IAdService, AdService>();
 
 var app = builder.Build();
 
