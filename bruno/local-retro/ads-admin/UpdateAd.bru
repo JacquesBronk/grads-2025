@@ -1,0 +1,34 @@
+meta {
+  name: UpdateAd
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{adsAdeminBaseUrl}}/ads
+  body: json
+  auth: none
+}
+
+headers {
+  accept: application/json
+}
+
+body:json {
+  {
+        "id": "874d368c-4050-4d80-83a4-9fa899512c10",
+        "title": "TEST",
+        "fullDescription": "TEST",
+        "shortDescription": "TEST",
+        "imageUrl": "https://picsum.photos/640/480/?image=862",
+        "startDateTime": "2025-08-26T04:46:37.5048884+00:00",
+        "endDateTime": "2025-10-14T04:46:37.5048884+00:00",
+        "isActive": true,
+        "isFeatured": true,
+        "renderedHtml": "<div><h1>Small Metal Gloves</h1><p>Est non aut.</p><img src=\"https://picsum.photos/640/480/?image=126\" alt=\"Small Metal Gloves\" /></div>",
+        "createdBy": "TEST",
+        "createdDateTime": "2023-03-23T11:33:55.6807924+00:00",
+        "updatedBy": "TEST",
+        "updatedDateTime": "2023-06-25T11:33:55.6807924+00:00"
+      }
+}

@@ -1,0 +1,24 @@
+meta {
+  name: GetPagedAds
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{adsAdeminBaseUrl}}/ads?pageNumber=1&pageSize=101
+  body: none
+  auth: bearer
+}
+
+params:query {
+  pageNumber: 1
+  pageSize: 101
+}
+
+headers {
+  accept: application/json
+}
+
+auth:bearer {
+  token: {{active_bearer}}
+}

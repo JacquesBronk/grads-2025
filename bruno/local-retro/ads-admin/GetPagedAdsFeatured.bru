@@ -1,0 +1,26 @@
+meta {
+  name: GetPagedAdsFeatured
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{adsAdeminBaseUrl}}/ads/featured?fromDate=2024-01-01&isActive=false&pageNumber=1&pageSize=100
+  body: none
+  auth: bearer
+}
+
+params:query {
+  fromDate: 2024-01-01
+  isActive: false
+  pageNumber: 1
+  pageSize: 100
+}
+
+headers {
+  accept: application/json
+}
+
+auth:bearer {
+  token: {{active_bearer}}
+}

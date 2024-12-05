@@ -1,0 +1,25 @@
+meta {
+  name: GetPagedAdsFromDate
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{adsAdeminBaseUrl}}/ads/from-date?fromDate=2025-10-24&pageNumber=1&pageSize=100
+  body: none
+  auth: bearer
+}
+
+params:query {
+  fromDate: 2025-10-24
+  pageNumber: 1
+  pageSize: 100
+}
+
+headers {
+  accept: application/json
+}
+
+auth:bearer {
+  token: {{active_bearer}}
+}

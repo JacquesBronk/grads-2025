@@ -1,0 +1,25 @@
+meta {
+  name: GetPagedAdsN
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{adsAdeminBaseUrl}}/ads/n?amount=50&pageNumber=1&pageSize=100
+  body: none
+  auth: bearer
+}
+
+params:query {
+  amount: 50
+  pageNumber: 1
+  pageSize: 100
+}
+
+headers {
+  accept: application/json
+}
+
+auth:bearer {
+  token: {{active_bearer}}
+}
