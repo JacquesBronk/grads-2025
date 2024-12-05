@@ -23,6 +23,7 @@ builder.Services.AddSwaggerGen();
 
 //Repo
 builder.Services.AddScoped<IAdRepository, AdRepository>();
+builder.Services.AddScoped<IAdService, AdService>();
 
 var app = builder.Build();
 

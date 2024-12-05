@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\common\Retro.Http\Retro.Http.csproj" />
     <ProjectReference Include="..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
+    <ProjectReference Include="..\libs\Retro.Ad.Domain\Retro.Ad.Domain.csproj" />
     <ProjectReference Include="..\libs\Retro.Stock.Domain\Retro.Stock.Domain.csproj" />
   </ItemGroup>
 

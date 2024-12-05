@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
       <ProjectReference Include="..\..\common\Retro\Retro.csproj" />
+      <ProjectReference Include="..\Retro.Ad.Contracts\Retro.Ad.Contracts.csproj" />
       <ProjectReference Include="..\Retro.Ad.Domain\Retro.Ad.Domain.csproj" />
     </ItemGroup>
 

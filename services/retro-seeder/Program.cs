@@ -1,4 +1,5 @@
 using Retro.Seeder;
+using Retro.Seeder.AdSeeder;
 using Retro.Seeder.ConsulSeeder;
 using Retro.Seeder.KeyCloakSeeder;
 using Retro.Seeder.StockSeeder;
@@ -40,10 +41,18 @@ try
     
     ISeedStrategy stockApiStrategy = new StockSeederStrategy(app.Environment, app.Logger);
     var stockApiJob = await stockApiStrategy.SeedAsync();
-    
+  
     if(!stockApiJob.IsCompleted)
     {
         throw new Exception("Stock API seeding failed");
+    }
+    
+    ISeedStrategy adStrategy = new AdSeederStrategy(app.Environment, app.Logger);
+    var adJob = await adStrategy.SeedAsync();
+    
+    if(!adJob.IsCompleted)
+    {
+        throw new Exception("Ad seeding failed");
     }
     
     //ALWAYS LAST! DO NOT Remove This LOG!

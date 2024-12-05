@@ -31,6 +31,59 @@ public class AdRepository(IMongoDbContext mongoDbContext): IAdRepository
         return new PaginatedResult<AdDetail>(items, totalCount, pageNumber, pageSize);
     }
 
+    public async Task<PaginatedResult<AdDetail>> GetAdDetailFromDate(DateTimeOffset dateTimeOffset,int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+    {
+        if (pageSize <= 0) pageSize = 10;
+        if (pageNumber <= 0) pageNumber = 1;
+
+        int skip = (pageNumber - 1) * pageSize;
+        int totalCount = (int)await _collection.CountDocumentsAsync(FilterDefinition<AdDetail>.Empty, cancellationToken: cancellationToken);
+
+        var items = await _collection
+            .Find(a => a.StartDateTime >= dateTimeOffset)
+            .Skip(skip)
+            .Limit(pageSize)
+            .ToListAsync(cancellationToken);
+
+        return new PaginatedResult<AdDetail>(items, totalCount, pageNumber, pageSize);
+    }
+
+    public async Task<PaginatedResult<AdDetail>> GetNAd(int amount, int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+    {
+        if (pageSize <= 0) pageSize = 10;
+        if (pageNumber <= 0) pageNumber = 1;
+
+        int skip = (pageNumber - 1) * pageSize;
+        int totalCount = (int)await _collection.CountDocumentsAsync(FilterDefinition<AdDetail>.Empty, cancellationToken: cancellationToken);
+
+        var items = await _collection
+            .Find(FilterDefinition<AdDetail>.Empty)
+            .Skip(skip)
+            .Limit(amount)
+            .SortByDescending(a => a.CreatedDateTime)
+            .ToListAsync(cancellationToken);
+
+        return new PaginatedResult<AdDetail>(items, totalCount, pageNumber, pageSize);
+    }
+
+    public async Task<PaginatedResult<AdDetail>> GetFeatured(DateTimeOffset fromDate = default, bool isActive = true, int pageSize = 10, int pageNumber = 1,
+        CancellationToken cancellationToken = default)
+    {
+        if (pageSize <= 0) pageSize = 10;
+        if (pageNumber <= 0) pageNumber = 1;
+
+        int skip = (pageNumber - 1) * pageSize;
+        int totalCount = (int)await _collection.CountDocumentsAsync(FilterDefinition<AdDetail>.Empty, cancellationToken: cancellationToken);
+        
+        var items = await _collection
+            .Find(a => a.IsActive == isActive && a.IsFeatured && a.StartDateTime >= fromDate)
+            .Skip(skip)
+            .Limit(pageSize)
+            .ToListAsync(cancellationToken);
+
+        return new PaginatedResult<AdDetail>(items, totalCount, pageNumber, pageSize);
+    }
+
     public async Task AddAsync(AdDetail adDetail, CancellationToken cancellationToken = default)
     {
         if (adDetail.Id == Guid.Empty)
