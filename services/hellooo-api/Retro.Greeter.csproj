@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Retro.Greeter.Contracts\Retro.Greeter.Contracts.csproj" />
+    <ProjectReference Include="..\..\Retro.Greeter.Infrastructure\Retro.Greeter.Infrastructure.csproj" />
     <ProjectReference Include="..\common\Retro.Cache.Redis\Retro.Cache.Redis.csproj" />
     <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
     <ProjectReference Include="..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
@@ -16,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FastEndpoints" Version="5.33.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.33.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.1.0" />
   </ItemGroup>

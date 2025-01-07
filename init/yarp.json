@@ -5,43 +5,78 @@
         "ClusterId": "cluster-ads-admin",
         "Match": {
           "Path": "/ads-admin-api/{**catch-all}"
-        }
+        },
+        "Transforms": [
+          {
+            "PathRemovePrefix": "/ads-admin-api"
+          }
+        ]
       },
       "ads-api": {
         "ClusterId": "cluster-ads",
         "Match": {
           "Path": "/ads-api/{**catch-all}"
-        }
+        },
+        "Transforms": [
+          {
+            "PathRemovePrefix": "/ads-api"
+          }
+        ]
       },
       "hellooo-api": {
         "ClusterId": "cluster-hellooo",
         "Match": {
           "Path": "/hellooo-api/{**catch-all}"
-        }
+        },
+        "Transforms": [
+          {
+            "PathRemovePrefix": "/hellooo-api"
+          }
+        ]
       },
       "profile-api": {
         "ClusterId": "cluster-profile",
         "Match": {
           "Path": "/profile-api/{**catch-all}"
-        }
+        },
+        "Transforms": [
+          {
+            "PathRemovePrefix": "/profile-api"
+          }
+        ]
       },
       "orders-api": {
         "ClusterId": "cluster-orders",
         "Match": {
           "Path": "/orders-api/{**catch-all}"
-        }
+        },
+        "Transforms": [
+          {
+            "PathRemovePrefix": "/orders-api"
+          }
+        ]
       },
       "pay-me-api": {
         "ClusterId": "cluster-pay-me",
         "Match": {
           "Path": "/pay-me-api/{**catch-all}"
-        }
+        },
+        "Transforms": [
+          {
+            "PathRemovePrefix": "/pay-me-api"
+          }
+        ]
       },
       "cart-api": {
         "ClusterId": "cluster-cart",
         "Match": {
           "Path": "/cart-api/{**catch-all}"
-        }
+        },
+        "Transforms": [
+          {
+            "PathRemovePrefix": "/cart-api"
+          }
+        ]
       },
       "stock-api": {
         "ClusterId": "cluster-stock",
