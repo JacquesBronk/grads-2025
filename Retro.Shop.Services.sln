@@ -90,11 +90,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderFlow", "OrderFlow", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wazzzuuuup", "Wazzzuuuup", "{F8305164-8A9A-401B-9F87-5F596D5B6FF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Greeter.Domain", "Retro.Greeter.Domain\Retro.Greeter.Domain.csproj", "{D3C8C509-128E-4C88-9530-7F1BD6139CB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Greeter.Domain", "services\libs\Retro.Greeter.Domain\Retro.Greeter.Domain.csproj", "{D3C8C509-128E-4C88-9530-7F1BD6139CB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Greeter.Infrastructure", "Retro.Greeter.Infrastructure\Retro.Greeter.Infrastructure.csproj", "{345DAB76-9FBC-4D00-9027-78B04AFA6160}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Greeter.Infrastructure", "services\libs\Retro.Greeter.Infrastructure\Retro.Greeter.Infrastructure.csproj", "{345DAB76-9FBC-4D00-9027-78B04AFA6160}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Greeter.Contracts", "Retro.Greeter.Contracts\Retro.Greeter.Contracts.csproj", "{8AA60F94-1A04-4AB4-824F-C33C8748E50C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retro.Greeter.Contracts", "services\libs\Retro.Greeter.Contracts\Retro.Greeter.Contracts.csproj", "{8AA60F94-1A04-4AB4-824F-C33C8748E50C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

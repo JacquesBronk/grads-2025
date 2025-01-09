@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Retro.Greeter.Contracts\Retro.Greeter.Contracts.csproj" />
+      <ProjectReference Include="..\Retro.Greeter.Domain\Retro.Greeter.Domain.csproj" />
+      <ProjectReference Include="..\..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
+      <ProjectReference Include="..\..\common\Retro\Retro.csproj" />
+    </ItemGroup>
+
+</Project>

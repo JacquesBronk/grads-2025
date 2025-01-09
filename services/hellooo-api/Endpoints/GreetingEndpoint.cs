@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using FastEndpoints;
+using FastEndpoints.Swagger;
 using Retro.Greeter.Contracts.Response;
 
 namespace Retro.Greeter.Endpoints;
@@ -11,6 +12,7 @@ public class GreetingEndpoint : EndpointWithoutRequest<GreetResponse>
         Get("/greeter");
         AllowAnonymous();
         
+        Description(d => d.WithName("Greeting"));
         Summary(s =>
         {
             s.Summary = "Returns a greeting message to the user.";
