@@ -1,4 +1,5 @@
 using FastEndpoints;
+using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Retro;
@@ -30,7 +31,8 @@ builder.Services.AddScoped<ISessionService, SessionService>();
 
 var app = builder.Build();
 
-app.UseFastEndpoints();
+app.UseFastEndpoints()
+   .UseSwaggerGen();
 app.UseSwagger();
 app.UseSwaggerUI();
 

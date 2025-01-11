@@ -1,5 +1,6 @@
 ﻿using FastEndpoints;
 using Retro.Greeter.Contracts.Request;
+using Retro.Greeter.Contracts.Response;
 using Retro.Greeter.Infrastructure;
 
 namespace Retro.Greeter.Endpoints;
@@ -8,8 +9,8 @@ public class TrackSessionEndpoint(ISessionService sessionService) : Endpoint<Cre
 {
     public override void Configure()
     {
-        Post("/greeter/session");
-        AllowAnonymous();
+        Post("/session/track");
+        AllowAnonymous(); // TODO: Remove this line to require authentication
         
         Description(d => d.WithName("TrackSession"));
         Summary(s =>
@@ -20,9 +21,6 @@ public class TrackSessionEndpoint(ISessionService sessionService) : Endpoint<Cre
         });
     }
     
-    public override async Task HandleAsync(CreateSessionRequest request, CancellationToken ct)
-    {
-        await sessionService.CreateAsync(request, ct);
-        await SendOkAsync(new { status = "Session Tracked" }, ct);
-    }
+    public override async Task HandleAsync(CreateSessionRequest request, CancellationToken ct) =>
+        await SendOkAsync(await sessionService.CreateAsync(request, ct), ct);
 }

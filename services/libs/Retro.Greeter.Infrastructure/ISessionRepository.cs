@@ -12,7 +12,7 @@ public interface ISessionRepository
     Task<Session> GetByRouteAsync(string route, CancellationToken cancellationToken = default);
     Task<Session> GetByUserAgentAsync(string userAgent, CancellationToken cancellationToken = default);
     Task<Session> GetByIpAddressAsync(string ipAddress, CancellationToken cancellationToken = default);
-    Task CreateAsync(Session session, CancellationToken cancellationToken = default);
-    Task UpdateAsync(Session session, CancellationToken cancellationToken = default);
+    Task<Session> CreateAsync(Session session, CancellationToken cancellationToken = default);
+    Task<Session> UpdateAsync(Session session, CancellationToken cancellationToken = default);
     Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 }

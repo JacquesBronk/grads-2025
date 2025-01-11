@@ -11,7 +11,7 @@ public class SessionService(ISessionRepository repository) : ISessionService
     #region Mappers
     
     private PagedSessionResponse PagedSessionResponseMapper(PaginatedResult<Session> items) => 
-        new PagedSessionResponse(
+        new (
             Items: items.Items.Select(SessionResponseMapper).AsEnumerable(),
             TotalCount: items.TotalCount,
             PageNumber: items.PageNumber,
@@ -19,7 +19,7 @@ public class SessionService(ISessionRepository repository) : ISessionService
         );
 
     private SessionResponse SessionResponseMapper(Session session) =>
-        new SessionResponse(
+        new (
             Id: session.Id,
             UserId: session.UserId,
             Route: session.Route,
@@ -31,7 +31,7 @@ public class SessionService(ISessionRepository repository) : ISessionService
         );
 
     private Session CreateSessionMapper(CreateSessionRequest request) =>
-        new Session
+        new()
         {
             UserId = request.UserId,
             Route = request.Route,
@@ -51,7 +51,7 @@ public class SessionService(ISessionRepository repository) : ISessionService
         PagedSessionResponseMapper(await repository.GetActiveSessionsAsync(request.PageNumber, request.PageSize, cancellationToken));
 
     public async Task<SessionResponse> GetByIdAsync(GetByIdRequest request, CancellationToken cancellationToken) => 
-        SessionResponseMapper(await repository.GetByIdAsync(request.Id, cancellationToken));
+        SessionResponseMapper(await repository.GetByIdAsync(request.id, cancellationToken));
 
     public async Task<SessionResponse> GetByUserIdAsync(GetByUserIdRequest request, CancellationToken cancellationToken) => 
         SessionResponseMapper(await repository.GetByUserIdAsync(request.UserId, cancellationToken));
@@ -66,16 +66,16 @@ public class SessionService(ISessionRepository repository) : ISessionService
         SessionResponseMapper(await repository.GetByIpAddressAsync(request.IpAddress, cancellationToken));
 
     // TODO: Possibly retrieve some information from the http context?
-    public async Task CreateAsync(CreateSessionRequest request, CancellationToken cancellationToken) => 
-        await repository.CreateAsync(CreateSessionMapper(request), cancellationToken);
+    public async Task<SessionResponse> CreateAsync(CreateSessionRequest request, CancellationToken cancellationToken) => 
+        SessionResponseMapper(await repository.CreateAsync(CreateSessionMapper(request), cancellationToken));
 
-    public async Task UpdateStateAsync(UpdateSessionRequest request, CancellationToken cancellationToken)
+    public async Task<SessionResponse> UpdateStateAsync(UpdateSessionRequest request, CancellationToken cancellationToken)
     {
         var session = await repository.GetByIdAsync(request.Id, cancellationToken) ?? 
                       throw new Exception("Session not found");
         
         session.IsActive = !request.IsActive;
-        await repository.UpdateAsync(session, cancellationToken);
+        return SessionResponseMapper(await repository.UpdateAsync(session, cancellationToken));
     }
 
     public async Task DeleteAsync(DeleteSessionRequest request, CancellationToken cancellationToken) => 

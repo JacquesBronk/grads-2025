@@ -12,7 +12,7 @@ public interface ISessionService
     Task<SessionResponse> GetByRouteAsync(GetByRouteRequest request, CancellationToken cancellationToken);
     Task<SessionResponse> GetByUserAgentAsync(GetByUserAgentRequest request, CancellationToken cancellationToken);
     Task<SessionResponse> GetByIpAddressAsync(GetByIpAddressRequest request, CancellationToken cancellationToken);
-    Task CreateAsync(CreateSessionRequest request, CancellationToken cancellationToken);
-    Task UpdateStateAsync(UpdateSessionRequest request, CancellationToken cancellationToken);
+    Task<SessionResponse> CreateAsync(CreateSessionRequest request, CancellationToken cancellationToken);
+    Task<SessionResponse> UpdateStateAsync(UpdateSessionRequest request, CancellationToken cancellationToken);
     Task DeleteAsync(DeleteSessionRequest request, CancellationToken cancellationToken);
 }

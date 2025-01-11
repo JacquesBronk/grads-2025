@@ -57,7 +57,7 @@ public class SessionRepository(IMongoDbContext mongoDbContext) : ISessionReposit
     public async Task<Session> GetByIpAddressAsync(string ipAddress, CancellationToken cancellationToken = default) => 
         await _collection.Find(s => s.IpAddress == ipAddress).FirstOrDefaultAsync(cancellationToken);
 
-    public async Task CreateAsync(Session session, CancellationToken cancellationToken = default)
+    public async Task<Session> CreateAsync(Session session, CancellationToken cancellationToken = default)
     {
         if (session.Id == Guid.Empty)
         {
@@ -65,11 +65,19 @@ public class SessionRepository(IMongoDbContext mongoDbContext) : ISessionReposit
         }
         
         await _collection.InsertOneAsync(session, cancellationToken: cancellationToken);
+        
+        return session;
     }
 
-    public async Task UpdateAsync(Session session, CancellationToken cancellationToken = default) =>
+    public async Task<Session> UpdateAsync(Session session, CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(session.Id.ToString(), nameof(session.Id));
+        
         await _collection.ReplaceOneAsync(s => s.Id == session.Id, session, cancellationToken: cancellationToken);
-
+        
+        return session;
+    }
+    
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) =>
         await _collection.DeleteOneAsync(s => s.Id == id, cancellationToken);
 }
