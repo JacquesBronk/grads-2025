@@ -1,11 +1,11 @@
 meta {
-  name: GetAllSessions
+  name: GetSessionsByRoute
   type: http
-  seq: 4
+  seq: 7
 }
 
 post {
-  url: {{helloooBaseUrl}}/sessions
+  url: {{helloooBaseUrl}}/sessions/route
   body: json
   auth: none
 }
@@ -16,6 +16,7 @@ headers {
 
 body:json {
   {
+    "route": "/home",
     "pagenumber": 1,
     "pageSize": 10
   }

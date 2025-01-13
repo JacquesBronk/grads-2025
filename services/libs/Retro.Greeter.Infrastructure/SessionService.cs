@@ -51,19 +51,19 @@ public class SessionService(ISessionRepository repository) : ISessionService
         PagedSessionResponseMapper(await repository.GetActiveSessionsAsync(request.PageNumber, request.PageSize, cancellationToken));
 
     public async Task<SessionResponse> GetByIdAsync(GetByIdRequest request, CancellationToken cancellationToken) => 
-        SessionResponseMapper(await repository.GetByIdAsync(request.id, cancellationToken));
+        SessionResponseMapper(await repository.GetByIdAsync(request.Id, cancellationToken));
 
-    public async Task<SessionResponse> GetByUserIdAsync(GetByUserIdRequest request, CancellationToken cancellationToken) => 
-        SessionResponseMapper(await repository.GetByUserIdAsync(request.UserId, cancellationToken));
+    public async Task<PagedSessionResponse> GetByUserIdAsync(GetByUserIdRequest request, CancellationToken cancellationToken) => 
+        PagedSessionResponseMapper(await repository.GetByUserIdAsync(request.UserId, request.PageNumber, request.PageSize, cancellationToken));
 
-    public async Task<SessionResponse> GetByRouteAsync(GetByRouteRequest request, CancellationToken cancellationToken) => 
-        SessionResponseMapper(await repository.GetByRouteAsync(request.Route, cancellationToken));
+    public async Task<PagedSessionResponse> GetByRouteAsync(GetByRouteRequest request, CancellationToken cancellationToken) => 
+        PagedSessionResponseMapper(await repository.GetByRouteAsync(request.Route, request.PageNumber, request.PageSize, cancellationToken));
 
-    public async Task<SessionResponse> GetByUserAgentAsync(GetByUserAgentRequest request, CancellationToken cancellationToken) => 
-        SessionResponseMapper(await repository.GetByUserAgentAsync(request.UserAgent, cancellationToken));
+    public async Task<PagedSessionResponse> GetByUserAgentAsync(GetByUserAgentRequest request, CancellationToken cancellationToken) => 
+        PagedSessionResponseMapper(await repository.GetByUserAgentAsync(request.UserAgent, request.PageNumber, request.PageSize, cancellationToken));
 
-    public async Task<SessionResponse> GetByIpAddressAsync(GetByIpAddressRequest request, CancellationToken cancellationToken) => 
-        SessionResponseMapper(await repository.GetByIpAddressAsync(request.IpAddress, cancellationToken));
+    public async Task<PagedSessionResponse> GetByIpAddressAsync(GetByIpAddressRequest request, CancellationToken cancellationToken) => 
+        PagedSessionResponseMapper(await repository.GetByIpAddressAsync(request.IpAddress, request.PageNumber, request.PageSize, cancellationToken));
 
     // TODO: Possibly retrieve some information from the http context?
     public async Task<SessionResponse> CreateAsync(CreateSessionRequest request, CancellationToken cancellationToken) => 
@@ -74,7 +74,7 @@ public class SessionService(ISessionRepository repository) : ISessionService
         var session = await repository.GetByIdAsync(request.Id, cancellationToken) ?? 
                       throw new Exception("Session not found");
         
-        session.IsActive = !request.IsActive;
+        session.IsActive = !session.IsActive;
         return SessionResponseMapper(await repository.UpdateAsync(session, cancellationToken));
     }
 

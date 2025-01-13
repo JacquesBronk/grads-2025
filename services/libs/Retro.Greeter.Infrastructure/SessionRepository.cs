@@ -8,54 +8,27 @@ namespace Retro.Greeter.Infrastructure;
 public class SessionRepository(IMongoDbContext mongoDbContext) : ISessionRepository
 {
     private readonly IMongoCollection<Session> _collection = mongoDbContext.GetCollection<Session>("sessions");
-    public async Task<PaginatedResult<Session>> GetAllAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
-    {
-        if (pageSize <= 0) pageSize = 10;
-        if (pageNumber <= 0) pageNumber = 1;
+    public async Task<PaginatedResult<Session>> GetAllAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default) =>
+        await GetPagedResultAsync(Builders<Session>.Filter.Empty, pageNumber, pageSize, cancellationToken);
 
-        var skip = (pageNumber - 1) * pageSize;
-        var totalCount = (int)await _collection.CountDocumentsAsync(FilterDefinition<Session>.Empty, cancellationToken: cancellationToken);
-
-        var items = await _collection
-            .Find(FilterDefinition<Session>.Empty)
-            .Skip(skip)
-            .Limit(pageSize)
-            .ToListAsync(cancellationToken);
-
-        return new PaginatedResult<Session>(items, totalCount, pageNumber, pageSize);
-    }
-
-    public async Task<PaginatedResult<Session>> GetActiveSessionsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
-    {
-        if (pageSize <= 0) pageSize = 10;
-        if (pageNumber <= 0) pageNumber = 1;
-
-        var skip = (pageNumber - 1) * pageSize;
-        var totalCount = (int)await _collection.CountDocumentsAsync(FilterDefinition<Session>.Empty, cancellationToken: cancellationToken);
-
-        var items = await _collection
-            .Find(s => s.IsActive)
-            .Skip(skip)
-            .Limit(pageSize)
-            .ToListAsync(cancellationToken);
-
-        return new PaginatedResult<Session>(items, totalCount, pageNumber, pageSize);
-    }
+    public async Task<PaginatedResult<Session>> GetActiveSessionsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default) =>
+        await GetPagedResultAsync(Builders<Session>.Filter.Eq(s => s.IsActive, true), pageNumber, pageSize, cancellationToken);
 
     public async Task<Session> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
         await _collection.Find(s => s.Id == id).FirstOrDefaultAsync(cancellationToken);
 
-    public async Task<Session> GetByUserIdAsync(string userId, CancellationToken cancellationToken = default) => 
-        await _collection.Find(s => s.UserId == userId).FirstOrDefaultAsync(cancellationToken);
+    // Updated methods
+    public async Task<PaginatedResult<Session>> GetByUserIdAsync(string userId, int pageNumber, int pageSize, CancellationToken cancellationToken = default) =>
+        await GetPagedResultAsync(Builders<Session>.Filter.Eq(s => s.UserId, userId), pageNumber, pageSize, cancellationToken);
 
-    public async Task<Session> GetByRouteAsync(string route, CancellationToken cancellationToken = default) => 
-        await _collection.Find(s => s.Route == route).FirstOrDefaultAsync(cancellationToken);
+    public async Task<PaginatedResult<Session>> GetByRouteAsync(string route, int pageNumber, int pageSize, CancellationToken cancellationToken = default) =>
+        await GetPagedResultAsync(Builders<Session>.Filter.Eq(s => s.Route, route), pageNumber, pageSize, cancellationToken);
 
-    public async Task<Session> GetByUserAgentAsync(string userAgent, CancellationToken cancellationToken = default) => 
-        await _collection.Find(s => s.UserAgent == userAgent).FirstOrDefaultAsync(cancellationToken);
+    public async Task<PaginatedResult<Session>> GetByUserAgentAsync(string userAgent, int pageNumber, int pageSize, CancellationToken cancellationToken = default) =>
+        await GetPagedResultAsync(Builders<Session>.Filter.Eq(s => s.UserAgent, userAgent), pageNumber, pageSize, cancellationToken);
 
-    public async Task<Session> GetByIpAddressAsync(string ipAddress, CancellationToken cancellationToken = default) => 
-        await _collection.Find(s => s.IpAddress == ipAddress).FirstOrDefaultAsync(cancellationToken);
+    public async Task<PaginatedResult<Session>> GetByIpAddressAsync(string ipAddress, int pageNumber, int pageSize, CancellationToken cancellationToken = default) =>
+        await GetPagedResultAsync(Builders<Session>.Filter.Eq(s => s.IpAddress, ipAddress), pageNumber, pageSize, cancellationToken);
 
     public async Task<Session> CreateAsync(Session session, CancellationToken cancellationToken = default)
     {
@@ -72,12 +45,34 @@ public class SessionRepository(IMongoDbContext mongoDbContext) : ISessionReposit
     public async Task<Session> UpdateAsync(Session session, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrEmpty(session.Id.ToString(), nameof(session.Id));
-        
-        await _collection.ReplaceOneAsync(s => s.Id == session.Id, session, cancellationToken: cancellationToken);
-        
-        return session;
+
+        var updatedSession = await _collection.FindOneAndReplaceAsync(
+            s => s.Id == session.Id,
+            session,
+            new FindOneAndReplaceOptions<Session> { ReturnDocument = ReturnDocument.After },
+            cancellationToken
+        );
+
+        return updatedSession;
     }
     
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) =>
         await _collection.DeleteOneAsync(s => s.Id == id, cancellationToken);
+    
+    private async Task<PaginatedResult<Session>> GetPagedResultAsync(FilterDefinition<Session> filter, int pageNumber, int pageSize, CancellationToken cancellationToken)
+    {
+        if (pageSize <= 0) pageSize = 10;
+        if (pageNumber <= 0) pageNumber = 1;
+
+        var skip = (pageNumber - 1) * pageSize;
+        var totalCount = (int)await _collection.CountDocumentsAsync(filter, cancellationToken: cancellationToken);
+
+        var items = await _collection
+            .Find(filter)
+            .Skip(skip)
+            .Limit(pageSize)
+            .ToListAsync(cancellationToken);
+
+        return new PaginatedResult<Session>(items, totalCount, pageNumber, pageSize);
+    }
 }

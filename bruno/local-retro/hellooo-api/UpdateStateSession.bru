@@ -1,0 +1,23 @@
+meta {
+  name: UpdateStateSession
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{helloooBaseUrl}}/session/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: b6d794f7-e33b-499f-981e-3e3f6d7cc1fa
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {}
+}

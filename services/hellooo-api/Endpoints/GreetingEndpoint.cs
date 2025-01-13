@@ -35,4 +35,4 @@ public class GreetingEndpoint : EndpointWithoutRequest<GreetResponse>
             Ads = []
         }, ct);
     }
-}
+}  

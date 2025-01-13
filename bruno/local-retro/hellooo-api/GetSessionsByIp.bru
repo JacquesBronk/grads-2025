@@ -1,11 +1,11 @@
 meta {
-  name: GetAllSessions
+  name: GetSessionsByIp
   type: http
-  seq: 4
+  seq: 6
 }
 
 post {
-  url: {{helloooBaseUrl}}/sessions
+  url: {{helloooBaseUrl}}/sessions/ip
   body: json
   auth: none
 }
@@ -16,6 +16,7 @@ headers {
 
 body:json {
   {
+    "ipAddress": "192.168.1.1",
     "pagenumber": 1,
     "pageSize": 10
   }

@@ -1,16 +1,17 @@
 ﻿using FastEndpoints;
 using Retro.Greeter.Contracts.Request;
+using Retro.Greeter.Contracts.Response;
 using Retro.Greeter.Infrastructure;
 
 namespace Retro.Greeter.Endpoints;
 
-public class GetSessionByIdEndpoint(ISessionService sessionService) : Endpoint<GetByIdRequest>
+public class GetSessionByIdEndpoint(ISessionService sessionService) : EndpointWithoutRequest<SessionResponse>
 {
     public override void Configure()
     {
         Get("/session/{id}");
         AllowAnonymous(); // TODO: Remove this line to require authentication
-        
+
         Description(d => d.WithName("GetSessionById"));
         Summary(s =>
         {
@@ -19,7 +20,8 @@ public class GetSessionByIdEndpoint(ISessionService sessionService) : Endpoint<G
             s.Response(200, "Session returned successfully.");
         });
     }
-    
-    public override async Task HandleAsync(GetByIdRequest request, CancellationToken ct) =>
-        await SendOkAsync(await sessionService.GetByIdAsync(request, ct), ct);
+
+    public override async Task HandleAsync(CancellationToken ct) =>
+        await SendOkAsync(await sessionService.GetByIdAsync(
+            new GetByIdRequest(Route<Guid>("id")), ct), ct);
 }

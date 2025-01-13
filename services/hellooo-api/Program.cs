@@ -21,9 +21,14 @@ builder.AddRedisCache();
 builder.Services.AddHealthChecks()
     .AddCheck("self", () => HealthCheckResult.Healthy());
 
-builder.Services.AddFastEndpoints();
+builder.Services.AddFastEndpoints()
+                .AddSwaggerDocument(options =>
+                {
+                    options.Title = serviceName;
+                    options.Version = "v1";
+                    options.Description = "Retro Greeter API";
+                });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 //Repo
 builder.Services.AddScoped<ISessionRepository, SessionRepository>();
@@ -33,8 +38,6 @@ var app = builder.Build();
 
 app.UseFastEndpoints()
    .UseSwaggerGen();
-app.UseSwagger();
-app.UseSwaggerUI();
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
