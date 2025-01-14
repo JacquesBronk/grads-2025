@@ -2,7 +2,7 @@
 using Retro.Greeter.Contracts.Request;
 using Retro.Greeter.Infrastructure;
 
-namespace Retro.Greeter.Endpoints;
+namespace Retro.Greeter.Endpoints.Delete;
 
 public class DeleteSessionEndpoint(ISessionService sessionService) : EndpointWithoutRequest
 {

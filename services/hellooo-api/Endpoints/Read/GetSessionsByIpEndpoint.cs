@@ -2,7 +2,7 @@
 using Retro.Greeter.Contracts.Request;
 using Retro.Greeter.Infrastructure;
 
-namespace Retro.Greeter.Endpoints;
+namespace Retro.Greeter.Endpoints.Read;
 
 public class GetSessionsByIpEndpoint(ISessionService sessionService) : Endpoint<GetByIpAddressRequest>
 {

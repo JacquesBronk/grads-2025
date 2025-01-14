@@ -1,9 +1,8 @@
 ﻿using FastEndpoints;
 using Retro.Greeter.Contracts.Request;
-using Retro.Greeter.Contracts.Response;
 using Retro.Greeter.Infrastructure;
 
-namespace Retro.Greeter.Endpoints;
+namespace Retro.Greeter.Endpoints.Create;
 
 public class TrackSessionEndpoint(ISessionService sessionService) : Endpoint<CreateSessionRequest>
 {
