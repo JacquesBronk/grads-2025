@@ -16,8 +16,7 @@ public class SessionRepository(IMongoDbContext mongoDbContext) : ISessionReposit
 
     public async Task<Session> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
         await _collection.Find(s => s.Id == id).FirstOrDefaultAsync(cancellationToken);
-
-    // Updated methods
+    
     public async Task<PaginatedResult<Session>> GetByUserIdAsync(string userId, int pageNumber, int pageSize, CancellationToken cancellationToken = default) =>
         await GetPagedResultAsync(Builders<Session>.Filter.Eq(s => s.UserId, userId), pageNumber, pageSize, cancellationToken);
 
