@@ -1,0 +1,23 @@
+meta {
+  name: GetSessionsByIp
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{helloooBaseUrl}}/sessions/ip
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "ipAddress": "214.233.49.24",
+    "pagenumber": 1,
+    "pageSize": 10
+  }
+}

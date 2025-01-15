@@ -1,6 +1,7 @@
 using Retro.Seeder;
 using Retro.Seeder.AdSeeder;
 using Retro.Seeder.ConsulSeeder;
+using Retro.Seeder.GreeterSeeder;
 using Retro.Seeder.KeyCloakSeeder;
 using Retro.Seeder.StockSeeder;
 using Serilog;
@@ -53,6 +54,14 @@ try
     if(!adJob.IsCompleted)
     {
         throw new Exception("Ad seeding failed");
+    }
+    
+    ISeedStrategy sessionStrategy = new SessionSeederStrategy(app.Environment, app.Logger);
+    var sessionJob = await sessionStrategy.SeedAsync();
+    
+    if(!sessionJob.IsCompleted)
+    {
+        throw new Exception("Session seeding failed");
     }
     
     //ALWAYS LAST! DO NOT Remove This LOG!

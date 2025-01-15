@@ -1,0 +1,23 @@
+meta {
+  name: GetSessionsByRoute
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{helloooBaseUrl}}/sessions/route
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "route": "/home",
+    "pagenumber": 1,
+    "pageSize": 10
+  }
+}

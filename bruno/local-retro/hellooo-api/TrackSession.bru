@@ -1,0 +1,27 @@
+meta {
+  name: TrackSession
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{helloooBaseUrl}}/session/track
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "UserId": "12345",
+    "EntryEpoch": 1673318400,
+    "ExitEpoch": 1673322000,
+    "Route": "/home",
+    "UserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "IpAddress": "192.168.1.1"
+  }
+  
+}

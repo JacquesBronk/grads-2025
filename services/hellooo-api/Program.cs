@@ -1,9 +1,13 @@
+using FastEndpoints;
+using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Retro;
 using Retro.Cache.Redis;
 using Retro.Configuration;
+using Retro.Greeter.Infrastructure;
 using Retro.Persistence.Mongo;
+using HealthStatus = Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,13 +21,23 @@ builder.AddRedisCache();
 builder.Services.AddHealthChecks()
     .AddCheck("self", () => HealthCheckResult.Healthy());
 
+builder.Services.AddFastEndpoints()
+                .AddSwaggerDocument(options =>
+                {
+                    options.Title = serviceName;
+                    options.Version = "v1";
+                    options.Description = "Retro Greeter API";
+                });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+//Repo
+builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+builder.Services.AddScoped<ISessionService, SessionService>();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+app.UseFastEndpoints()
+   .UseSwaggerGen();
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
