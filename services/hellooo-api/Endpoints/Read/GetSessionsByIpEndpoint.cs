@@ -9,7 +9,6 @@ public class GetSessionsByIpEndpoint(ISessionService sessionService) : Endpoint<
     public override void Configure()
     {
         Post("/sessions/ip");
-        
         AllowAnonymous(); // TODO: Remove this line to require authentication
         
         Description(d =>
