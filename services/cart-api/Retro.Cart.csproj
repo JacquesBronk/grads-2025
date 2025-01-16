@@ -13,6 +13,7 @@
     <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
     <ProjectReference Include="..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
     <ProjectReference Include="..\common\Retro\Retro.csproj" />
+    <ProjectReference Include="..\libs\Retro.Cart.Infrastructure\Retro.Cart.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

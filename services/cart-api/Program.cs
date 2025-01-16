@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Retro;
 using Retro.Cache.Redis;
+using Retro.Cart.Contracts.Request;
+using Retro.Cart.Infrastructure;
 using Retro.Configuration;
 using Retro.Persistence.Mongo;
 
@@ -19,6 +22,9 @@ builder.Services.AddHealthChecks()
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<ICartService, CartService>();
+builder.Services.AddTransient<ICartRepository, CartRepository>();
 
 var app = builder.Build();
 
@@ -51,6 +57,25 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     }
 });
 
-app.UseServiceDiscovery();
 
+
+app.MapGet("/cart/{id}", async (ICartService cartService, [FromRoute]Guid id, CancellationToken cancellationToken) =>
+{
+    var cart = await cartService.GetCart(id, cancellationToken);
+    return Results.Ok(cart);
+}).WithDescription("Get a cart by id").WithName("GetCart");
+
+app.MapPost("/cart/update", async (ICartService cartService, [FromBody]UpdateCartRequest request, CancellationToken cancellationToken) =>
+{
+    var result = await cartService.UpdateCart(request, cancellationToken);
+    return Results.Ok(result);
+}).WithDescription("Update a cart").WithName("UpdateCart");
+
+app.MapDelete("/cart/{id}", async (ICartService cartService, [FromRoute]Guid id, CancellationToken cancellationToken) =>
+{
+    var result = await cartService.RemoveCart(id, cancellationToken);
+    return Results.Ok(result);
+}).WithDescription("Remove a cart by id").WithName("RemoveCart");
+
+app.UseServiceDiscovery();
 app.Run();
