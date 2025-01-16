@@ -1,0 +1,22 @@
+meta {
+  name: GetActiveSessions
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{helloooBaseUrl}}/sessions/active
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "pagenumber": 1,
+    "pageSize": 10
+  }
+}

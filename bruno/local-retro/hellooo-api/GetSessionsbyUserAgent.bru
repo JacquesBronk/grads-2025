@@ -1,0 +1,23 @@
+meta {
+  name: GetSessionsbyUserAgent
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{helloooBaseUrl}}/sessions/user-agent
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "userAgent": "Mozilla/5.0 (Windows; U; Windows NT 6.3) AppleWebKit/536.2.0 (KHTML, like Gecko) Chrome/26.0.895.0 Safari/536.2.0",
+    "pagenumber": 1,
+    "pageSize": 10
+  }
+}

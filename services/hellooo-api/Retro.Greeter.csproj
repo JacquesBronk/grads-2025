@@ -13,11 +13,13 @@
     <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
     <ProjectReference Include="..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
     <ProjectReference Include="..\common\Retro\Retro.csproj" />
+    <ProjectReference Include="..\libs\Retro.Greeter.Contracts\Retro.Greeter.Contracts.csproj" />
+    <ProjectReference Include="..\libs\Retro.Greeter.Infrastructure\Retro.Greeter.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.1.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.1.0" />
+    <PackageReference Include="FastEndpoints" Version="5.33.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.33.0" />
   </ItemGroup>
 
   <ItemGroup>
