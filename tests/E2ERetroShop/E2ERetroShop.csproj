@@ -20,4 +20,9 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\services\common\Retro.Http\Retro.Http.csproj" />
+      <ProjectReference Include="..\..\services\libs\Retro.Orders.Contracts\Retro.Orders.Contracts.csproj" />
+    </ItemGroup>
+
 </Project>

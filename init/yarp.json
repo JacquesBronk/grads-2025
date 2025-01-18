@@ -47,12 +47,16 @@
       },
       "orders-api": {
         "ClusterId": "cluster-orders",
+        "AuthorizationPolicy": "auth-policy",
         "Match": {
           "Path": "/orders-api/{**catch-all}"
         },
         "Transforms": [
           {
             "PathRemovePrefix": "/orders-api"
+          },
+          {
+            "RequestHeadersCopy": true
           }
         ]
       },

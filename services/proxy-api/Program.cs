@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddConfig("yarp");
 builder.AddServiceDiscovery();
 builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(s => s.AddPolicy("auth-policy", policyBuilder => policyBuilder.RequireAuthenticatedUser()));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
