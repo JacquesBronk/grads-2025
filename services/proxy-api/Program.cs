@@ -1,6 +1,8 @@
-using Keycloak.AuthServices.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.IdentityModel.Tokens;
 using Retro;
 using Retro.Configuration;
 using Retro.Yarp.Infra;
@@ -9,9 +11,48 @@ using Retro.Yarp.Infra;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddConfig("yarp");
+
 builder.AddServiceDiscovery();
-builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
-builder.Services.AddAuthorization(s => s.AddPolicy("auth-policy", policyBuilder => policyBuilder.RequireAuthenticatedUser()));
+builder.Services.AddAuthorization(s => 
+    s.AddPolicy("auth-policy", policyBuilder => policyBuilder.RequireAuthenticatedUser()));
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = "Bearer";
+        options.DefaultChallengeScheme = "Bearer";
+    })
+    .AddJwtBearer("Bearer", options =>
+    {
+        // For the incoming bearer token
+        options.Authority = "http://auth:8080/realms/retro-realm";
+        options.Audience = "retro-client";
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateAudience = false,
+            NameClaimType = "preferred_username",
+            RoleClaimType = "roles",
+            ValidateIssuer = false,
+            ValidateActor = false,
+          
+            
+        };
+    })
+    .AddOpenIdConnect(options =>
+    {
+        options.Authority = "http://auth:8080/realms/retro-realm";
+        options.ClientId = "retro-client";
+        options.ClientSecret = "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r";
+        options.ResponseType = "code";
+        options.SaveTokens = true;
+        options.Scope.Add("openid");
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = "preferred_username",
+            RoleClaimType = "roles"
+        };
+        options.RequireHttpsMetadata = false;
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,9 +61,9 @@ builder.Services.AddHealthChecks()
     .AddCheck("self", () => HealthCheckResult.Healthy());
 
 
-
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
 var app = builder.Build();
 
 
@@ -58,7 +99,7 @@ app.UseAuthorization();
 app.MapReverseProxy(proxyPipeline =>
 {
     // inject pipeline middleware for authentication
-    proxyPipeline.UseMiddleware<StockApiPipelineMiddleware>();
+
 });
 
 

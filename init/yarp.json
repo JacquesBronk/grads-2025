@@ -3,6 +3,7 @@
     "Routes": {
       "ads-admin-api": {
         "ClusterId": "cluster-ads-admin",
+        "AuthorizationPolicy": "auth-policy",
         "Match": {
           "Path": "/ads-admin-api/{**catch-all}"
         },
@@ -47,16 +48,12 @@
       },
       "orders-api": {
         "ClusterId": "cluster-orders",
-        "AuthorizationPolicy": "auth-policy",
         "Match": {
           "Path": "/orders-api/{**catch-all}"
         },
         "Transforms": [
           {
             "PathRemovePrefix": "/orders-api"
-          },
-          {
-            "RequestHeadersCopy": true
           }
         ]
       },
@@ -97,7 +94,12 @@
         "ClusterId": "cluster-web-ui",
         "Match": {
           "Path": "/web-ui-shop/{**catch-all}"
-        }
+        },
+        "Transforms": [
+          {
+            "PathRemovePrefix": "/web-ui-shop"
+          }
+        ]
       }
     },
     "Clusters": {
@@ -166,6 +168,7 @@
       }
     }
   },
+
   "Keycloak": {
     "realm": "retro-realm",
     "auth-server-url": "http://keycloak_web:8080",

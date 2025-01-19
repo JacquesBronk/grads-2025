@@ -1,20 +1,37 @@
-## May they fight the good fight and survive.
+# WELCOME! To the Agile Bridge dotnet training day
 
-### Join the discord
-[![Discord](https://img.shields.io/discord/1313564843600511098?color=7289DA&label=Discord&logo=discord&logoColor=white)](https://discord.gg/z6XrHevnmY)
+Here is where you'll put into practice what we've learned so far. 
 
-### Repo-Rules
-* Always branch off with your tasks with one of these templates. 
-    policy: _one liners, under 50-char_ 
-    1. doc: update/create/remove-{because}
-    2. feat: built this thing
-    3. bug: fixed a thing
-    4. test: stuff to do with testing
-* Comment - Methods with full summary tag. /// purpose? args[]
-* have fun, leave comedic comments if you'd like. No excessive swearing(the hard words).
+## Setting up your environment
+
+Here are the following things you need to effectively run the solution.
+
+1. Docker, download & install docker from [here](https://desktop.docker.com/win/main/arm64/Docker%20Desktop%20Installer.exe?utm_location=module). _Note!_ You don't have to choose a paid version, just standard docker desktop and you're good to go.
+   1. To validate your docker installation, open the docker desktop application (most likely after a restart)
+   2. run the following command in your terminal
+      1. ```docker ps```
+      2. ![docker-ps.png](docs/assets/docker-ps.png)
+      3. This command should run successfully without any incident or error message.
+2. Dotnet 8. Run the following command in your terminal
+   1. ```dotnet --list-sdks```
+   2. ![dotnet-list-sdk.png](docs/assets/dotnet-list-sdk.png)
+   3. make sure you have 8.x.xxx installed for this exercise
+   4. Install dotnet 8 sdk from [here](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.405-windows-x64-installer).
+3. Bruno API Client, download and install from [here](https://github.com/usebruno/bruno/releases/download/v1.38.1/bruno_1.38.1_x64_win.exe).
+4. Your default IDE
+
+## Business Proposition
+
+Our primary source of income is in the sales of retro games, to that effect we've developed a store that would service our clients needs for any retro gaming fix. 
+
+We've charged the agile bridge with this development task using cloud native technologies so that we can leverage scalable, reliable, secure and performant transactions for our clients.
+
+We want our store to become the premier store in the world to buy your retro games.
 
 ## Our Solution Overview
 ![Retro-Shop-Infra.png](docs/assets/retro-shop-infra.png)
+
+
 
 ### Important Links
 * [Consul](http://localhost:8500)
@@ -54,45 +71,3 @@
 5. Open `http://localhost:8500` to see the consul dashboard
 6. Run `docker-compose down -v` to stop the services
 
-
-
-# TO-DO's
-* [Bounties](#open-bounties) 
-* Docs
-
-
-# Tech stack
-
-
-# Questions go here?
-
-
-# Open Bounties
-
-#### Retro.Ads
-* Create the service, register & setup seeding
-* Create libs @ `/services/libs/**`
-* Make sure to create seeder strategy
-* Add Repo's, services, controllers
-* Create a bruno collection @ `/bruno/**`
-
-#### Retro.Ads.Admin
-* Create the service, register & setup seeding
-* Create libs @ `/services/libs/**`
-* Make sure to create seeder strategy
-* Add Repo's, services, controllers
-* Create a bruno collection @ `/bruno/**`
-
-#### Retro.Cart
-* Create the service, register & setup seeding
-* Create libs @ `/services/libs/**`
-* Make sure to create seeder strategy
-* Add Repo's, services, controllers
-* Create a bruno collection @ `/bruno/**`
-
-#### Retro.Greeter
-* Create the service, register & setup seeding
-* Create libs @ `/services/libs/**`
-* Make sure to create seeder strategy
-* Add Repo's, services, controllers
-* Create a bruno collection @ `/bruno/**`
