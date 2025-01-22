@@ -1,11 +1,14 @@
-﻿using Retro.Domain;
+﻿using Retro.Ad.Contracts.Request;
+using Retro.Ad.Contracts.Response;
+using Retro.Domain;
 using Retro.Greeter.Contracts.Request;
 using Retro.Greeter.Contracts.Response;
+using Retro.Greeter.Infrastructure.Interfaces;
 using Retro.ResultWrappers;
 
 namespace Retro.Greeter.Infrastructure;
 
-public class SessionService(ISessionRepository repository) : ISessionService
+public class SessionService(ISessionRepository repository, IAdsApi adsApi) : ISessionService
 {
     
     #region Mappers

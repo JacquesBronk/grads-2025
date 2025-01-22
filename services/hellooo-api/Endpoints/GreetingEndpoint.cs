@@ -1,11 +1,13 @@
 ﻿using System.Security.Claims;
 using FastEndpoints;
-using FastEndpoints.Swagger;
+using Retro.Ad.Contracts.Request;
+using Retro.Ad.Contracts.Response;
 using Retro.Greeter.Contracts.Response;
+using Retro.Greeter.Infrastructure;
 
 namespace Retro.Greeter.Endpoints;
 
-public class GreetingEndpoint : EndpointWithoutRequest<GreetResponse>
+public class GreetingEndpoint(IAdService adService) : EndpointWithoutRequest<GreetResponse>
 {
     public override void Configure()
     {
@@ -23,16 +25,37 @@ public class GreetingEndpoint : EndpointWithoutRequest<GreetResponse>
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var userLoggedIn = User.Identity?.IsAuthenticated ?? false;
-        var username = userLoggedIn ? User.FindFirstValue(ClaimTypes.Name) : "Guest";
-
-        await SendOkAsync(new GreetResponse
+        var isUserLoggedIn = User.Identity?.IsAuthenticated ?? false;
+        var username = isUserLoggedIn ? User.FindFirstValue(ClaimTypes.Name) : "Guest";
+        
+        var ads = isUserLoggedIn
+            ? await GetPersonalizedAdsAsync(ct)
+            : await GetFeaturedAdsAsync(ct);
+        
+        var response = new GreetResponse
         {
-            Message = userLoggedIn
+            Message = isUserLoggedIn
                 ? $"Hi, {username}! Welcome back to Retro Shop."
                 : "Hello, Guest. Consider signing up!",
-            SignupSpecial = userLoggedIn ? null : "Sign up now for a special discount!",
-            Ads = []
-        }, ct);
+            SignupSpecial = isUserLoggedIn ? null : "Sign up now for a special discount!",
+            Ads = ads
+        };
+
+        await SendOkAsync(response, ct);
+    }
+    
+    private async Task<List<AdResponse>> GetPersonalizedAdsAsync(CancellationToken ct)
+    {
+        // TODO: Retrieve user ID
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+        var unixEpoch = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+        return await adService.GetPersonalizedAdsAsync(userId, unixEpoch, ct);
+    }
+    
+    private async Task<List<AdResponse>> GetFeaturedAdsAsync(CancellationToken ct)
+    {
+        var request = new GetFeaturedAdsRequest(fromDate: DateTimeOffset.UtcNow);
+        return await adService.GetFeaturedAdsAsync(request, ct);
     }
 }  
