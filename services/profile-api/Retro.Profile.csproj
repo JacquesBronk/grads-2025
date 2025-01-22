@@ -11,13 +11,18 @@
   <ItemGroup>
     <ProjectReference Include="..\common\Retro.Cache.Redis\Retro.Cache.Redis.csproj" />
     <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
+    <ProjectReference Include="..\common\Retro.Http\Retro.Http.csproj" />
     <ProjectReference Include="..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
     <ProjectReference Include="..\common\Retro\Retro.csproj" />
+    <ProjectReference Include="..\libs\Retro.Orders.Domain\Retro.Orders.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.5.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.1.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -37,6 +37,7 @@
       },
       "profile-api": {
         "ClusterId": "cluster-profile",
+        "AuthorizationPolicy": "auth-policy",
         "Match": {
           "Path": "/profile-api/{**catch-all}"
         },
