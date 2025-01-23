@@ -67,8 +67,7 @@ public class SessionService(ISessionRepository repository, IAdsApi adsApi) : ISe
 
     public async Task<PagedSessionResponse> GetByIpAddressAsync(GetByIpAddressRequest request, CancellationToken cancellationToken) => 
         PagedSessionResponseMapper(await repository.GetByIpAddressAsync(request.IpAddress, request.PageNumber, request.PageSize, cancellationToken));
-
-    // TODO: Possibly retrieve some information from the http context?
+    
     public async Task<SessionResponse> CreateAsync(CreateSessionRequest request, CancellationToken cancellationToken) => 
         SessionResponseMapper(await repository.CreateAsync(CreateSessionMapper(request), cancellationToken));
 

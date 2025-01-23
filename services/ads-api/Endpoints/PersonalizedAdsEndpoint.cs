@@ -24,18 +24,14 @@ public class PersonalizedAdsEndpoint(IAdService adService, IAdMetricsRepository 
     {
         var userId = Route<string>("userId") ?? "";
         var unixEpoch = Route<long>("unixEpoch");
-
-        // Convert Unix timestamp to DateTimeOffset
+        
         var timestamp = DateTimeOffset.FromUnixTimeSeconds(unixEpoch);
-
-        // Fetch already-viewed ads for the user
+        
         var viewedAdIds = await adMetricsRepository.GetViewedAdIdsAsync(userId, ct);
-
-        // Fetch ads from ads-admin-api, filtering out already-viewed ads
+        
         var ads = await adService.GetAdsFromTimestampAsync(timestamp, 1, 15, ct);
         var unseenAds = ads.Where(ad => !viewedAdIds.Contains(ad.Id));
-
-        // Transform to AdResponse and send
+        
         var personalizedAds = unseenAds.Select(adService.MapToAdResponse);
         await SendOkAsync(personalizedAds, ct);
     }

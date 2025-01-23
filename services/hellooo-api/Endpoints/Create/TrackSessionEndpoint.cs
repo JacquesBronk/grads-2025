@@ -25,6 +25,7 @@ public class TrackSessionEndpoint(ISessionService sessionService) : Endpoint<Cre
     {
         request = request with { IpAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty };
         request = request with { UserAgent = HttpContext.Request.Headers.UserAgent.ToString() };
+        request = request with { UserId = HttpContext.Request.Headers["X-UserId"].ToString() };
         await SendOkAsync(await sessionService.CreateAsync(request, ct), ct);
     }
 }

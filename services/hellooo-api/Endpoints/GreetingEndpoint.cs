@@ -25,19 +25,19 @@ public class GreetingEndpoint(IAdService adService) : EndpointWithoutRequest<Gre
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var isUserLoggedIn = User.Identity?.IsAuthenticated ?? false;
-        var username = isUserLoggedIn ? User.FindFirstValue(ClaimTypes.Name) : "Guest";
+        var userName = HttpContext.Request.Headers["X-UserName"].ToString();
+        var isAuthenticated = string.IsNullOrWhiteSpace(userName);
         
-        var ads = isUserLoggedIn
+        var ads = isAuthenticated
             ? await GetPersonalizedAdsAsync(ct)
             : await GetFeaturedAdsAsync(ct);
         
         var response = new GreetResponse
         {
-            Message = isUserLoggedIn
-                ? $"Hi, {username}! Welcome back to Retro Shop."
+            Message = isAuthenticated
+                ? $"Hi, {userName}! Welcome back to Retro Shop."
                 : "Hello, Guest. Consider signing up!",
-            SignupSpecial = isUserLoggedIn ? null : "Sign up now for a special discount!",
+            SignupSpecial = isAuthenticated ? null : "Sign up now for a special discount!",
             Ads = ads
         };
 
@@ -46,8 +46,7 @@ public class GreetingEndpoint(IAdService adService) : EndpointWithoutRequest<Gre
     
     private async Task<List<AdResponse>> GetPersonalizedAdsAsync(CancellationToken ct)
     {
-        // TODO: Retrieve user ID
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+        var userId = HttpContext.Request.Headers["X-UserId"].ToString();
         var unixEpoch = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
         return await adService.GetPersonalizedAdsAsync(userId, unixEpoch, ct);

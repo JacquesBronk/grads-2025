@@ -8,7 +8,7 @@ public class TrackAdViewEndpoint(IAdService service) : EndpointWithoutRequest
 {
     public override void Configure()
     {
-        Post("/ad-seen/{id}/user/{userId}");
+        Post("/ad-seen/{id}");
         AllowAnonymous();
         
         Description(d => d.WithName("TrackAdView"));
@@ -23,7 +23,7 @@ public class TrackAdViewEndpoint(IAdService service) : EndpointWithoutRequest
     public override async Task HandleAsync(CancellationToken ct)
     {
         var adId = Route<Guid>("id");
-        var userId = Route<string>("userId");
+        var userId = HttpContext.Request.Headers["X-UserId"].ToString();
         var userAgent = HttpContext.Request.Headers.UserAgent.ToString();
         var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
         

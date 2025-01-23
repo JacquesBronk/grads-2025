@@ -122,7 +122,7 @@ public class AdService(
         {
             Id = ad.Id,
             CallbackUrl = $"http://ads-api:8080/ad-seen/{ad.Id}",
-            PayloadBuilderUpsellUrl = $"http://ads-api:8080/{{userId}}/lu/{{unix-epoch}}"
+            PayloadBuilderUpsellUrl = "http://ads-api:8080/{userId}/lu/{unix-epoch}"
         };
     }
 
