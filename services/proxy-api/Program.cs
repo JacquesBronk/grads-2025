@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Retro;
 using Retro.Configuration;
-using Retro.Yarp.Infra;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -98,8 +96,42 @@ app.UseAuthorization();
 
 app.MapReverseProxy(proxyPipeline =>
 {
-    // inject pipeline middleware for authentication
+    proxyPipeline.Use(async (context, next) =>
+    {
+        // If user is authenticated, set headers from claims
+        if (context.User?.Identity?.IsAuthenticated == true)
+        {
+            var userId = context.User.FindFirst("sub")?.Value;
+        
+            // If that fails or you prefer reading raw token, do this:
+            if (string.IsNullOrEmpty(userId))
+            {
+                var authHeader = context.Request.Headers["Authorization"].ToString();
+                if (authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                {
+                    var rawJwt = authHeader["Bearer ".Length..];
+                    var handler = new JwtSecurityTokenHandler();
+                    var token = handler.ReadJwtToken(rawJwt);
 
+                    userId = token.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                context.Request.Headers["X-UserId"] = userId;
+            }
+  
+            
+            var username = context.User.FindFirst("preferred_username")?.Value;
+            if (!string.IsNullOrEmpty(username))
+            {
+                context.Request.Headers["X-UserName"] = username;
+            }
+        }
+
+        await next();
+    });
 });
 
 
