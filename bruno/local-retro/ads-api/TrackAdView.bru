@@ -5,11 +5,12 @@ meta {
 }
 
 post {
-  url: {{adsBaseUrl}}/ad-seen/:id
+  url: {{adsBaseUrl}}/ad-seen/:id/user/:userId
   body: none
   auth: none
 }
 
 params:path {
+  userId: 123456
   id: e4b6e60d-81a5-49cd-8b94-ce3f9a613d95
 }
