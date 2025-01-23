@@ -29,10 +29,7 @@ if (string.IsNullOrEmpty(orderServiceAddress))
 
 builder.Services.AddTransient(s => new Gateway(orderServiceAddress));
 
-// Configure Keycloak authentication
-// JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-// builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
-// builder.Services.AddAuthorization(s => s.AddPolicy("auth-policy", policyBuilder => policyBuilder.RequireAuthenticatedUser()));
+
 
 builder.Services.AddHealthChecks()
     .AddCheck("self", () => HealthCheckResult.Healthy());
@@ -47,9 +44,6 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
-// app.UseAuthentication();
-// app.UseAuthorization();
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
@@ -107,8 +101,10 @@ app.MapDelete("/profile/{profileId}", async (IProfileService profileService, Gui
 
 app.MapGet("/profile/GetLoggedInUserProfile", async (IProfileService profileService, HttpContext httpContext, CancellationToken cancellationToken) =>
 {
-    var userName = httpContext.User.Identity?.Name;
-    if (string.IsNullOrEmpty(userName))
+    var userName = httpContext.Request.Headers["X-UserName"];
+    var userId = httpContext.Request.Headers["X-UserId"];
+    var email = httpContext.Request.Headers["X-Email"];
+    if (string.IsNullOrWhiteSpace(userName))
     {
         return Results.Unauthorized();
     }
@@ -117,6 +113,20 @@ app.MapGet("/profile/GetLoggedInUserProfile", async (IProfileService profileServ
 
     return profile == null ? Results.NotFound() : Results.Ok(profile);
 });
+
+app.MapGet("profile/test", (HttpContext httpContext) =>
+{
+    var userName = httpContext.Request.Headers["X-UserName"];
+    var userId = httpContext.Request.Headers["X-UserId"];
+    if (string.IsNullOrWhiteSpace(userName))
+    {
+        return Results.Unauthorized();
+    }
+    
+    var profile = new { UserName = userName, UserId = userId };
+    return Results.Ok(profile);
+});
+
 
 app.UseServiceDiscovery();
 

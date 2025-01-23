@@ -1,0 +1,15 @@
+meta {
+  name: Profile-test
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{profileBaseUrl}}/profile/GetLoggedInUserProfile
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{active_bearer}}
+}

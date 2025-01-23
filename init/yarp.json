@@ -9,18 +9,6 @@
         },
         "Transforms": [
           {
-            "RequestHeader": "X-UserName",
-            "Claim": "preferred_username"
-          },
-          {
-            "RequestHeader": "X-UserId",
-            "Claim": "sub"
-          },
-          {
-            "RequestHeader": "X-Email",
-            "Claim": "email"
-          },
-          {
             "PathRemovePrefix": "/ads-admin-api"
           }
         ]
@@ -54,18 +42,6 @@
           "Path": "/profile-api/{**catch-all}"
         },
         "Transforms": [
-          {
-            "RequestHeader": "X-UserName",
-            "Claim": "preferred_username"
-          },
-          {
-            "RequestHeader": "X-UserId",
-            "Claim": "sub"
-          },
-          {
-            "RequestHeader": "X-Email",
-            "Claim": "email"
-          },
           {
             "PathRemovePrefix": "/profile-api"
           }

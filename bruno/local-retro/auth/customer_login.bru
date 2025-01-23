@@ -21,3 +21,7 @@ body:form-urlencoded {
   password: Password1!
   client_secret: k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r
 }
+
+script:post-response {
+   bru.setEnvVar("active_bearer",res.body.access_token); 
+}
