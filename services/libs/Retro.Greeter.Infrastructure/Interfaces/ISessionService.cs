@@ -1,7 +1,7 @@
 ﻿using Retro.Greeter.Contracts.Request;
 using Retro.Greeter.Contracts.Response;
 
-namespace Retro.Greeter.Infrastructure;
+namespace Retro.Greeter.Infrastructure.Interfaces;
 
 public interface ISessionService
 {

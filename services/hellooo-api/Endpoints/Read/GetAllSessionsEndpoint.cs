@@ -2,6 +2,7 @@
 using Retro.Greeter.Contracts.Request;
 using Retro.Greeter.Contracts.Response;
 using Retro.Greeter.Infrastructure;
+using Retro.Greeter.Infrastructure.Interfaces;
 
 namespace Retro.Greeter.Endpoints.Read;
 

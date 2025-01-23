@@ -27,6 +27,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAdRepository, AdRepository>();
 builder.Services.AddScoped<IAdService, AdService>();
 
+// Services
+builder.Services.AddInfrastructure(builder.Configuration);
+
 var app = builder.Build();
 
 app.UseSwagger();

@@ -64,6 +64,14 @@ try
         throw new Exception("Session seeding failed");
     }
     
+    ISeedStrategy adsViewStrategy = new AdViewMetricSeederStrategy(app.Environment, app.Logger);
+    var adsViewJob = await adsViewStrategy.SeedAsync();
+    
+    if(!adsViewJob.IsCompleted)
+    {
+        throw new Exception("Ad View seeding failed");
+    }
+    
     //ALWAYS LAST! DO NOT Remove This LOG!
     app.Logger.LogInformation("service_completed_successfully");
 
