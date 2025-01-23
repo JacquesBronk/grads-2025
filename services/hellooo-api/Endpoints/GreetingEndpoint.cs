@@ -26,7 +26,7 @@ public class GreetingEndpoint(IAdService adService) : EndpointWithoutRequest<Gre
     public override async Task HandleAsync(CancellationToken ct)
     {
         var userName = HttpContext.Request.Headers["X-UserName"].ToString();
-        var isAuthenticated = string.IsNullOrWhiteSpace(userName);
+        var isAuthenticated = !string.IsNullOrWhiteSpace(userName);
         
         var ads = isAuthenticated
             ? await GetPersonalizedAdsAsync(ct)
