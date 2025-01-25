@@ -88,7 +88,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForCreateProfileRequestClass_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Contracts", "Request", "CreateProfileRequest.cs");
 
             // Act
@@ -102,7 +102,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForUpdateProfileRequestClass_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Contracts", "Request", "UpdateProfileRequest.cs");
 
             // Act
@@ -116,7 +116,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForGetProfileRequestClass_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Contracts", "Request", "GetProfileRequest.cs");
 
             // Act
@@ -130,7 +130,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForDeleteProfileRequestClass_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Contracts", "Request", "DeleteProfileRequest.cs");
 
             // Act
@@ -144,7 +144,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForProfileResponseClass_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Contracts", "Response", "ProfileResponse.cs");
 
             // Act
@@ -160,7 +160,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForProfileClass_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Domain", "Profile.cs");
 
             // Act
@@ -176,7 +176,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForProfileRepositoryInterface_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Infrastructure", "IProfileRepository.cs");
 
             // Act
@@ -190,7 +190,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForProfileRepositoryClass_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Infrastructure", "ProfileRepository.cs");
 
             // Act
@@ -204,7 +204,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForProfileServiceInterface_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Infrastructure", "IProfileService.cs");
 
             // Act
@@ -218,7 +218,7 @@ public class ProfileTests
         public void GivenSolutionRoot_WhenCheckingForProfileServiceClass_ThenFileShouldExistInSpecifiedLocation()
         {
             // Arrange
-            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName;
+            var solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.Parent?.FullName;
             var filePath = Path.Combine(solutionRoot, "services", "libs", "Retro.Profile.Infrastructure", "ProfileService.cs");
 
             // Act
