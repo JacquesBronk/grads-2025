@@ -123,7 +123,7 @@ app.MapGet("profile/GetKeyCloakUser", (HttpContext httpContext) =>
         return Results.Unauthorized();
     }
     
-    var profile = new { UserName = userName, UserId = userId };
+    var profile = new User{ UserName = userName.ToString(), UserId = userId.ToString() };
     return Results.Ok(profile);
 });
 

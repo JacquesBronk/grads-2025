@@ -23,6 +23,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\services\common\Retro.Http\Retro.Http.csproj" />
       <ProjectReference Include="..\..\services\libs\Retro.Orders.Contracts\Retro.Orders.Contracts.csproj" />
+      <ProjectReference Include="..\..\services\profile-api\Retro.Profile.csproj" />
     </ItemGroup>
 
 </Project>
