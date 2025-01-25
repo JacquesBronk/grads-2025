@@ -77,5 +77,6 @@ app.MapDelete("/cart/{id}", async (ICartService cartService, [FromRoute]Guid id,
     return Results.Ok(result);
 }).WithDescription("Remove a cart by id").WithName("RemoveCart");
 
+app.UseCors();
 app.UseServiceDiscovery();
 app.Run();

@@ -119,6 +119,7 @@ app.MapPut("/payments/{paymentId}/method", async (Guid paymentId, string payment
     return paymentResponse is not null ? Results.Ok(paymentResponse) : Results.NotFound();
 }).WithDescription("Update payment method").WithName("UpdatePaymentMethod");
 
+app.UseCors();
 app.UseServiceDiscovery();
 
 app.Run();

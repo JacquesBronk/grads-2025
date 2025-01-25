@@ -97,6 +97,6 @@ app.MapPatch("/order/cancel/{id}", async (IOrderService orderService, [FromRoute
     return Results.Ok(result);
 }).WithDescription("Cancel order").WithName("CancelOrder");
 
-
+app.UseCors();
 app.UseServiceDiscovery();
 app.Run();

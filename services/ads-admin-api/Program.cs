@@ -101,6 +101,7 @@ app.MapDelete("/ads/{id}", async (IAdService service, Guid id, CancellationToken
     return Results.NoContent();
 });
 
+app.UseCors();
 app.UseServiceDiscovery();
 
 app.Run();

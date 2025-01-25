@@ -1,5 +1,6 @@
 ﻿using Consul;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Winton.Extensions.Configuration.Consul;
 
 
@@ -29,6 +30,16 @@ public static class DependencyInjection
                     options.Optional = true;
                     options.OnLoadException = exceptionContext => throw exceptionContext.Exception;
                 });
+
+        builder.Services.AddCors(option =>
+        {
+            option.AddPolicy("AllowAll", p =>
+            {
+                p.AllowAnyOrigin();
+                p.AllowAnyMethod();
+                p.AllowAnyHeader();
+            });
+        });
         
         return builder;
     }

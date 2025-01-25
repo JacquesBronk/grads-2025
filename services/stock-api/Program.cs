@@ -114,5 +114,6 @@ app.MapGet("/stock/search/title", async ([FromQuery] int pageNumber,[FromQuery] 
     return await stockService.GetByTitleAsync(request, cancellationToken);
 }).WithDescription("Search stocks by title with pagination").WithName("SearchStocksByTitle");
 
+app.UseCors();
 app.UseServiceDiscovery();
 app.Run();

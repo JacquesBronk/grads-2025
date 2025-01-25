@@ -127,7 +127,7 @@ app.MapGet("profile/test", (HttpContext httpContext) =>
     return Results.Ok(profile);
 });
 
-
+app.UseCors();
 app.UseServiceDiscovery();
 
 app.Run();

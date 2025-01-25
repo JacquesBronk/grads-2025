@@ -56,6 +56,7 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     }
 });
 
+app.UseCors();
 app.UseServiceDiscovery();
 
 app.Run();
