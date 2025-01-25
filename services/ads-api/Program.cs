@@ -1,3 +1,6 @@
+using System.Text.Json.Serialization;
+using FastEndpoints;
+using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Retro;
@@ -19,16 +22,31 @@ builder.Services.AddHealthChecks()
     .AddCheck("self", () => HealthCheckResult.Healthy());
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddFastEndpoints()
+                .SwaggerDocument();
+
 
 // Repo
-builder.Services.AddScoped<IAdRepository, AdRepository>();
 builder.Services.AddScoped<IAdService, AdService>();
+builder.Services.AddScoped<IAdRepository, AdRepository>();
+builder.Services.AddScoped<IAdMetricsRepository, AdMetricsRepository>();
+
+// Services
+builder.Services.AddInfrastructure(builder.Configuration);
+
+// Handlers
+builder.Services.AddGlobalExceptionHandler();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+app.UseFastEndpoints(options =>
+    {
+        options.Serializer.Options.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    })
+    .UseSwaggerGen(uiConfig: settings =>
+    {
+        settings.DocumentPath = $"/{serviceName}/swagger/{{documentName}}/swagger.json";
+    });
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
@@ -56,7 +74,9 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     }
 });
 
+app.UseGlobalExceptionHandler();
 app.UseCors();
+
 app.UseServiceDiscovery();
 
 app.Run();

@@ -88,13 +88,13 @@ public class SessionSeederStrategy(IWebHostEnvironment environment, ILogger logg
         };
     }
     
-    private string GetConnectionString(string stockConfig, string name)
+    private string GetConnectionString(string sessionConfig, string name)
     {
-        var config = JsonSerializer.Deserialize<Dictionary<string, object>>(stockConfig);
+        var config = JsonSerializer.Deserialize<Dictionary<string, object>>(sessionConfig);
 
         if (config == null || !config.TryGetValue("ConnectionStrings", out var connectionStringsObj))
         {
-            throw new InvalidOperationException("ConnectionStrings section not found in stock-api config");
+            throw new InvalidOperationException("ConnectionStrings section not found in greeter-api config");
         }
 
         // Handle if ConnectionStrings is a string
@@ -104,7 +104,7 @@ public class SessionSeederStrategy(IWebHostEnvironment environment, ILogger logg
             {
                 return connectionStringPlain;
             }
-            throw new InvalidOperationException($"Connection string {name} not found in stock-api config");
+            throw new InvalidOperationException($"Connection string {name} not found in greeter-api config");
         }
 
         // Handle if ConnectionStrings is a dictionary
@@ -117,6 +117,6 @@ public class SessionSeederStrategy(IWebHostEnvironment environment, ILogger logg
             }
         }
 
-        throw new InvalidOperationException($"Connection string {name} not found in stock-api config");
+        throw new InvalidOperationException($"Connection string {name} not found in greeter-api config");
     }
 }

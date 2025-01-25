@@ -1,11 +1,14 @@
-﻿using Retro.Domain;
+﻿using Retro.Ad.Contracts.Request;
+using Retro.Ad.Contracts.Response;
+using Retro.Domain;
 using Retro.Greeter.Contracts.Request;
 using Retro.Greeter.Contracts.Response;
+using Retro.Greeter.Infrastructure.Interfaces;
 using Retro.ResultWrappers;
 
 namespace Retro.Greeter.Infrastructure;
 
-public class SessionService(ISessionRepository repository) : ISessionService
+public class SessionService(ISessionRepository repository, IAdsApi adsApi) : ISessionService
 {
     
     #region Mappers
@@ -64,8 +67,7 @@ public class SessionService(ISessionRepository repository) : ISessionService
 
     public async Task<PagedSessionResponse> GetByIpAddressAsync(GetByIpAddressRequest request, CancellationToken cancellationToken) => 
         PagedSessionResponseMapper(await repository.GetByIpAddressAsync(request.IpAddress, request.PageNumber, request.PageSize, cancellationToken));
-
-    // TODO: Possibly retrieve some information from the http context?
+    
     public async Task<SessionResponse> CreateAsync(CreateSessionRequest request, CancellationToken cancellationToken) => 
         SessionResponseMapper(await repository.CreateAsync(CreateSessionMapper(request), cancellationToken));
 

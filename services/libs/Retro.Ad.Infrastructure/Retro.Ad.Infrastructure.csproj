@@ -13,4 +13,9 @@
       <ProjectReference Include="..\Retro.Ad.Domain\Retro.Ad.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Refit" Version="8.0.0" />
+      <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
+    </ItemGroup>
+
 </Project>

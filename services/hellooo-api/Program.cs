@@ -30,9 +30,11 @@ builder.Services.AddFastEndpoints()
                 });
 builder.Services.AddEndpointsApiExplorer();
 
-//Repo
-builder.Services.AddScoped<ISessionRepository, SessionRepository>();
-builder.Services.AddScoped<ISessionService, SessionService>();
+// Infrastructure
+builder.Services.AddInfrastructure(builder.Configuration);
+
+// Handlers
+builder.Services.AddGlobalExceptionHandler();
 
 var app = builder.Build();
 
@@ -64,6 +66,8 @@ app.MapHealthChecks("/health", new HealthCheckOptions
         await context.Response.WriteAsJsonAsync(result);
     }
 });
+
+app.UseGlobalExceptionHandler();
 
 app.UseCors();
 app.UseServiceDiscovery();
