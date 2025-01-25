@@ -39,6 +39,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 
+builder.Services.AddGlobalExceptionHandler();
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -124,6 +126,8 @@ app.MapGet("profile/GetKeyCloakUser", (HttpContext httpContext) =>
     var profile = new { UserName = userName, UserId = userId };
     return Results.Ok(profile);
 });
+
+app.UseGlobalExceptionHandler();
 
 app.UseCors();
 app.UseServiceDiscovery();
