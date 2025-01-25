@@ -12,9 +12,9 @@ public class ProfileRepository(IMongoDbContext mongoDbContext) : IProfileReposit
         return await _collection.Find(p => p.Id == profileId).FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<Profile?> GetProfileByUserNameAsync(string userName, CancellationToken cancellationToken)
+    public async Task<Profile?> GetProfileByUserIdAsync(string userId, CancellationToken cancellationToken)
     {
-        return await _collection.Find(p => p.UserName == userName).FirstOrDefaultAsync(cancellationToken);
+        return await _collection.Find(p => p.UserId == userId).FirstOrDefaultAsync(cancellationToken);
     }
 
     public async Task<Profile?> CreateProfileAsync(Profile profile, CancellationToken cancellationToken)

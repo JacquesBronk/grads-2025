@@ -8,70 +8,101 @@ public class ProfileService(IProfileRepository profileRepository, Gateway gatewa
     {
         var profile = await profileRepository.GetProfileByIdAsync(profileId, cancellationToken);
 
-        if (profile == null)
-        {
+        if (profile == null) 
             return null;
-        }
-        
-        var orders = await gateway.GetOrdersForUserAsync(profile.Id, cancellationToken);
 
-        return new ProfileResponse(profile.Id, profile.UserName, orders);
+        var orders = Array.Empty<OrderResponse>();
+        try
+        {
+            orders = await gateway.GetOrdersForUserAsync(Guid.Parse(profile.UserId), cancellationToken);
+        }catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return new ProfileResponse(profile.Id, profile.UserId, profile.UserName, profile.Email, orders);
     }
 
-    public async Task<ProfileResponse?> GetProfileByUserNameAsync(string userName, CancellationToken cancellationToken)
+    public async Task<ProfileResponse?> GetProfileByUserIdAsync(string userId, CancellationToken cancellationToken)
     {
-        var profile = await profileRepository.GetProfileByUserNameAsync(userName, cancellationToken);
+        var profile = await profileRepository.GetProfileByUserIdAsync(userId, cancellationToken);
 
-        if (profile == null)
-        {
+        if (profile == null) 
             return null;
+
+        var orders = Array.Empty<OrderResponse>();
+        try
+        {
+            orders = await gateway.GetOrdersForUserAsync(Guid.Parse(profile.UserId), cancellationToken);
+        }catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
         }
         
-        // var orders = await gateway.GetOrdersForUserAsync(profile.Id, cancellationToken);
-        var orders = Array.Empty<OrderResponse>();
-        
-        return new ProfileResponse(profile.Id, profile.UserName, orders);
+        return new ProfileResponse(profile.Id, profile.UserId, profile.UserName, profile.Email, orders);
     }
 
     public async Task<ProfileResponse?> CreateProfileAsync(Profile profile, CancellationToken cancellationToken)
     {
+        var existingProfile = await GetProfileByUserIdAsync(profile.UserId, cancellationToken);
+        if (existingProfile != null)
+            return existingProfile;
+        
         var createdProfile = await profileRepository.CreateProfileAsync(profile, cancellationToken);
 
-        if (createdProfile == null)
-        {
+        if (createdProfile == null) 
             return null;
+
+        var orders = Array.Empty<OrderResponse>();
+        try
+        {
+            orders = await gateway.GetOrdersForUserAsync(Guid.Parse(createdProfile.UserId), cancellationToken);
+        }catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
         }
         
-        // var orders = await gateway.GetOrdersForUserAsync(createdProfile.Id, cancellationToken);
-        var orders = Array.Empty<OrderResponse>();
-        return new ProfileResponse(createdProfile.Id, createdProfile.UserName, orders);
+        return new ProfileResponse(profile.Id, profile.UserId, profile.UserName, profile.Email, orders);
     }
 
     public async Task<ProfileResponse?> UpdateProfileAsync(Profile profile, CancellationToken cancellationToken)
     {
+        var existingProfile = await GetProfileByUserIdAsync(profile.UserId, cancellationToken);
+        profile.Id = existingProfile?.Id ?? Guid.Empty;
+        
         var updatedProfile = await profileRepository.UpdateProfileAsync(profile, cancellationToken);
 
-        if (updatedProfile == null)
-        {
+        if (updatedProfile == null) 
             return null;
-        }
-        
-        var orders = await gateway.GetOrdersForUserAsync(updatedProfile.Id, cancellationToken);
 
-        return new ProfileResponse(updatedProfile.Id, updatedProfile.UserName, orders);
+        var orders = Array.Empty<OrderResponse>();
+        try
+        {
+            orders = await gateway.GetOrdersForUserAsync(Guid.Parse(profile.UserId), cancellationToken);
+        }catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return new ProfileResponse(updatedProfile.Id, updatedProfile.UserId, updatedProfile.UserName, updatedProfile.Email, orders);
     }
 
     public async Task<ProfileResponse?> DeleteProfileAsync(Guid profileId, CancellationToken cancellationToken)
     {
         var deletedProfile = await profileRepository.DeleteProfileAsync(profileId, cancellationToken);
 
-        if (deletedProfile == null)
-        {
+        if (deletedProfile == null) 
             return null;
-        }
-        
-        var orders = await gateway.GetOrdersForUserAsync(deletedProfile.Id, cancellationToken);
 
-        return new ProfileResponse(deletedProfile.Id, deletedProfile.UserName, orders);
+        var orders = Array.Empty<OrderResponse>();
+        try
+        {
+            orders = await gateway.GetOrdersForUserAsync(Guid.Parse(deletedProfile.UserId), cancellationToken);
+        }catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return new ProfileResponse(deletedProfile.Id, deletedProfile.UserId, deletedProfile.UserName, deletedProfile.Email, orders);
     }
 }

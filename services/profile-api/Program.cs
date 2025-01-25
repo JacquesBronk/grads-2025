@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Keycloak.AuthServices.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -28,8 +29,6 @@ if (string.IsNullOrEmpty(orderServiceAddress))
 }
 
 builder.Services.AddTransient(s => new Gateway(orderServiceAddress));
-
-
 
 builder.Services.AddHealthChecks()
     .AddCheck("self", () => HealthCheckResult.Healthy());
@@ -71,28 +70,28 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     }
 });
 
-app.MapGet("/profile/{profileId}", async (IProfileService profileService, Guid profileId, CancellationToken cancellationToken) =>
+app.MapGet("/profile/", async (IProfileService profileService, [FromQuery] Guid profileId, CancellationToken cancellationToken) =>
 {
     var profile = await profileService.GetProfileByIdAsync(profileId, cancellationToken);
 
     return profile == null ? Results.NotFound() : Results.Ok(profile);
 });
 
-app.MapPost("/profile", async (IProfileService profileService, Profile profile, CancellationToken cancellationToken) =>
+app.MapPost("/profile/", async (IProfileService profileService, Profile profile, CancellationToken cancellationToken) =>
 {
     var createdProfile = await profileService.CreateProfileAsync(profile, cancellationToken);
 
     return Results.Created($"/profile/{createdProfile?.Id}", createdProfile);
 });
 
-app.MapPut("/profile/{profileId}", async (IProfileService profileService, Guid profileId, Profile profile, CancellationToken cancellationToken) =>
+app.MapPut("/profile/", async (IProfileService profileService, [FromQuery] Guid profileId, Profile profile, CancellationToken cancellationToken) =>
 {
     var updatedProfile = await profileService.UpdateProfileAsync(profile, cancellationToken);
 
     return updatedProfile == null ? Results.NotFound() : Results.Ok(updatedProfile);
 });
 
-app.MapDelete("/profile/{profileId}", async (IProfileService profileService, Guid profileId, CancellationToken cancellationToken) =>
+app.MapDelete("/profile/", async (IProfileService profileService, [FromQuery] Guid profileId, CancellationToken cancellationToken) =>
 {
     var deletedProfile = await profileService.DeleteProfileAsync(profileId, cancellationToken);
 
@@ -101,23 +100,22 @@ app.MapDelete("/profile/{profileId}", async (IProfileService profileService, Gui
 
 app.MapGet("/profile/GetLoggedInUserProfile", async (IProfileService profileService, HttpContext httpContext, CancellationToken cancellationToken) =>
 {
-    var userName = httpContext.Request.Headers["X-UserName"];
     var userId = httpContext.Request.Headers["X-UserId"];
-    var email = httpContext.Request.Headers["X-Email"];
-    if (string.IsNullOrWhiteSpace(userName))
+    if (string.IsNullOrWhiteSpace(userId))
     {
         return Results.Unauthorized();
     }
 
-    var profile = await profileService.GetProfileByUserNameAsync(userName, cancellationToken);
+    var profile = await profileService.GetProfileByUserIdAsync(userId!, cancellationToken);
 
     return profile == null ? Results.NotFound() : Results.Ok(profile);
 });
 
-app.MapGet("profile/test", (HttpContext httpContext) =>
+app.MapGet("profile/GetKeyCloakUser", (HttpContext httpContext) =>
 {
     var userName = httpContext.Request.Headers["X-UserName"];
     var userId = httpContext.Request.Headers["X-UserId"];
+    
     if (string.IsNullOrWhiteSpace(userName))
     {
         return Results.Unauthorized();

@@ -2,4 +2,4 @@
 
 namespace Retro.Profile;
 
-public record ProfileResponse(Guid Id, string UserName, OrderResponse[] Orders);
+public record ProfileResponse(Guid Id, string UserId, string UserName, string Email, OrderResponse[] Orders);
