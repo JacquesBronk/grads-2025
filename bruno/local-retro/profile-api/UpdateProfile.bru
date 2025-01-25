@@ -1,0 +1,32 @@
+meta {
+  name: UpdateProfile
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{profileBaseUrl}}/profile?profileId=4e0bf88e-efbb-4f16-bd5f-b14dccfe5b9e
+  body: json
+  auth: bearer
+}
+
+params:query {
+  profileId: 4e0bf88e-efbb-4f16-bd5f-b14dccfe5b9e
+}
+
+headers {
+  accept: */*
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{active_bearer}}
+}
+
+body:json {
+  {
+    "userId": "13e79829-6452-4714-a8f9-e919f3eb605c",
+    "userName": "customerUser",
+    "email": "customeruser@retro.com"
+  }
+}

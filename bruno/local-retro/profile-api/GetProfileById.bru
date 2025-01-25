@@ -1,0 +1,24 @@
+meta {
+  name: GetProfileById
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{profileBaseUrl}}/profile?profileId=4e0bf88e-efbb-4f16-bd5f-b14dccfe5b9e
+  body: json
+  auth: bearer
+}
+
+params:query {
+  profileId: 4e0bf88e-efbb-4f16-bd5f-b14dccfe5b9e
+}
+
+headers {
+  accept: */*
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{active_bearer}}
+}

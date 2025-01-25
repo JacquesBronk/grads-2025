@@ -1,0 +1,24 @@
+meta {
+  name: DeleteProfile
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{profileBaseUrl}}/profile?profileId=4171eed5-915d-4379-b262-3552807bee8b
+  body: json
+  auth: bearer
+}
+
+params:query {
+  profileId: 4171eed5-915d-4379-b262-3552807bee8b
+}
+
+headers {
+  accept: */*
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{active_bearer}}
+}
