@@ -1,6 +1,8 @@
-﻿using System.Text.Json;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Retro.Http;
+using Retro.Profile;
 
 namespace E2ERetroShop.Util;
 
@@ -33,6 +35,18 @@ public class AuthHelper
         var response = JsonSerializer.Deserialize<TokenResponse>(tokenResponse);
         
         return response?.AccessToken ?? string.Empty;
+    }
+    
+    public User GetUserFromToken(string token)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+        
+        return new User
+        {
+            UserName = jsonToken?.Claims.FirstOrDefault(c => c.Type == "preferred_username")?.Value ?? string.Empty,
+            UserId = jsonToken?.Claims.FirstOrDefault(c => c.Type == "sub")?.Value ?? string.Empty
+        };
     }
     
     private class TokenResponse

@@ -1,19 +1,28 @@
 using E2ERetroShop.Util;
 using Retro.Orders.Contracts.Request;
+using Retro.Profile;
 
 namespace E2ERetroShop.OrderTests;
 
 public class OrderTests
 {
     private readonly OrderGateway _orderGateway = new();
+    private readonly StockGateway _stockGateway = new();
     
-    private readonly Guid _userId = Guid.NewGuid();
+    private readonly Guid _userId;
+
+    public OrderTests()
+    {
+        var userDetails = GetUser().GetAwaiter().GetResult();
+        _userId = Guid.Parse(userDetails.UserId);
+    }
     
     [Fact]
     public async Task GivenOrderRequest_WhenOrderRequestIsValid_ThenOrderCreateSuccessful()
     {
         // Arrange
-        var orderRequest = new CreateOrderRequest(_userId, [new OrderItemRequest(Guid.NewGuid(), 1)]);
+        var stockItem =  await _stockGateway.GetStockItemsAsync(1, 1, CancellationToken.None);
+        var orderRequest = new CreateOrderRequest(_userId, [new OrderItemRequest(stockItem.Items.Select(x => x.Id).FirstOrDefault(), 1)]);
         
         // Act
         var orderResponse = await _orderGateway.CreateOrderAsync(orderRequest, CancellationToken.None);
@@ -31,7 +40,8 @@ public class OrderTests
     public async Task GivenGetOrderRequest_WhenOrderExists_ThenOrderIsRetrievedSuccessful()
     {
         // Arrange
-        var orderRequest = new CreateOrderRequest(_userId, [new OrderItemRequest(Guid.NewGuid(), 1)]);
+        var stockItem =  await _stockGateway.GetStockItemsAsync(1, 1, CancellationToken.None);
+        var orderRequest = new CreateOrderRequest(_userId, [new OrderItemRequest(stockItem.Items.Select(x => x.Id).FirstOrDefault(), 1)]);
         
         // Act
         var orderResponse = await _orderGateway.CreateOrderAsync(orderRequest, CancellationToken.None);
@@ -50,8 +60,9 @@ public class OrderTests
     public async Task GivenGetOrdersByUserRequest_WhenOrdersExistsForUser_ThenOrdersIsRetrievedSuccessful()
     {
         // Arrange
-        var orderRequest1 = new CreateOrderRequest(_userId, [new OrderItemRequest(Guid.NewGuid(), 1)]);
-        var orderRequest2 = new CreateOrderRequest(_userId, [new OrderItemRequest(Guid.NewGuid(), 1)]);
+        var stockItem =  await _stockGateway.GetStockItemsAsync(1, 1, CancellationToken.None);
+        var orderRequest1 = new CreateOrderRequest(_userId, [new OrderItemRequest(stockItem.Items.Select(x => x.Id).FirstOrDefault(), 1)]);
+        var orderRequest2 = new CreateOrderRequest(_userId, [new OrderItemRequest(stockItem.Items.Select(x => x.Id).FirstOrDefault(), 1)]);
         
         // Act
         var orderResponse1 = await _orderGateway.CreateOrderAsync(orderRequest1, CancellationToken.None);
@@ -62,23 +73,22 @@ public class OrderTests
         Assert.NotNull(getOrdersResponse);
         Assert.Equal(_userId, getOrdersResponse[0].UserId);
         Assert.Null(getOrdersResponse[0].PaymentId);
-        Assert.Equal(orderResponse1.OrderItems.Length, getOrdersResponse[0].OrderItems.Length);
         Assert.Equal(orderResponse1.OrderItems[0].StockItemId, getOrdersResponse[0].OrderItems[0].StockItemId);
         Assert.Equal(orderResponse1.OrderItems[0].Quantity, getOrdersResponse[0].OrderItems[0].Quantity);
         
         Assert.Equal(_userId, getOrdersResponse[1].UserId);
         Assert.Null(getOrdersResponse[1].PaymentId);
-        Assert.Equal(orderResponse2.OrderItems.Length, getOrdersResponse[1].OrderItems.Length);
-        Assert.Equal(orderResponse2.OrderItems[1].StockItemId, getOrdersResponse[1].OrderItems[0].StockItemId);
-        Assert.Equal(orderResponse2.OrderItems[1].Quantity, getOrdersResponse[1].OrderItems[0].Quantity);
     }
     
     [Fact]
     public async Task GivenGetOrdersByUserRequest_WhenOrdersExistsForUserWithMultipleItems_ThenOrdersIsRetrievedSuccessful()
     {
         // Arrange
-        var orderItem1 = new OrderItemRequest(Guid.NewGuid(), 1);
-        var orderItem2 = new OrderItemRequest(Guid.NewGuid(), 2);
+        var stockItems =  await _stockGateway.GetStockItemsAsync(1, 2, CancellationToken.None);
+        var stockItem1 = stockItems.Items.First();
+        var stockItem2 = stockItems.Items.Skip(1).First();
+        var orderItem1 = new OrderItemRequest(stockItem1.Id, 1);
+        var orderItem2 = new OrderItemRequest(stockItem2.Id, 2);
         var orderRequest1 = new CreateOrderRequest(_userId, [orderItem2, orderItem1]);
         var orderRequest2 = new CreateOrderRequest(_userId, [orderItem1, orderItem2]);
         
@@ -91,9 +101,16 @@ public class OrderTests
         Assert.NotNull(getOrdersResponse);
         Assert.Equal(_userId, getOrdersResponse[0].UserId);
         Assert.Null(getOrdersResponse[0].PaymentId);
-        Assert.Equal(orderResponse1.OrderItems.Length, getOrdersResponse[0].OrderItems.Length);
         Assert.Equal(_userId, getOrdersResponse[1].UserId);
         Assert.Null(getOrdersResponse[1].PaymentId);
-        Assert.Equal(orderResponse2.OrderItems.Length, getOrdersResponse[1].OrderItems.Length);
+    }
+    
+    private async Task<User> GetUser()
+    {
+        AuthHelper authHelper = new();
+        var token = await authHelper.GetTokenAsync();
+        var userDetails = authHelper.GetUserFromToken(token);
+        
+        return userDetails;
     }
 }

@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 using Retro.Http;
 using Retro.Orders.Contracts.Request;
@@ -24,7 +25,7 @@ public class OrderGateway
     
     public async Task<OrderResponse[]> GetUserOrdersAsync(Guid userId, CancellationToken cancellationToken)
     {
-        var stockItemUrl = $"{_baseUrl}/GetByUserId/{userId}";
+        var stockItemUrl = $"{_baseUrl}/GetByUserId?id={userId.ToString()}";
         var stockItemResponse = await new RequestBuilder()
             .For(new Uri(stockItemUrl))
             .WithMethod(HttpMethod.Get)
@@ -41,6 +42,7 @@ public class OrderGateway
         var stockItemResponse = await new RequestBuilder()
             .For(new Uri(stockItemUrl))
             .WithMethod(HttpMethod.Post)
+            .WithContent(new StringContent(JsonSerializer.Serialize(order), Encoding.UTF8, "application/json"))
             .EnsureStatusCode()
             .Build()
             .GetStringResultAsync(cancellationToken);
