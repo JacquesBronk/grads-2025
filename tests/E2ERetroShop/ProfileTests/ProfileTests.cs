@@ -1,5 +1,6 @@
 ﻿using E2ERetroShop.Util;
 using Retro.Profile;
+using Retro.Profile.Models;
 
 namespace E2ERetroShop.ProfileTests;
 

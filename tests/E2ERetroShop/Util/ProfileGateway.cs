@@ -3,6 +3,8 @@ using System.Text;
 using System.Text.Json;
 using Retro.Http;
 using Retro.Profile;
+using Retro.Profile.Models;
+using Retro.Profile.Response;
 
 namespace E2ERetroShop.Util;
 

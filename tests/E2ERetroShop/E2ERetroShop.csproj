@@ -12,6 +12,7 @@
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="Moq" Version="4.20.72" />
         <PackageReference Include="xunit" Version="2.5.3"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
         <PackageReference Include="XunitXml.TestLogger" Version="5.0.0" />
@@ -23,6 +24,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\services\common\Retro.Http\Retro.Http.csproj" />
+      <ProjectReference Include="..\..\services\libs\Retro.Ad.Contracts\Retro.Ad.Contracts.csproj" />
+      <ProjectReference Include="..\..\services\libs\Retro.Ad.Infrastructure\Retro.Ad.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\services\libs\Retro.Greeter.Infrastructure\Retro.Greeter.Infrastructure.csproj" />
       <ProjectReference Include="..\..\services\libs\Retro.Orders.Contracts\Retro.Orders.Contracts.csproj" />
       <ProjectReference Include="..\..\services\libs\Retro.Stock.Contracts\Retro.Stock.Contracts.csproj" />
       <ProjectReference Include="..\..\services\profile-api\Retro.Profile.csproj" />

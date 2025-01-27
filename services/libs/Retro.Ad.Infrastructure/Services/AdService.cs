@@ -40,20 +40,20 @@ public class AdService(
     private AdDetailResponse AdDetailResponseMapper(AdDetail item)
     {
         return new AdDetailResponse(
-            Id: item.Id,
-            Title: item.Title,
-            FullDescription: item.FullDescription,
-            ShortDescription: item.ShortDescription,
-            ImageUrl: item.ImageUrl,
-            StartDateTime: item.StartDateTime,
-            EndDateTime: item.EndDateTime,
-            IsActive: item.IsActive,
-            IsFeatured: item.IsFeatured,
-            RenderedHtml: item.RenderedHtml,
-            CreatedBy: item.CreatedBy,
-            CreatedDateTime: item.CreatedDateTime,
-            UpdatedBy: item.UpdatedBy,
-            UpdatedDateTime: item.UpdatedDateTime
+            id: item.Id,
+            title: item.Title,
+            fullDescription: item.FullDescription,
+            shortDescription: item.ShortDescription,
+            imageUrl: item.ImageUrl,
+            startDateTime: item.StartDateTime,
+            endDateTime: item.EndDateTime,
+            isActive: item.IsActive,
+            isFeatured: item.IsFeatured,
+            renderedHtml: item.RenderedHtml,
+            createdBy: item.CreatedBy,
+            createdDateTime: item.CreatedDateTime,
+            updatedBy: item.UpdatedBy,
+            updatedDateTime: item.UpdatedDateTime
         );
     }
 
@@ -121,6 +121,15 @@ public class AdService(
         return new AdResponse
         {
             Id = ad.Id,
+            Title = ad.Title,
+            FullDescription = ad.FullDescription,
+            ShortDescription = ad.ShortDescription,
+            ImageUrl = ad.ImageUrl,
+            StartDateTime = ad.StartDateTime,
+            EndDateTime = ad.EndDateTime,
+            IsActive = ad.IsActive,
+            IsFeatured = ad.IsFeatured,
+            RenderedHtml = ad.RenderedHtml,
             CallbackUrl = $"http://ads-api:8080/ad-seen/{ad.Id}",
             PayloadBuilderUpsellUrl = "http://ads-api:8080/{userId}/lu/{unix-epoch}"
         };

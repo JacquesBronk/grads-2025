@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Retro.Ad.Contracts\Retro.Ad.Contracts.csproj" />
       <ProjectReference Include="..\Retro.Ad.Domain\Retro.Ad.Domain.csproj" />
+      <ProjectReference Include="..\Retro.Greeter.Domain\Retro.Greeter.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -4,7 +4,7 @@ using Retro.Ad.Infrastructure;
 
 namespace Retro.Ads.Endpoints;
 
-public class PersonalizedAdsEndpoint(IAdService adService, IAdMetricsRepository adMetricsRepository) : EndpointWithoutRequest<IEnumerable<AdResponse>>
+public class GetPersonalizedAdsEndpoint(IAdService adService, IAdMetricsRepository adMetricsRepository) : EndpointWithoutRequest<IEnumerable<AdResponse>>
 {
     public override void Configure()
     {

@@ -1,6 +1,7 @@
 using E2ERetroShop.Util;
 using Retro.Orders.Contracts.Request;
 using Retro.Profile;
+using Retro.Profile.Models;
 
 namespace E2ERetroShop.OrderTests;
 

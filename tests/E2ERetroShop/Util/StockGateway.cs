@@ -14,7 +14,7 @@ public class StockGateway
     
     public async Task<PagedStockResponse?> GetStockItemsAsync(int page, int pageSize, CancellationToken cancellationToken)
     {
-        var stockItemUrl = $"{_baseUrl}?pageNumber={page}&pageSize={pageSize}";
+        var stockItemUrl = $"{_baseUrl}?page={page}&pageSize={pageSize}";
         var stockItemResponse = await new RequestBuilder()
             .For(new Uri(stockItemUrl))
             .WithMethod(HttpMethod.Get)
