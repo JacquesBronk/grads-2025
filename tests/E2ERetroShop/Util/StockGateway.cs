@@ -14,7 +14,7 @@ public class StockGateway
     
     public async Task<PagedStockResponse?> GetStockItemsAsync(int page, int pageSize, CancellationToken cancellationToken)
     {
-        var stockItemUrl = $"{_baseUrl}?pageNumber={page}&pageSize={pageSize}";
+        var stockItemUrl = $"{_baseUrl}?page={page}&pageSize={pageSize}";
         var stockItemResponse = await new RequestBuilder()
             .For(new Uri(stockItemUrl))
             .WithMethod(HttpMethod.Get)
@@ -94,7 +94,7 @@ public class StockGateway
     public async Task<PagedStockResponse> GetStockByCondition(int page, int pageSize,StockCondition condition, CancellationToken cancellationToken)
     {
         int stockCondition = (int)condition;
-        var stockItemUrl = $"{_baseUrl}/search/condition?pageNumber={page}&pageSize={pageSize}&condition={stockCondition}";
+        var stockItemUrl = $"{_baseUrl}/search/condition?page={page}&pageSize={pageSize}&condition={stockCondition}";
         var stockItemResponse = await new RequestBuilder()
             .For(new Uri(stockItemUrl))
             .WithMethod(HttpMethod.Get)

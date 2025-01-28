@@ -125,19 +125,19 @@ services:
       retro.seeder:
         condition: service_completed_successfully
 
-  # vendors-api:
-  #   image: vendors-api:latest
-  #   container_name: vendors-api
-  #   build:
-  #     context: .
-  #     dockerfile: services/vendors-api/Dockerfile
-  #   ports:
-  #     - "5009:8080"
-  #   networks:
-  #     - retro-net
-  #   depends_on:
-  #     retro.seeder:
-  #       condition: service_completed_successfully
+  vendors-api:
+    image: vendors-api:latest
+    container_name: vendors-api
+    build:
+      context: .
+      dockerfile: services/vendors-api/Dockerfile
+    ports:
+      - "5009:8080"
+    networks:
+      - retro-net
+    depends_on:
+      retro.seeder:
+        condition: service_completed_successfully
 
 
 #  web-ui-shop:

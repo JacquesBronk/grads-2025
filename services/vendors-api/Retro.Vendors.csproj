@@ -14,7 +14,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\..\.dockerignore">
+      <ProjectReference Include="..\common\Retro.Configuration\Retro.Configuration.csproj" />
+      <ProjectReference Include="..\common\Retro.Persistence.Mongo\Retro.Persistence.Mongo.csproj" />
+      <ProjectReference Include="..\common\Retro\Retro.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
     </ItemGroup>

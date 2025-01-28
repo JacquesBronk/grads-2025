@@ -1,4 +1,6 @@
 ﻿using E2ERetroShop.Util;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Retro.Stock.Contracts.Request;
 using Retro.Stock.Domain;
 
@@ -121,7 +123,6 @@ public class StockTests
         //Asserts happen on the Gateway with ensure status code
     }
     
-    //TODO: There seems to be no condition in the stock response to validate if we're actually only getting new stock
     [Fact]
     public async Task GivenNewStockCondition_WhenStockExists_ThenStockIsFound()
     {
@@ -136,6 +137,23 @@ public class StockTests
         Assert.True(count > 0);
         Assert.Equal(count, 10);
         
+    }
+    
+    [Fact]
+    public async Task GivenNewStockCondition_WhenStockExists_ThenStockIsFoundAndNewCondition()
+    {
+        // Arrange
+        var newStock = await _stockGateway.GetStockByCondition(1,10,StockCondition.New, CancellationToken.None);
+
+        // Act
+        var count = newStock.Items.Count();
+        var serialized = JsonConvert.SerializeObject(newStock);
+        var deserializedObject = JObject.Parse(serialized);
+        // Assert
+        Assert.NotNull(newStock);
+        Assert.True(count > 0);
+        Assert.Equal(count, 10);
+        Assert.NotNull(deserializedObject["Items"][0]["StockCondition"]);
     }
     
 }

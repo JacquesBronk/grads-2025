@@ -7,11 +7,15 @@ meta {
 post {
   url: {{adsAdeminBaseUrl}}/ads
   body: json
-  auth: none
+  auth: bearer
 }
 
 headers {
   accept: application/json
+}
+
+auth:bearer {
+  token: {{active_bearer}}
 }
 
 body:json {
