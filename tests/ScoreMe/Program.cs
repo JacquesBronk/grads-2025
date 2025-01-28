@@ -2,7 +2,7 @@
 using System.Text.Json;
 
 const string apiPath = "https://retroscore.azurewebsites.net/updateScore";
-const string myName = "Jacques";
+const string myName = "Michelle";
 
 string testPath = Path.Combine("tests", "E2ERetroShop", "TestResults.xml");
 
