@@ -1,0 +1,13 @@
+@if (isLoading) {
+  <div class="loader">
+    <app-loader></app-loader>
+  </div>
+  }
+  @else{
+    <div class="items-container">
+      @for (item of items; track $index) {
+          <app-card [item]="item"></app-card>
+        }
+      </div>
+  }
+

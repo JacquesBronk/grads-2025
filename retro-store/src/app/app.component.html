@@ -1,0 +1,17 @@
+@if (!isLoginPage) {
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a routerLink="/" class="brand-logo">Retro Store</a>
+    </div>
+    <ul class="navbar-links">
+      <li>
+        <a routerLink="/profile">
+          <i class="material-icons">account_circle</i> Profile
+        </a>
+      </li>
+    </ul>
+  </nav>
+}
+
+
+<router-outlet></router-outlet>

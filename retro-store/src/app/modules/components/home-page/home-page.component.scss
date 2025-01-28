@@ -1,0 +1,14 @@
+.items-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem 4rem;
+}
+
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 55px);
+}
