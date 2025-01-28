@@ -11,6 +11,11 @@ using Retro.Cache.Redis;
 using Retro.Configuration;
 using Retro.Persistence.Mongo;
 using Retro.Profile;
+using Retro.Profile.Gateway;
+using Retro.Profile.Interfaces;
+using Retro.Profile.Models;
+using Retro.Profile.Repositories;
+using Retro.Profile.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

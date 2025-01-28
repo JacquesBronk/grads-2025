@@ -1,4 +1,4 @@
-﻿using E2ERetroShop.Util;
+using E2ERetroShop.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Retro.Stock.Contracts.Request;

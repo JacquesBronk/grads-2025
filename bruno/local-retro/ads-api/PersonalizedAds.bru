@@ -1,16 +1,20 @@
 meta {
   name: PersonalizedAds
   type: http
-  seq: 1
+  seq: 2
 }
 
 get {
   url: {{adsBaseUrl}}/ads/:userId/lu/:unixEpoch
   body: none
-  auth: none
+  auth: bearer
 }
 
 params:path {
   userId: badoing
   unixEpoch: 1737491530
+}
+
+auth:bearer {
+  token: 
 }
