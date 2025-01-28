@@ -1,24 +1,7 @@
 # WELCOME! To the Agile Bridge dotnet training day
 
-Here is where you'll put into practice what we've learned so far. 
+Here is where you'll put into practice what we've learned so far. You will be tested on your general knowledge of what you've learned and will be expected to apply what you've learned.
 
-## Setting up your environment
-
-Here are the following things you need to effectively run the solution.
-
-1. Docker, download & install docker from [here](https://desktop.docker.com/win/main/arm64/Docker%20Desktop%20Installer.exe?utm_location=module). _Note!_ You don't have to choose a paid version, just standard docker desktop and you're good to go.
-   1. To validate your docker installation, open the docker desktop application (most likely after a restart)
-   2. run the following command in your terminal
-      1. ```docker ps```
-      2. ![docker-ps.png](docs/assets/docker-ps.png)
-      3. This command should run successfully without any incident or error message.
-2. Dotnet 8. Run the following command in your terminal
-   1. ```dotnet --list-sdks```
-   2. ![dotnet-list-sdk.png](docs/assets/dotnet-list-sdk.png)
-   3. make sure you have 8.x.xxx installed for this exercise
-   4. Install dotnet 8 sdk from [here](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.405-windows-x64-installer).
-3. Bruno API Client, download and install from [here](https://github.com/usebruno/bruno/releases/download/v1.38.1/bruno_1.38.1_x64_win.exe).
-4. Your default IDE
 
 ## Business Proposition
 
@@ -32,29 +15,18 @@ We want our store to become the premier store in the world to buy your retro gam
 ![Retro-Shop-Infra.png](docs/assets/retro-shop-infra.png)
 
 
-
 ### Important Links
 * [Consul](http://localhost:8500)
-* [Retro-Shop](http://localhost:5001)
+  * used for configuring your application
 * [Keycloak](http://localhost:8080)
-* [Swagger-Pages](http://localhost:*/swagger/index.html)
 
-### Shop Services
-* [hellooo-api](http://localhost:5000/hellooo-api/swagger/index.html)
-* [ads-api](http://localhost:5000/ads-api/swagger/index.html)
-* [ads-admin-api](http://localhost:5000/ads-admin-api/swagger/index.html)
-* [stock-api](http://localhost:5000/stock-api/swagger/index.html)
-* [retro-payments](http://localhost:5000/retro-payments/swagger/index.html)
-* [cart-api](http://localhost:5000/cart-api/swagger/index.html)
-* [pay-me-api](http://localhost:5000/pay-me-api/swagger/index.html)
-* [orders-api](http://localhost:5000/orders-api/swagger/index.html)
-* [profile-api](http://localhost:5000/profile-api/swagger/index.html)
 
 ## How to run
 1. Clone the repo
-2. Open terminal in the root directory (works best with WSL terminal)
-   1. wsl: `cd /mnt/{drive-letter}/{path-to-repo}` & `docker-compose up -d`
-3. Run `docker-compose up -d` to start the services
+2. Checkout your development branch (it will be your name)
+3. Open terminal in the root directory of the repository and run the following command in the root directory of the project. e.g. `c:/grads-2025/`
+   1.  `docker-compose up -d`
+   2. This will start building all of these service, note it may take some time
 4. Open `http://localhost:8500` to see the consul dashboard
 
 ## How to stop
@@ -66,8 +38,74 @@ We want our store to become the premier store in the world to buy your retro gam
 ## How to use compose in development
 1. Open terminal in the root directory
 2. Run `docker-compose build` to build the services
-3. Run `docker-compose up -d` to start the services
-4. If you make changes to the code, you can run `docker-compose up -d --build` to rebuild the services
-5. Open `http://localhost:8500` to see the consul dashboard
-6. Run `docker-compose down -v` to stop the services
+3. Run `docker-compose up -d` to start the services (No need to Stop the services again, just run the up command so the latest image is being used)
+   1. If you make changes to the code, you can run `docker-compose up -d --build` to rebuild the services
 
+
+## The Challenge
+
+You are expected to do the following.
+
+* Fix all the tests in the project, this will be scored. https://retroscore.azurewebsites.net/
+* Refactor the profile API so that it follows the same solution structure as the rest of the projects.
+* Build and design the Vendor API, look at /docs/Vendor-Spec.md for details
+* You get 1 Freebie question from any of the trainers, and after that it will cost 20 pinnies & double with every additional question.
+* You have until 3PM today, whereafter you need to present your vendor api and explain why you chose to go down the route.
+* Scores will be tallied at the end of the day, and the top 3 will receive some pinnies.
+
+## How to run the tests
+1. Make sure that you have run `docker-compose build` & `docker-compose up -d` this is required.
+2. Open your terminal and run the following command:
+   1. Powershell: `./run-tests`
+   2. CMD: `run-tests`
+
+
+## Hints
+
+### Use the Bruno Collection
+We have included the bruno api collection in the solution folder, under the "bruno" directory. Use it to assist in your debugging efforts.
+
+### I want to debug locally
+You will have to update the configuration in consul under "Key / Value", Then "app-settings", "vendor-api" (NOTE! Every time you build and `docker-compose up -d` this will be reset.) DO NOT CHANGE THE json files located in the init directory.
+
+You can update your configuration to the following:
+```json
+{
+    "ConnectionStrings": {
+      "Redis": "localhost:6379,abortConnect=false,ssl=false,allowAdmin=true,connectTimeout=5000,syncTimeout=5000,connectRetry=5,defaultDatabase=0",
+      "Mongo": "mongodb://localhost:27017",
+      "RabbitMq": "amqp://guest:guest@retro-rabbitmq:5672"
+    },
+    "Logging": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft.AspNetCore": "Warning"
+      }
+    },
+    "Mongo": {
+      "Database": "vendor-db-dev"
+    },
+    "AllowedHosts": "*",
+    "Keycloak": {
+      "Authority": "http://localhost:8080/realms/retro-realm",
+      "PublicClient": true,
+      "ClientId": "retro-client",
+      "SslRequired": "none",
+      "ConfidentialPort": 0,
+      "VerifyTokenAudience": false,
+      "ClientSercret":  "k6LE3kUdj18kMa6eewhBWHLJTSeBPF2r"
+    },
+    "ServiceDetails": {
+      "ID": "vendors-api",
+      "Name": "vendors-api",
+      "Address": "vendors-api",
+      "Port": 8080,
+      "Tags": ["api", "vendors"],
+      "Check": {
+        "HTTP": "http://vendors-api:8080/health",
+        "Interval": "10",
+        "Timeout": "5"
+      }
+    }
+  }
+```
